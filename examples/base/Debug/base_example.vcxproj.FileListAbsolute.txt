@@ -1,0 +1,2 @@
+D:\SAV\PROJECTS\DAL_EXAMPLES\base_example\base_example\Debug\base_example.exe
+d:\SAV\PROJECTS\DAL\examples\base\Debug\base_example.exe
