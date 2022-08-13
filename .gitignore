@@ -1,11 +1,4 @@
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
+examples/dal_example_base/out
+examples/dal_example_base/.vs
+units_tests/dal_string_to_num/out
+units_tests/dal_string_to_num/.vs
