@@ -38,10 +38,10 @@ int	dal_t::value(int def)
 	{
 		default:	return 0;
 		case 2:		if (tempVal > 32767)				return 32767;
-					else	if (tempVal < -32768)		return -32768;
+					else	if (tempVal < -32767)		return -32767;
 					else								return static_cast<int>(tempVal);
 		case 4:		if (tempVal > 2147483647)			return 2147483647;
-					else	if (tempVal < -2147483648)	return -2147483648;
+					else	if (tempVal < -2147483647)	return -2147483647;
 					else								return static_cast<int>(tempVal);
 		case 8:		return static_cast<int>(tempVal);
 	}
