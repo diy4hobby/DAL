@@ -43,13 +43,10 @@ void	dal_bytedata_copy(void* data1, void* data2, uint32_t len)
 		data1				= (uint8_t*)val1;
 		data2				= (uint8_t*)val2;
 	}
-	while (len > 0)
+	if (len > 0)
 	{	uint8_t*	val1	= (uint8_t*)data1;
 		uint8_t*	val2	= (uint8_t*)data2;
 		*val1 		= *val2;
-		val1++;
-		val2++;
-		len			-= 1;
 	}
 }
 //===============================================================================================================================

@@ -24,7 +24,7 @@ dal_t*	dal_t::get_child(const char* key)
 	{
 		if (child->_key_hash == hash)
 		{
-			if (dal_string_compare(child->_key, key, DAL_KEY_SIZE) == TRUE)		break;
+			if (dal_string_compare(child->_key, key, child->_key_len) == TRUE)		break;
 		}
 		child			= child->_next;
 	}
@@ -52,7 +52,7 @@ bool	dal_t::has_child(const char* key)
 	{
 		if (child->_key_hash == hash)
 		{
-			if (dal_string_compare(child->_key, key, DAL_KEY_SIZE) == TRUE)		return true;
+			if (dal_string_compare(child->_key, key, child->_key_len) == TRUE)		return true;
 		}
 		child			= child->_next;
 	}

@@ -13,6 +13,7 @@ bool_t	dal_string_compare(char* str1, const char* str2, uint32_t len2)
 		--len2;
 	}
 
-	return FALSE;
+	if (len2 == 0)	return TRUE;
+	else			return FALSE;
 }
 //===============================================================================================================================

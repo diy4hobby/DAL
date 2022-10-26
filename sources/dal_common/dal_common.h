@@ -12,6 +12,7 @@ extern "C" {
 
 	bool_t		dal_bytedata_compare(uint8_t* data1, uint8_t* data2, uint32_t len1, uint32_t len2);
 	void		dal_bytedata_copy(void* data1, void* data2, uint32_t len);
+	void		dal_bytedata_zero(void* dst, uint32_t len);
 
 	void*		dal_pointer_align_8(void* ptr);
 

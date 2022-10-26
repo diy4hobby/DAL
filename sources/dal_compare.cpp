@@ -56,7 +56,8 @@ bool	_dal_compare_recurse(dal_t* node1, dal_t* node2)
 					bool	result	= _dal_compare_recurse(child1, child2);
 					if (result == false)				return false;
 					child1			= child1->_next;
-					child2			= node2->get_child(child1->_key);
+					if (child1 != nullptr)	child2	= node2->get_child(child1->_key);
+					else					child2	= nullptr;
 				}
 				if (child1 != child2)					return false;
 			}

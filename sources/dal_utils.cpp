@@ -1,5 +1,6 @@
 #include "dal_struct.h"
 #include "dal_utils.h"
+#include "dal_common/dal_common.h"
 
 
 dalMemHooks_t		_dal_memHooks		= {nullptr};
@@ -20,7 +21,7 @@ dal_t*	dal_create()
 	//Allocate memory for new object and check is really allocated
 	dal_t*	node		= _dal_memHooks.alloc_node();
 	if (node == nullptr)	return nullptr;
-	node->_key[0]		= 0x00;
+	dal_bytedata_zero(node->_key, DAL_KEY_SIZE);
 	node->_key_len		= 0;
 	node->_key_hash		= 0;
 	node->_parent		= nullptr;

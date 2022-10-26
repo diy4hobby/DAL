@@ -70,11 +70,14 @@ private:
 	void*						_mem_ptr;	//Pointer to allocated memory (may not be aligned)
 											//used for as_str and as_blob to have aligned
 											//8 bytes pointers
+	dalResult_e					_copy_trivial(dal_t* src);//Copy key and value of source node
+
 	friend			dal_t*		dal_create();
 	friend			void		dal_delete(dal_t* node);
 	friend			uint32_t	_dal_size_recurse(dal_t* node);
 	friend			dalResult_e	_dal_serialize_recurse(dalSerializer_t* ser, dal_t* node);
 	friend			bool		_dal_compare_recurse(dal_t* node1, dal_t* node2);
+	friend			dal_t*		_dal_duplicate_recurse(dal_t* src, dal_t* parent);
 public:
 	dalNodeType_e	type()		{return this->_type;}
 	dal_t*			parent()	{return this->_parent;}
@@ -89,6 +92,7 @@ public:
 	uint32_t		count_childs();
 	uint32_t		size();
 	bool			compare(dal_t* node);			//Compare with other dal structure
+	dal_t*			duplicate();					//Create copy of this node
 	//Adding child elements
 	dal_t*			add_value(dalStr_t* key, bool value);
 	dal_t*			add_value(dalStr_t* key, int value);
