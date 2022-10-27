@@ -93,7 +93,7 @@ dal_t&	dal_t::operator=(dalBlob_t& value)
 		return *this;
 	}
 	this->_as_blob		= reinterpret_cast<uint8_t*>(dal_pointer_align_8(this->_mem_ptr));
-	value.data			= this->_as_blob;
+	dal_bytedata_copy(this->_as_blob, value.data, this->_size);
 	return *this;
 };
 
