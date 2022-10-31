@@ -86,6 +86,7 @@ public:
 	void			rename(const char* newName);
 	void			detach();						//Detach from parent node
 	dal_t*			create_child();					//Create new child
+	dal_t*			create_child(const char* key);	//Create new child
 	dal_t*			get_child(const char* key);		//Access child node
 	dal_t*			get_child(uint32_t idx);		//Access child node
 	bool			has_child(const char* key);		//Check if node has chld with specified name

@@ -9,8 +9,17 @@
 dal_t*	dal_t::create_child()
 {
 	dal_t*		newChild	= dal_create();
+	if (newChild == nullptr)	return nullptr;
 	newChild->_next			= this->_child;
 	this->_child			= newChild;
+	return newChild;
+};
+
+dal_t*	dal_t::create_child(const char* key)
+{
+	dal_t*		newChild	= create_child();
+	if (newChild == nullptr)	return nullptr;
+	newChild->rename(key);
 	return newChild;
 };
 
