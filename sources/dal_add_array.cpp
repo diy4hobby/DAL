@@ -27,6 +27,8 @@ dal_t*	dal_t::convert_to_array(uint32_t count)
 		return nullptr;
 	}
 
+	dal_bytedata_zero(this->_child, count * sizeof(dal_t));
+
 	this->_size			= count;
 	return this->_child;
 };
