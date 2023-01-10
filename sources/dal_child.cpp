@@ -10,6 +10,7 @@ dal_t*	dal_t::create_child()
 {
 	dal_t*		newChild	= dal_create();
 	if (newChild == nullptr)	return nullptr;
+	newChild->_parent		= this;
 	newChild->_next			= this->_child;
 	this->_child			= newChild;
 	return newChild;

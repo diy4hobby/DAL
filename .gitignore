@@ -2,3 +2,5 @@ examples/dal_example_base/out
 examples/dal_example_base/.vs
 units_tests/dal_string_to_num/out
 units_tests/dal_string_to_num/.vs
+units_tests/dal_add_node/out
+units_tests/dal_add_node/.vs

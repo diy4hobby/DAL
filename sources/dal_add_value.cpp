@@ -307,6 +307,7 @@ dal_t*	dal_t::add_node(dal_t* node)
 	if (node == nullptr)				return nullptr;
 
 	node->detach();
+	node->_parent			= this;
 	if (this->_child == nullptr)	this->_child	= node;
 	else
 	{	this->_child->_prev	= node;
