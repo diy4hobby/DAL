@@ -86,5 +86,6 @@ Deseritization is supported from:
 - 1.1.0 - аdded a method for creating a copy of a node (obj->duplicate()). The method returns a copy of the node (taking into account the nesting of the structure).
 - 1.2.0 - added a method for creating a child node-object with its name.
 - 1.2.1 - fixed array deserialization method.
+- 1.2.2 - fixed the bug described in "add_node & detach bugs #1"
 
 
