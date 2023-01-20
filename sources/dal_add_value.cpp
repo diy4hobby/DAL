@@ -68,7 +68,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, char* value)
 	if (newChild == nullptr)			return nullptr;
 
 	newChild->_size		= dal_string_length(value, DAL_MAX_CSTR_LEN);
-	newChild->_mem_ptr	= _dal_memHooks.alloc_data(newChild->_size + 8);
+	newChild->_mem_ptr	= _dal_memHooks.alloc_data(newChild->_size + 8 + 1);
 	if (newChild->_mem_ptr == nullptr)
 	{
 		dal_delete(newChild);
@@ -78,6 +78,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, char* value)
 		newChild->_type		= DT_STRING;
 		newChild->_as_str	= reinterpret_cast<char*>(dal_pointer_align_8(newChild->_mem_ptr));
 		dal_bytedata_copy(newChild->_as_str, value, newChild->_size);
+		newChild->_as_str[newChild->_size]	= 0x00;
 	}
 	newChild->rename(key);
 	newChild->_parent	= this;
@@ -92,7 +93,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, const char* value)
 	if (newChild == nullptr)			return nullptr;
 
 	newChild->_size		= dal_string_length(value, DAL_MAX_CSTR_LEN);
-	newChild->_mem_ptr	= _dal_memHooks.alloc_data(newChild->_size + 8);
+	newChild->_mem_ptr	= _dal_memHooks.alloc_data(newChild->_size + 8 + 1);
 	if (newChild->_mem_ptr == nullptr)
 	{
 		dal_delete(newChild);
@@ -103,6 +104,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, const char* value)
 		newChild->_as_str	= reinterpret_cast<char*>(dal_pointer_align_8(newChild->_mem_ptr));
 		void*	tmp			= const_cast<void*>(static_cast<const void*>(value));
 		dal_bytedata_copy(newChild->_as_str, tmp, newChild->_size);
+		newChild->_as_str[newChild->_size]	= 0x00;
 	}
 	newChild->rename(key);
 	newChild->_parent	= this;
@@ -117,7 +119,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, char* value, uint32_t len)
 	if (newChild == nullptr)			return nullptr;
 
 	newChild->_size		= len;
-	newChild->_mem_ptr	= _dal_memHooks.alloc_data(newChild->_size + 8);
+	newChild->_mem_ptr	= _dal_memHooks.alloc_data(newChild->_size + 8 + 1);
 	if (newChild->_mem_ptr == nullptr)
 	{
 		dal_delete(newChild);
@@ -127,6 +129,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, char* value, uint32_t len)
 		newChild->_type		= DT_STRING;
 		newChild->_as_str	= reinterpret_cast<char*>(dal_pointer_align_8(newChild->_mem_ptr));
 		dal_bytedata_copy(newChild->_as_str, value, newChild->_size);
+		newChild->_as_str[newChild->_size]	= 0x00;
 	}
 	newChild->rename(key);
 	newChild->_parent	= this;

@@ -103,5 +103,8 @@ Deseritization is supported from:
 - Node attach method renamed from add_node to attach to better express the nature of the operation - node ownership (the attached node becomes a child and therefore should not be deleted by itself);
 - The methods of adding nodes and getting their values have been significantly changed. ***The new version is not compatible with the previous API.***
 ***
+2.0.1
+- Some corrections.
+***
 
 

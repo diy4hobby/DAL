@@ -160,6 +160,7 @@ public:
 	bool			get_val_uint64(const char* key, uint64_t& value);
 	bool			get_val_flt(const char* key, float& value);
 	bool			get_val_dbl(const char* key, double& value);
+	bool			get_val_str(const char* key, const char*& value);
 	bool			get_val_str(const char* key, char*& value);
 	bool			get_val_str(const char* key, dalStr_t& value);
 	bool			get_val_blob(const char* key, dalBlob_t& value);
@@ -173,6 +174,7 @@ public:
 	bool			get_val_uint64(uint32_t idx, uint64_t& value);
 	bool			get_val_flt(uint32_t idx, float& value);
 	bool			get_val_dbl(uint32_t idx, double& value);
+	bool			get_val_str(uint32_t idx, const char*& value);
 	bool			get_val_str(uint32_t idx, char*& value);
 	bool			get_val_str(uint32_t idx, dalStr_t& value);
 	bool			get_val_blob(uint32_t idx, dalBlob_t& value);
