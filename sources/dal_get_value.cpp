@@ -2,290 +2,560 @@
 #include "dal_utils.h"
 
 
-
 //===============================================================================================================================
-bool	dal_t::value(bool def)
+bool	dal_t::get_val_bool(const char* key, bool& value)
 {
-	if (!(this->_type & NUMBER_TYPE))	return def;
-	switch (this->_type)
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)							return false;
+	
+	if (!(child->_type & NUMBER_TYPE))				return false;
+	switch (child->_type)
 	{
-		default:			return def;
-		case DT_BOOL:		return this->_as_bool;
-		case DT_UINT:		return (this->_as_uint != 0);
-		case DT_INT:		return (this->_as_int > 0);
-		case DT_DOUBLE:		if (this->_as_dbl != this->_as_dbl)	return def;
-							else								return (this->_as_dbl > 0);
+		default:			return false;
+		case DT_BOOL:		value	= this->_as_bool;			break;
+		case DT_UINT:		value	= (this->_as_uint != 0);	break;
+		case DT_INT:		value	= (this->_as_int > 0);		break;
 	}
-	return def;
+
+	return true;
 };
 
-int	dal_t::value(int def)
+bool	dal_t::get_val_int(const char* key, int& value)
 {
-	if (!(this->_type & NUMBER_TYPE))	return def;
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)							return false;
+	if (!(child->_type & NUMBER_TYPE))				return false;
+	
 	int64_t		tempVal;
 
-	switch (this->_type)
+	switch (child->_type)
 	{
-		default:			tempVal	= def;				break;
-		case DT_BOOL:		tempVal	= this->_as_bool;	break;
-		case DT_UINT:		tempVal	= this->_as_uint;	break;
-		case DT_INT:		tempVal	= this->_as_int;	break;
-		case DT_DOUBLE:		if (this->_as_dbl != this->_as_dbl)	tempVal	= def;
-							else								tempVal	= static_cast<int64_t>(this->_as_dbl);
+		default:
+			return false;
+		case DT_BOOL:
+			tempVal	= child->_as_bool;
+			break;
+		case DT_UINT:
+			if (child->_as_uint & 0x8000000000000000)	return false;
+			else										tempVal	= child->_as_uint;
+			break;
+		case DT_INT:
+			tempVal	= child->_as_int;
+			break;
 	}
 
 	switch (sizeof(int))
 	{
-		default:	return 0;
-		case 2:		if (tempVal > 32767)				return 32767;
-					else	if (tempVal < -32767)		return -32767;
-					else								return static_cast<int>(tempVal);
-		case 4:		if (tempVal > 2147483647)			return 2147483647;
-					else	if (tempVal < -2147483647)	return -2147483647;
-					else								return static_cast<int>(tempVal);
-		case 8:		return static_cast<int>(tempVal);
+		default:
+			return 0;
+		case 2:
+			if (tempVal > 32768)				return false;
+			else	if (tempVal < -32768)		return false;
+					else						value	= static_cast<int>(tempVal);
+			break;
+		case 4:
+			if (tempVal > 2147483647)			return false;
+			else	if (tempVal < -2147483648)	return false;
+					else						value	= static_cast<int>(tempVal);
+			break;
+		case 8:
+			value	= static_cast<int>(tempVal);
+			break;
 	}
+
+	return true;
 };
 
-uint64_t	dal_t::value(uint64_t def)
+bool	dal_t::get_val_uint(const char* key, unsigned int& value)
 {
-	if (!(this->_type & NUMBER_TYPE))	return def;
-	switch (this->_type)
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)							return false;
+	if (!(child->_type & NUMBER_TYPE))				return false;
+	
+	uint64_t	tempVal;
+
+	switch (child->_type)
 	{
-		default:			return def;
-		case DT_BOOL:		return this->_as_bool;
-		case DT_UINT:		return this->_as_uint;
-		case DT_INT:		if (this->_as_int < 0)				return 0;
-							else								return this->_as_int;
-		case DT_DOUBLE:		if (this->_as_dbl != this->_as_dbl)	return def;
-							else	if (this->_as_dbl < 0)		return 0;
-									else						return static_cast<uint64_t>(this->_as_dbl);
+		default:
+			return false;
+		case DT_BOOL:
+			tempVal	= child->_as_bool;
+			break;
+		case DT_UINT:
+			tempVal	= child->_as_uint;
+			break;
+		case DT_INT:
+			if (child->_as_uint & 0x8000000000000000)	return false;
+			else										tempVal	= child->_as_int;
+			break;
 	}
-	return def;
-};
 
-int64_t	dal_t::value(int64_t def)
-{
-	if (!(this->_type & NUMBER_TYPE))	return def;
-	switch (this->_type)
+	switch (sizeof(unsigned int))
 	{
-		default:			return def;
-		case DT_BOOL:		return this->_as_bool;
-		case DT_UINT:		return this->_as_uint;
-		case DT_INT:		return this->_as_int;
-		case DT_DOUBLE:		if (this->_as_dbl != this->_as_dbl)	return def;
-							else								return static_cast<int64_t>(this->_as_dbl);
+		default:
+			return 0;
+		case 2:
+			if (tempVal > 65535)				return false;
+			else								value	= static_cast<unsigned int>(tempVal);
+			break;
+		case 4:
+			if (tempVal > 0xFFFFFFFF)			return false;
+			else								value	= static_cast<unsigned int>(tempVal);
+			break;
+		case 8:
+			value	= static_cast<unsigned int>(tempVal);
+			break;
 	}
-	return def;
+
+	return true;
 };
 
-double	dal_t::value(double def)
+bool	dal_t::get_val_int32(const char* key, int32_t& value)
 {
-	if (!(this->_type & NUMBER_TYPE))	return def;
-	switch (this->_type)
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)							return false;
+	if (!(child->_type & NUMBER_TYPE))				return false;
+	
+	int64_t		tempVal;
+
+	switch (child->_type)
 	{
-		default:			return def;
-		case DT_BOOL:		return this->_as_bool;
-		case DT_UINT:		return static_cast<double>(this->_as_uint);
-		case DT_INT:		return static_cast<double>(this->_as_int);
-		case DT_DOUBLE:		return this->_as_dbl;
+		default:
+			return false;
+		case DT_BOOL:
+			tempVal	= child->_as_bool;
+			break;
+		case DT_UINT:
+			if (child->_as_uint & 0x8000000000000000)	return false;
+			else										tempVal	= child->_as_uint;
+			break;
+		case DT_INT:
+			tempVal	= child->_as_int;
+			break;
 	}
-	return def;
+
+	if (tempVal > 2147483647)			return false;
+	else	if (tempVal < -2147483648)	return false;
+			else						value	= static_cast<int32_t>(tempVal);
+
+	return true;
 };
 
-float	dal_t::value(float def)
+bool	dal_t::get_val_uint32(const char* key, uint32_t& value)
 {
-	if (!(this->_type & NUMBER_TYPE))	return def;
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)							return false;
+	if (!(child->_type & NUMBER_TYPE))				return false;
+	
+	uint64_t	tempVal;
 
-	switch (this->_type)
+	switch (child->_type)
 	{
-		default:			return def;
-		case DT_BOOL:		return this->_as_bool;
-		case DT_UINT:		return static_cast<float>(this->_as_uint);
-		case DT_INT:		return static_cast<float>(this->_as_int);
-		case DT_DOUBLE:		if (this->_as_dbl != this->_as_dbl)	return 0x7fc00000;	//NAN
-							else								return static_cast<float>(this->_as_dbl);
+		default:
+			return false;
+		case DT_BOOL:
+			tempVal	= child->_as_bool;
+			break;
+		case DT_UINT:
+			tempVal	= child->_as_uint;
+			break;
+		case DT_INT:
+			if (child->_as_int & 0x8000000000000000)	return false;
+			else										tempVal	= child->_as_int;
+			break;
 	}
+
+	if (tempVal > 0xFFFFFFFF)			return false;
+	else								value	= static_cast<uint32_t>(tempVal);
+
+	return true;
 };
 
-char*	dal_t::value(char* def)
+bool	dal_t::get_val_int64(const char* key, int64_t& value)
 {
-	if (this->_type != DT_STRING)		return def;
-
-	return this->_as_str;
-};
-
-dalStr_t	dal_t::value(dalStr_t* def)
-{
-	if (this->_type != DT_STRING)
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)				return false;
+	if (!(child->_type & NUMBER_TYPE))	return false;
+	
+	switch (child->_type)
 	{
-		if (def != nullptr)				return *def;
-		else							return dalStr_t{nullptr, 0};
+		default:
+			return false;
+		case DT_BOOL:
+			value	= child->_as_bool;
+			break;
+		case DT_UINT:
+			if (child->_as_uint & 0x8000000000000000)	return false;
+			else										value	= child->_as_uint;
+			break;
+		case DT_INT:
+			value	= child->_as_int;
+			break;
 	}
 
-	dalStr_t		tempStr;
-	tempStr.data	= this->_as_str;
-	tempStr.size	= this->_size;
-	return tempStr;
+	return true;
 };
 
-dalBlob_t	dal_t::value(dalBlob_t* def)
+bool	dal_t::get_val_uint64(const char* key, uint64_t& value)
 {
-	if (!(this->_type & BLOB_TYPE))
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)				return false;
+	if (!(child->_type & NUMBER_TYPE))	return false;
+	
+	switch (child->_type)
 	{
-		if (def != nullptr)				return *def;
-		else							return dalBlob_t{nullptr, 0};
+		default:
+			return false;
+		case DT_BOOL:
+			value	= child->_as_bool;
+			break;
+		case DT_UINT:
+			value	= child->_as_uint;
+			break;
+		case DT_INT:
+			if (child->_as_int & 0x8000000000000000)	return false;
+			else										value	= child->_as_int;
+			break;
 	}
 
-	dalBlob_t		tempBlob;
-	tempBlob.data	= this->_as_blob;
-	tempBlob.size	= this->_size;
-	return tempBlob;
+	return true;
+};
+
+bool	dal_t::get_val_flt(const char* key, float& value)
+{
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)				return false;
+	if (!(child->_type & NUMBER_TYPE))	return false;
+	
+	switch (child->_type)
+	{
+		default:
+			return false;
+		case DT_BOOL:
+			value	= this->_as_bool;
+			break;
+		case DT_UINT:
+			value	= static_cast<float>(this->_as_uint);
+			break;
+		case DT_INT:
+			value	= static_cast<float>(this->_as_int);
+			break;
+		case DT_DOUBLE:
+			if (this->_as_dbl != this->_as_dbl)	value	= 0x7fc00000;	//NAN
+			else								value	= static_cast<float>(this->_as_dbl);
+			break;
+	}
+	
+	return true;
+};
+
+bool	dal_t::get_val_dbl(const char* key, double& value)
+{
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)				return false;
+	if (!(child->_type & NUMBER_TYPE))	return false;
+	
+	switch (child->_type)
+	{
+		default:
+			return false;
+		case DT_BOOL:
+			value	= this->_as_bool;
+			break;
+		case DT_UINT:
+			value	= static_cast<double>(this->_as_uint);
+			break;
+		case DT_INT:
+			value	= static_cast<double>(this->_as_int);
+			break;
+		case DT_DOUBLE:
+			value	= static_cast<float>(this->_as_dbl);
+			break;
+	}
+	
+	return true;
+};
+
+bool	dal_t::get_val_str(const char* key, char*& value)
+{
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)				return false;
+	if (!(child->_type & DT_STRING))	return false;
+	
+	value	= this->_as_str;
+	
+	return true;
+};
+	
+bool	dal_t::get_val_str(const char* key, dalStr_t& value)
+{
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)				return false;
+	if (!(child->_type & DT_STRING))	return false;
+	
+	value.data	= this->_as_str;
+	value.size	= this->_size;
+	
+	return true;
+};
+
+bool	dal_t::get_val_blob(const char* key, dalBlob_t& value)
+{
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)				return false;
+	if (!(child->_type & DT_STRING))	return false;
+	
+	value.data	= this->_as_blob;
+	value.size	= this->_size;
+	
+	return true;
 };
 //===============================================================================================================================
 
 
 //===============================================================================================================================
-bool	dal_t::value(const char* key, bool def)
+bool	dal_t::get_val_bool(uint32_t idx, bool& value)
 {
-	dal_t*	child	= this->get_child(key);
-	if (child == nullptr)				return def;
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & NUMBER_TYPE))		return false;
 
-	return child->value(def);
-};
-
-int	dal_t::value(const char* key, int def)
-{
-	dal_t*	child	= this->get_child(key);
-	if (child == nullptr)				return def;
-
-	return child->value(def);
-};
-
-uint64_t	dal_t::value(const char* key, uint64_t def)
-{
-	dal_t*	child	= this->get_child(key);
-	if (child == nullptr)				return def;
-
-	return child->value(def);
-};
-
-int64_t	dal_t::value(const char* key, int64_t def)
-{
-	dal_t*	child	= this->get_child(key);
-	if (child == nullptr)				return def;
-
-	return child->value(def);
-};
-
-double	dal_t::value(const char* key, double def)
-{
-	dal_t*	child	= this->get_child(key);
-	if (child == nullptr)				return def;
-
-	return child->value(def);
-};
-
-float	dal_t::value(const char* key, float def)
-{
-	dal_t*	child	= this->get_child(key);
-	if (child == nullptr)				return def;
-
-	return child->value(def);
-};
-
-char*	dal_t::value(const char* key, char* def)
-{
-	dal_t*	child	= this->get_child(key);
-	if (child == nullptr)				return def;
-
-	return child->value(def);
-};
-
-dalStr_t	dal_t::value(const char* key, dalStr_t* def)
-{
-	dal_t*	child	= this->get_child(key);
-	if (child == nullptr)
+	switch (this->_child[idx]._type)
 	{
-		if (def != nullptr)				return *def;
-		else							return dalStr_t{nullptr, 0};
+		default:			return false;
+		case DT_BOOL:		value	= this->_as_bool;			break;
+		case DT_UINT:		value	= (this->_as_uint != 0);	break;
+		case DT_INT:		value	= (this->_as_int > 0);		break;
 	}
 
-	return child->value(def);
+	return true;
 };
 
-dalBlob_t	dal_t::value(const char* key, dalBlob_t* def)
+bool	dal_t::get_val_int(uint32_t idx, int& value)
 {
-	dal_t*	child	= this->get_child(key);
-	if (child == nullptr)
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & NUMBER_TYPE))		return false;
+	int64_t		tempVal;
+
+	switch (this->_child[idx]._type)
 	{
-		if (def != nullptr)				return *def;
-		else							return dalBlob_t{nullptr, 0};
+		default:		return false;
+		case DT_BOOL:	tempVal	= this->_child[idx]._as_bool;		break;
+		case DT_UINT:	if (this->_child[idx]._as_uint & 0x8000000000000000)	return false;
+						else													tempVal	= this->_child[idx]._as_uint;
+						break;
+		case DT_INT:	tempVal	= this->_child[idx]._as_int;		break;
 	}
 
-	return child->value(def);
+	switch (sizeof(int))
+	{
+		default:		return 0;
+		case 2:			if (tempVal > 32768)				return false;
+						else	if (tempVal < -32768)		return false;
+								else						value	= static_cast<int>(tempVal);
+						break;
+		case 4:			if (tempVal > 2147483647)			return false;
+						else	if (tempVal < -2147483648)	return false;
+								else						value	= static_cast<int>(tempVal);
+						break;
+		case 8:			value	= static_cast<int>(tempVal);	break;
+	}
+
+	return true;
 };
 
-bool	dal_t::value(uint32_t idx, bool def)
+bool	dal_t::get_val_uint(uint32_t idx, unsigned int& value)
 {
-	if (this->_type != DT_ARRAY)	return def;
-	if (this->_size <= idx)			return def;
-	return this->_child[idx].value(def);
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & NUMBER_TYPE))		return false;
+	uint64_t	tempVal;
+
+	switch (this->_child[idx]._type)
+	{
+		default:		return false;
+		case DT_BOOL:	tempVal	= this->_child[idx]._as_bool;		break;
+		case DT_UINT:	tempVal	= this->_child[idx]._as_uint;		break;
+		case DT_INT:	if (this->_child[idx]._as_int & 0x8000000000000000)		return false;
+						else													tempVal	= this->_child[idx]._as_int;
+						break;
+	}
+
+	switch (sizeof(int))
+	{
+		default:		return 0;
+		case 2:			if (tempVal > 65535)				return false;
+						else								value	= static_cast<unsigned int>(tempVal);
+						break;
+		case 4:			if (tempVal > 0xFFFFFFFF)			return false;
+						else								value	= static_cast<unsigned int>(tempVal);
+						break;
+		case 8:			value	= static_cast<unsigned int>(tempVal);	break;
+	}
+
+	return true;
 };
 
-int	dal_t::value(uint32_t idx, int def)
+bool	dal_t::get_val_int32(uint32_t idx, int32_t& value)
 {
-	if (this->_type != DT_ARRAY)	return def;
-	if (this->_size <= idx)			return def;
-	return this->_child[idx].value(def);
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & NUMBER_TYPE))		return false;
+	
+	int64_t		tempVal;
+
+	switch (this->_child[idx]._type)
+	{
+		default:		return false;
+		case DT_BOOL:	tempVal	= this->_child[idx]._as_bool;	break;
+		case DT_UINT:	if (this->_child[idx]._as_uint & 0x8000000000000000)	return false;
+						else													tempVal	= this->_child[idx]._as_uint;
+						break;
+		case DT_INT:	tempVal	= this->_child[idx]._as_int;	break;
+	}
+
+	if (tempVal > 2147483647)			return false;
+	else	if (tempVal < -2147483648)	return false;
+			else						value	= static_cast<int32_t>(tempVal);
+
+	return true;
 };
 
-uint64_t	dal_t::value(uint32_t idx, uint64_t def)
+bool	dal_t::get_val_uint32(uint32_t idx, uint32_t& value)
 {
-	if (this->_type != DT_ARRAY)	return def;
-	if (this->_size <= idx)			return def;
-	return this->_child[idx].value(def);
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & NUMBER_TYPE))		return false;
+	
+	uint64_t	tempVal;
+
+	switch (this->_child[idx]._type)
+	{
+		default:		return false;
+		case DT_BOOL:	tempVal	= this->_child[idx]._as_bool;	break;
+		case DT_UINT:	tempVal	= this->_child[idx]._as_uint;
+						break;
+		case DT_INT:	if (this->_child[idx]._as_int & 0x8000000000000000)		return false;
+						else													tempVal	= this->_child[idx]._as_int;
+						break;
+	}
+
+	if (tempVal > 0xFFFFFFFF)			return false;
+	else								value	= static_cast<uint32_t>(tempVal);
+
+	return true;
 };
 
-int64_t	dal_t::value(uint32_t idx, int64_t def)
+bool	dal_t::get_val_int64(uint32_t idx, int64_t& value)
 {
-	if (this->_type != DT_ARRAY)	return def;
-	if (this->_size <= idx)			return def;
-	return this->_child[idx].value(def);
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & NUMBER_TYPE))		return false;
+	
+	switch (this->_child[idx]._type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_child[idx]._as_bool;		break;
+		case DT_UINT:	if (this->_child[idx]._as_uint & 0x8000000000000000)	return false;
+						else													value	= this->_child[idx]._as_uint;
+						break;
+		case DT_INT:	value	= this->_child[idx]._as_int;		break;
+	}
+
+	return true;
 };
 
-double	dal_t::value(uint32_t idx, double def)
+bool	dal_t::get_val_uint64(uint32_t idx, uint64_t& value)
 {
-	if (this->_type != DT_ARRAY)	return def;
-	if (this->_size <= idx)			return def;
-	return this->_child[idx].value(def);
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & NUMBER_TYPE))		return false;
+	
+	switch (this->_child[idx]._type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_child[idx]._as_bool;		break;
+		case DT_UINT:	value	= this->_child[idx]._as_uint;		break;
+		case DT_INT:	if (this->_child[idx]._as_int & 0x8000000000000000)		return false;
+						else													value	= this->_child[idx]._as_int;
+						break;
+	}
+
+	return true;
 };
 
-float	dal_t::value(uint32_t idx, float def)
+bool	dal_t::get_val_flt(uint32_t idx, float& value)
 {
-	if (this->_type != DT_ARRAY)	return def;
-	if (this->_size <= idx)			return def;
-	return this->_child[idx].value(def);
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & NUMBER_TYPE))		return false;
+	
+	switch (this->_child[idx]._type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_as_bool;							break;
+		case DT_UINT:	value	= static_cast<float>(this->_as_uint);		break;
+		case DT_INT:	value	= static_cast<float>(this->_as_int);		break;
+		case DT_DOUBLE:	if (this->_as_dbl != this->_as_dbl)	value	= 0x7fc00000;	//NAN
+						else								value	= static_cast<float>(this->_as_dbl);
+						break;
+	}
+	
+	return true;
 };
 
-char*	dal_t::value(uint32_t idx, char* def)
+bool	dal_t::get_val_dbl(uint32_t idx, double& value)
 {
-	if (this->_type != DT_ARRAY)	return def;
-	if (this->_size <= idx)			return def;
-	return this->_child[idx].value(def);
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & NUMBER_TYPE))		return false;
+	
+	switch (this->_child[idx]._type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_as_bool;							break;
+		case DT_UINT:	value	= static_cast<double>(this->_as_uint);		break;
+		case DT_INT:	value	= static_cast<double>(this->_as_int);		break;
+		case DT_DOUBLE:	value	= static_cast<float>(this->_as_dbl);		break;
+	}
+	
+	return true;
 };
 
-dalStr_t	dal_t::value(uint32_t idx, dalStr_t* def)
+bool	dal_t::get_val_str(uint32_t idx, char*& value)
 {
-	if (this->_type != DT_ARRAY)	return *def;
-	if (this->_size <= idx)			return *def;
-	return this->_child[idx].value(def);
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & DT_STRING))			return false;
+	
+	value	= this->_as_str;
+	
+	return true;
 };
 
-dalBlob_t	dal_t::value(uint32_t idx, dalBlob_t* def)
+bool	dal_t::get_val_str(uint32_t idx, dalStr_t& value)
 {
-	if (this->_type != DT_ARRAY)	return *def;
-	if (this->_size <= idx)			return *def;
-	return this->_child[idx].value(def);
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & DT_STRING))			return false;
+	
+	value.data	= this->_as_str;
+	value.size	= this->_size;
+	
+	return true;
 };
+
+bool	dal_t::get_val_blob(uint32_t idx, dalBlob_t& value)
+{
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & DT_STRING))			return false;
+	
+	value.data	= this->_as_blob;
+	value.size	= this->_size;
+	
+	return true;
+};
+
 //===============================================================================================================================

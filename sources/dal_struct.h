@@ -84,6 +84,9 @@ public:
 	dalStr_t		key();
 	void			rename(dalStr_t* key);
 	void			rename(const char* newName);
+	dal_t*			attach(dalStr_t* key, dal_t* node);
+	dal_t*			attach(char* key, dal_t* node);
+	dal_t*			attach(dal_t* node);
 	void			detach();						//Detach from parent node
 	dal_t*			create_child();					//Create new child
 	dal_t*			create_child(const char* key);	//Create new child
@@ -95,53 +98,51 @@ public:
 	bool			compare(dal_t* node);			//Compare with other dal structure
 	dal_t*			duplicate();					//Create copy of this node
 	//Adding child elements
-	dal_t*			add_value(dalStr_t* key, bool value);
-	dal_t*			add_value(dalStr_t* key, int value);
-	dal_t*			add_value(dalStr_t* key, uint64_t value);
-	dal_t*			add_value(dalStr_t* key, int64_t value);
-	dal_t*			add_value(dalStr_t* key, float value);
-	dal_t*			add_value(dalStr_t* key, double value);
-	dal_t*			add_value(dalStr_t* key, char* value);
-	dal_t*			add_value(dalStr_t* key, const char* value);
-	dal_t*			add_value(dalStr_t* key, char* value, uint32_t len);
-	dal_t*			add_value(dalStr_t* key, void** value, uint32_t len);
-	dal_t*			add_value(dalStr_t* key, void* value, uint32_t len);
-	dal_t*			add_value(const char* key, bool value);
-	dal_t*			add_value(const char* key, int value);
-	dal_t*			add_value(const char* key, uint64_t value);
-	dal_t*			add_value(const char* key, int64_t value);
-	dal_t*			add_value(const char* key, float value);
-	dal_t*			add_value(const char* key, double value);
-	dal_t*			add_value(const char* key, char* value);
-	dal_t*			add_value(const char* key, const char* value);
-	dal_t*			add_value(const char* key, char* value, uint32_t len);
-	dal_t*			add_value(const char* key, void** value, uint32_t len);
-	dal_t*			add_value(const char* key, void* value, uint32_t len);
-	dal_t*			add_node(dalStr_t* key, dal_t* node);
-	dal_t*			add_node(char* key, dal_t* node);
-	dal_t*			add_node(dal_t* node);
+	dal_t*			add_val_bool(dalStr_t* key, bool value);
+	dal_t*			add_val_int(dalStr_t* key, int64_t value);
+	dal_t*			add_val_uint(dalStr_t* key, uint64_t value);
+	dal_t*			add_val_dbl(dalStr_t* key, double value);
+	dal_t*			add_val_str(dalStr_t* key, char* value);
+	dal_t*			add_val_str(dalStr_t* key, const char* value);
+	dal_t*			add_val_str(dalStr_t* key, char* value, uint32_t len);
+	dal_t*			add_val_ref(dalStr_t* key, void*& value, uint32_t len);
+	dal_t*			add_val_blob(dalStr_t* key, void* value, uint32_t len);
+	dal_t*			add_val_bool(const char* key, bool value);
+	dal_t*			add_val_int(const char* key, int64_t value);
+	dal_t*			add_val_uint(const char* key, uint64_t value);
+	dal_t*			add_val_dbl(const char* key, double value);
+	dal_t*			add_val_str(const char* key, char* value);
+	dal_t*			add_val_str(const char* key, const char* value);
+	dal_t*			add_val_str(const char* key, char* value, uint32_t len);
+	dal_t*			add_val_ref(const char* key, void*& value, uint32_t len);
+	dal_t*			add_val_blob(const char* key, void* value, uint32_t len);
 	//Adding child arrays
 	dal_t*			convert_to_array(uint32_t count);
 	dal_t*			add_array(dalStr_t* key, uint32_t count);
-	dal_t*			add_array(dalStr_t* key, bool* arr, uint32_t count);
-	dal_t*			add_array(dalStr_t* key, int* arr, uint32_t count);
-	dal_t*			add_array(dalStr_t* key, uint64_t* arr, uint32_t count);
-	dal_t*			add_array(dalStr_t* key, int64_t* arr, uint32_t count);
-	dal_t*			add_array(dalStr_t* key, double* arr, uint32_t count);
-	dal_t*			add_array(dalStr_t* key, float* arr, uint32_t count);
+	dal_t*			add_arr_bool(dalStr_t* key, bool* arr, uint32_t count);
+	dal_t*			add_arr_int(dalStr_t* key, int* arr, uint32_t count);
+	dal_t*			add_arr_uint(dalStr_t* key, unsigned int* arr, uint32_t count);
+	dal_t*			add_arr_int32(dalStr_t* key, int32_t* arr, uint32_t count);
+	dal_t*			add_arr_uint32(dalStr_t* key, uint32_t* arr, uint32_t count);
+	dal_t*			add_arr_int64(dalStr_t* key, int64_t* arr, uint32_t count);
+	dal_t*			add_arr_uint64(dalStr_t* key, uint64_t* arr, uint32_t count);
+	dal_t*			add_arr_flt(dalStr_t* key, float* arr, uint32_t count);
+	dal_t*			add_arr_dbl(dalStr_t* key, double* arr, uint32_t count);
 	dal_t*			add_array(const char* key, uint32_t count);
-	dal_t*			add_array(const char* key, bool* arr, uint32_t count);
-	dal_t*			add_array(const char* key, int* arr, uint32_t count);
-	dal_t*			add_array(const char* key, uint64_t* arr, uint32_t count);
-	dal_t*			add_array(const char* key, int64_t* arr, uint32_t count);
-	dal_t*			add_array(const char* key, double* arr, uint32_t count);
-	dal_t*			add_array(const char* key, float* arr, uint32_t count);
+	dal_t*			add_arr_bool(const char* key, bool* arr, uint32_t count);
+	dal_t*			add_arr_int(const char* key, int* arr, uint32_t count);
+	dal_t*			add_arr_uint(const char* key, unsigned int* arr, uint32_t count);
+	dal_t*			add_arr_int32(const char* key, int32_t* arr, uint32_t count);
+	dal_t*			add_arr_uint32(const char* key, uint32_t* arr, uint32_t count);
+	dal_t*			add_arr_int64(const char* key, int64_t* arr, uint32_t count);
+	dal_t*			add_arr_uint64(const char* key, uint64_t* arr, uint32_t count);
+	dal_t*			add_arr_flt(const char* key, float* arr, uint32_t count);
+	dal_t*			add_arr_dbl(const char* key, double* arr, uint32_t count);
 	//Get item of array
 	uint32_t		get_array_size();
 	dal_t*			get_array_item(uint32_t idx);
 	//Setting value of the node
 	dal_t&			operator=(bool value);
-	dal_t&			operator=(int value);
 	dal_t&			operator=(uint64_t value);
 	dal_t&			operator=(int64_t value);
 	dal_t&			operator=(double value);
@@ -149,36 +150,32 @@ public:
 	dal_t&			operator=(dalStr_t& value);
 	dal_t&			operator=(dalBlob_t& value);
 	dal_t&			operator=(dalBlobRef_t& value);
-	//Getting value of the node
-	bool			value(bool def);
-	int				value(int value);
-	uint64_t		value(uint64_t def);
-	int64_t			value(int64_t def);
-	double			value(double def);
-	float			value(float def);
-	char*			value(char* def);
-	dalStr_t		value(dalStr_t* def);
-	dalBlob_t		value(dalBlob_t* def);
 	//Getting value of the child node by key
-	bool			value(const char* key, bool def);
-	int				value(const char* key, int def);
-	uint64_t		value(const char* key, uint64_t def);
-	int64_t			value(const char* key, int64_t def);
-	double			value(const char* key, double def);
-	float			value(const char* key, float def);
-	char*			value(const char* key, char* def);
-	dalStr_t		value(const char* key, dalStr_t* def);
-	dalBlob_t		value(const char* key, dalBlob_t* def);
+	bool			get_val_bool(const char* key, bool& value);
+	bool			get_val_int(const char* key, int& value);
+	bool			get_val_uint(const char* key, unsigned int& value);
+	bool			get_val_int32(const char* key, int32_t& value);
+	bool			get_val_uint32(const char* key, uint32_t& value);
+	bool			get_val_int64(const char* key, int64_t& value);
+	bool			get_val_uint64(const char* key, uint64_t& value);
+	bool			get_val_flt(const char* key, float& value);
+	bool			get_val_dbl(const char* key, double& value);
+	bool			get_val_str(const char* key, char*& value);
+	bool			get_val_str(const char* key, dalStr_t& value);
+	bool			get_val_blob(const char* key, dalBlob_t& value);
 	//Getting value by index of child or of array item
-	bool			value(uint32_t idx, bool def);
-	int				value(uint32_t idx, int def);
-	uint64_t		value(uint32_t idx, uint64_t def);
-	int64_t			value(uint32_t idx, int64_t def);
-	double			value(uint32_t idx, double def);
-	float			value(uint32_t idx, float def);
-	char*			value(uint32_t idx, char* def);
-	dalStr_t		value(uint32_t idx, dalStr_t* def);
-	dalBlob_t		value(uint32_t idx, dalBlob_t* def);
+	bool			get_val_bool(uint32_t idx, bool& value);
+	bool			get_val_int(uint32_t idx, int& value);
+	bool			get_val_uint(uint32_t idx, unsigned int& value);
+	bool			get_val_int32(uint32_t idx, int32_t& value);
+	bool			get_val_uint32(uint32_t idx, uint32_t& value);
+	bool			get_val_int64(uint32_t idx, int64_t& value);
+	bool			get_val_uint64(uint32_t idx, uint64_t& value);
+	bool			get_val_flt(uint32_t idx, float& value);
+	bool			get_val_dbl(uint32_t idx, double& value);
+	bool			get_val_str(uint32_t idx, char*& value);
+	bool			get_val_str(uint32_t idx, dalStr_t& value);
+	bool			get_val_blob(uint32_t idx, dalBlob_t& value);
 	//Serilization methods
 	uint32_t		to_mpack(uint8_t* buf, uint32_t size);
 	uint32_t		to_json(uint8_t* buf, uint32_t size, bool pretty = true);

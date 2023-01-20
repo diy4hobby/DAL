@@ -16,12 +16,6 @@ dal_t&	dal_t::operator=(bool value)
 	return *this;
 };
 
-dal_t&	dal_t::operator=(int value)
-{
-	*this				= static_cast<int64_t>(value);
-	return *this;
-};
-
 dal_t&	dal_t::operator=(uint64_t value)
 {
 	if (this->_type & ALLOCATED_MEM_TYPE)	_dal_memHooks.free_data(this->_mem_ptr);

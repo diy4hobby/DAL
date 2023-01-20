@@ -4,3 +4,5 @@ units_tests/dal_string_to_num/out
 units_tests/dal_string_to_num/.vs
 units_tests/dal_add_node/out
 units_tests/dal_add_node/.vs
+units_tests/dal_attach_node/out
+units_tests/dal_attach_node/.vs

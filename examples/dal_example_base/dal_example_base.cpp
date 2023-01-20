@@ -37,14 +37,14 @@ int main()
 	dal_t*		topObj			= dal_create();
 	
 	//Add key-value pairs to the previously created object
-	topObj->add_value("string_value", "Hello from DAL");
-	topObj->add_value("int_value", 123456789);
-	topObj->add_value("dbl_value", 10.987654321);
+	topObj->add_val_str("string_value", "Hello from DAL");
+	topObj->add_val_uint("int_value", 123456789);
+	topObj->add_val_dbl("dbl_value", 10.987654321);
 
 	//Adding a child object - making the structure more complex
-	dal_t*		chldObj			= topObj->create_child();
-	int		u8Arr[5]		= {50, 40, 30, 20, 10};
-	chldObj->add_array("uint8_array", u8Arr, 5);
+	dal_t*		chldObj			= topObj->create_child("child_obj");
+	int			uArr[5]			= {50, 40, 30, 20, 10};
+	chldObj->add_arr_int("uint8_array", uArr, 5);
 
 	//Serialize the object in JSON to check the resulting structure
 	uint8_t		buf[4096]	= {0};

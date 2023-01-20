@@ -82,10 +82,26 @@ Deseritization is supported from:
 - WebAPI.
 
 ## Versions
-- 1.0.0 - first version, commit for the community. Writed short description and base example.
-- 1.1.0 - аdded a method for creating a copy of a node (obj->duplicate()). The method returns a copy of the node (taking into account the nesting of the structure).
-- 1.2.0 - added a method for creating a child node-object with its name.
-- 1.2.1 - fixed array deserialization method.
-- 1.2.2 - fixed the bug described in "add_node & detach bugs #1"
+***
+1.0.0
+- First version, commit for the community.
+- Writed short description and base example.
+***
+1.1.0
+- Added a method for creating a copy of a node (obj->duplicate()). The method returns a copy of the node (taking into account the nesting of the structure).
+***
+1.2.0
+- Added a method for creating a child node-object with its name.
+***
+1.2.1
+- Fixed array deserialization method.
+***
+1.2.2
+- Fixed the bug described in "add_node & detach bugs #1".
+***
+2.0.0
+- Node attach method renamed from add_node to attach to better express the nature of the operation - node ownership (the attached node becomes a child and therefore should not be deleted by itself);
+- The methods of adding nodes and getting their values have been significantly changed. ***The new version is not compatible with the previous API.***
+***
 
 
