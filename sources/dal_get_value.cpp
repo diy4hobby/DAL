@@ -209,7 +209,7 @@ bool	dal_t::get_val_dbl(const char* key, double& value)
 		case DT_BOOL:	value	= child->_as_bool;							break;
 		case DT_UINT:	value	= static_cast<double>(child->_as_uint);		break;
 		case DT_INT:	value	= static_cast<double>(child->_as_int);		break;
-		case DT_DOUBLE:	value	= static_cast<float>(child->_as_dbl);		break;
+		case DT_DOUBLE:	value	= static_cast<double>(child->_as_dbl);		break;
 	}
 	
 	return true;

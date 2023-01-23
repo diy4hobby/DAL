@@ -106,5 +106,8 @@ Deseritization is supported from:
 2.0.1
 - Some corrections.
 ***
-
+2.0.2
+- Fixed a bug when getting a double value - the node value was erroneously cast to the float type.
+- In the "_copy_trivial" method, handling of invalid types has been added, previously this could lead to an error.
+***
 

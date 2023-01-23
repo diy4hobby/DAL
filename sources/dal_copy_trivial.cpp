@@ -19,6 +19,7 @@ dalResult_e	dal_t::_copy_trivial(dal_t* src)
 
 	switch (src->_type)
 	{
+		default:			return DAL_FORMAT_ERR;
 		case DT_UNKN:		return DAL_FORMAT_ERR;
 		case DT_BOOL:
 			this->_as_bool		= src->_as_bool;
