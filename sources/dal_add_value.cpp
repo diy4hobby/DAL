@@ -138,7 +138,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, char* value, uint32_t len)
 	return newChild;
 };
 
-dal_t*	dal_t::add_val_ref(dalStr_t* key, void*& value, uint32_t len)
+dal_t*	dal_t::add_val_blob(dalStr_t* key, void*& value, uint32_t len)
 {
 	dal_t*	newChild	= dal_create();
 	if (newChild == nullptr)			return nullptr;
@@ -163,7 +163,7 @@ dal_t*	dal_t::add_val_ref(dalStr_t* key, void*& value, uint32_t len)
 	return newChild;
 };
 
-dal_t*	dal_t::add_val_blob(dalStr_t* key, void* value, uint32_t len)
+dal_t*	dal_t::add_val_ref(dalStr_t* key, void* value, uint32_t len)
 {
 	dal_t*	newChild	= dal_create();
 	if (newChild == nullptr)			return nullptr;
@@ -237,7 +237,7 @@ dal_t*	dal_t::add_val_str(const char* key, char* value, uint32_t len)
 	return this->add_val_str(&dalStrKey, value, len);
 };
 
-dal_t*	dal_t::add_val_ref(const char* key, void*& value, uint32_t len)
+dal_t*	dal_t::add_val_ref(const char* key, void* value, uint32_t len)
 {
 	dalStr_t	dalStrKey;
 	dalStrKey.data			= key;
@@ -245,7 +245,7 @@ dal_t*	dal_t::add_val_ref(const char* key, void*& value, uint32_t len)
 	return this->add_val_ref(&dalStrKey, value, len);
 };
 
-dal_t*	dal_t::add_val_blob(const char* key, void* value, uint32_t len)
+dal_t*	dal_t::add_val_blob(const char* key, void*& value, uint32_t len)
 {
 	dalStr_t	dalStrKey;
 	dalStrKey.data			= key;

@@ -105,8 +105,8 @@ public:
 	dal_t*			add_val_str(dalStr_t* key, char* value);
 	dal_t*			add_val_str(dalStr_t* key, const char* value);
 	dal_t*			add_val_str(dalStr_t* key, char* value, uint32_t len);
-	dal_t*			add_val_ref(dalStr_t* key, void*& value, uint32_t len);
-	dal_t*			add_val_blob(dalStr_t* key, void* value, uint32_t len);
+	dal_t*			add_val_ref(dalStr_t* key, void* value, uint32_t len);
+	dal_t*			add_val_blob(dalStr_t* key, void*& value, uint32_t len);
 	dal_t*			add_val_bool(const char* key, bool value);
 	dal_t*			add_val_int(const char* key, int64_t value);
 	dal_t*			add_val_uint(const char* key, uint64_t value);
@@ -114,8 +114,8 @@ public:
 	dal_t*			add_val_str(const char* key, char* value);
 	dal_t*			add_val_str(const char* key, const char* value);
 	dal_t*			add_val_str(const char* key, char* value, uint32_t len);
-	dal_t*			add_val_ref(const char* key, void*& value, uint32_t len);
-	dal_t*			add_val_blob(const char* key, void* value, uint32_t len);
+	dal_t*			add_val_ref(const char* key, void* value, uint32_t len);
+	dal_t*			add_val_blob(const char* key, void*& value, uint32_t len);
 	//Adding child arrays
 	dal_t*			convert_to_array(uint32_t count);
 	dal_t*			add_array(dalStr_t* key, uint32_t count);
