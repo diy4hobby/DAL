@@ -40,8 +40,8 @@ bool	dal_t::get_val_int(const char* key, int& value)
 
 	switch (sizeof(int))
 	{
-		default:	return 0;
-		case 2:		if (tempVal > 32768)				return false;
+		default:	return false;
+		case 2:		if (tempVal > 32767)				return false;
 					else	if (tempVal < -32768)		return false;
 							else						value	= static_cast<int>(tempVal);
 					break;
@@ -76,7 +76,7 @@ bool	dal_t::get_val_uint(const char* key, unsigned int& value)
 
 	switch (sizeof(unsigned int))
 	{
-		default:	return 0;
+		default:	return false;
 		case 2:		if (tempVal > 65535)				return false;
 					else								value	= static_cast<unsigned int>(tempVal);
 					break;
@@ -300,8 +300,8 @@ bool	dal_t::get_val_int(uint32_t idx, int& value)
 
 	switch (sizeof(int))
 	{
-		default:		return 0;
-		case 2:			if (tempVal > 32768)				return false;
+		default:		return false;
+		case 2:			if (tempVal > 32767)				return false;
 						else	if (tempVal < -32768)		return false;
 								else						value	= static_cast<int>(tempVal);
 						break;
@@ -334,7 +334,7 @@ bool	dal_t::get_val_uint(uint32_t idx, unsigned int& value)
 
 	switch (sizeof(int))
 	{
-		default:		return 0;
+		default:		return false;
 		case 2:			if (tempVal > 65535)				return false;
 						else								value	= static_cast<unsigned int>(tempVal);
 						break;
@@ -467,7 +467,7 @@ bool	dal_t::get_val_dbl(uint32_t idx, double& value)
 		case DT_BOOL:	value	= this->_as_bool;							break;
 		case DT_UINT:	value	= static_cast<double>(this->_as_uint);		break;
 		case DT_INT:	value	= static_cast<double>(this->_as_int);		break;
-		case DT_DOUBLE:	value	= static_cast<float>(this->_as_dbl);		break;
+		case DT_DOUBLE:	value	= this->_as_dbl;		break;
 	}
 	
 	return true;

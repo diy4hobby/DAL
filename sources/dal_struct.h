@@ -178,6 +178,16 @@ public:
 	bool			get_val_str(uint32_t idx, char*& value);
 	bool			get_val_str(uint32_t idx, dalStr_t& value);
 	bool			get_val_blob(uint32_t idx, dalBlob_t& value);
+	//Getting array values
+	bool			get_arr_bool(const char* key, bool* value, uint32_t& len);
+	bool			get_arr_int(const char* key, int* value, uint32_t& len);
+	bool			get_arr_uint(const char* key, unsigned int* value, uint32_t& len);
+	bool			get_arr_int32(const char* key, int32_t* value, uint32_t& len);
+	bool			get_arr_uint32(const char* key, uint32_t* value, uint32_t& len);
+	bool			get_arr_int64(const char* key, int64_t* value, uint32_t& len);
+	bool			get_arr_uint64(const char* key, uint64_t* value, uint32_t& len);
+	bool			get_arr_flt(const char* key, float* value, uint32_t& len);
+	bool			get_arr_dbl(const char* key, double* value, uint32_t& len);
 	//Serilization methods
 	uint32_t		to_mpack(uint8_t* buf, uint32_t size);
 	uint32_t		to_json(uint8_t* buf, uint32_t size, bool pretty = true);

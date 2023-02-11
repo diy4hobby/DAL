@@ -43,8 +43,11 @@ int main()
 
 	//Adding a child object - making the structure more complex
 	dal_t*		chldObj			= topObj->create_child("child_obj");
-	int			uArr[5]			= {50, 40, 30, 20, 10};
-	chldObj->add_arr_int("uint8_array", uArr, 5);
+	int			testArr[5]		= {50, 40, 30, 20, 10};
+	chldObj->add_arr_int("int_array", testArr, 5);
+	memset(testArr, 0, 5 * sizeof(int));
+	uint32_t	arrLen			= 5;
+	chldObj->get_arr_int("int_array", testArr, arrLen);
 
 	//Serialize the object in JSON to check the resulting structure
 	uint8_t		buf[4096]	= {0};

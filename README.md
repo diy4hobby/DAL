@@ -56,9 +56,12 @@ int main()
 	topObj->add_val_dbl("dbl_value", 10.987654321);
 
 	//Adding a child object - making the structure more complex
-	dal_t*		chldObj			= topObj->create_child();
-	int			uArr[5]			= {50, 40, 30, 20, 10};
-	chldObj->add_arr_int("uint8_array", uArr, 5);
+	dal_t*		chldObj			= topObj->create_child("child_obj");
+	int			testArr[5]		= {50, 40, 30, 20, 10};
+	chldObj->add_arr_int("int_array", testArr, 5);
+	memset(testArr, 0, 5 * sizeof(int));
+	uint32_t	arrLen			= 5;
+	chldObj->get_arr_int("int_array", testArr, arrLen);
 
 	//Serialize the object in JSON to check the resulting structure
 	uint8_t		buf[4096]	= {0};
@@ -113,4 +116,6 @@ Deseritization is supported from:
 2.0.3
 - Fixed a bug with mixing up the "add_val_ref" methods and "add_val_blob".
 ***
-
+2.1.0
+- Added methods for getting the contents of arrays. Methods are not safe - before calling methods, the developer must make sure that he has allocated enough memory to copy the values ​​of the array. The number of elements in an array can be obtained using the "get_array_size" method.
+***
