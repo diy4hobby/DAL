@@ -57,6 +57,11 @@ bool	dal_t::get_arr_int(const char* key, int* value, uint32_t& len)
 			case DT_INT:
 				tempVal	= child->_child[idx]._as_int;
 				break;
+			case DT_DOUBLE:
+				if (child->_child[idx]._as_dbl > 0x7FFFFFFFFFFFFFFF)			return false;
+				else	if (child->_child[idx]._as_dbl < 0x8000000000000000)	return false;
+						else	tempVal	= static_cast<int64_t>(child->_child[idx]._as_dbl);
+				break;
 		}
 
 		switch (sizeof(int))
@@ -112,7 +117,11 @@ bool	dal_t::get_arr_uint(const char* key, unsigned int* value, uint32_t& len)
 			case DT_INT:
 				if (child->_child[idx]._as_int & 0x8000000000000000)	return false;
 				else	tempVal	= child->_child[idx]._as_int;
-				
+				break;
+			case DT_DOUBLE:
+				if (child->_child[idx]._as_dbl > 0xFFFFFFFFFFFFFFFF)			return false;
+				else	if (child->_child[idx]._as_dbl < 0.0)					return false;
+						else	tempVal	= static_cast<uint64_t>(child->_child[idx]._as_dbl);
 				break;
 		}
 
@@ -168,6 +177,11 @@ bool	dal_t::get_arr_int32(const char* key, int32_t* value, uint32_t& len)
 			case DT_INT:
 				tempVal	= child->_child[idx]._as_int;
 				break;
+			case DT_DOUBLE:
+				if (child->_child[idx]._as_dbl > 2147483647)					return false;
+				else	if (child->_child[idx]._as_dbl < -2147483648)			return false;
+						else	tempVal	= static_cast<int64_t>(child->_child[idx]._as_dbl);
+				break;
 		}
 
 		if (tempVal > 2147483647)			return false;
@@ -208,6 +222,11 @@ bool	dal_t::get_arr_uint32(const char* key, uint32_t* value, uint32_t& len)
 				if (child->_child[idx]._as_int & 0x8000000000000000)	return false;
 				else	tempVal	= child->_child[idx]._as_int;
 				break;
+			case DT_DOUBLE:
+				if (child->_child[idx]._as_dbl > 0xFFFFFFFF)			return false;
+				else	if (child->_child[idx]._as_dbl < 0.0)			return false;
+						else	tempVal	= static_cast<uint64_t>(child->_child[idx]._as_dbl);
+				break;
 		}
 
 		if (tempVal > 0xFFFFFFFF)	return false;
@@ -245,6 +264,11 @@ bool	dal_t::get_arr_int64(const char* key, int64_t* value, uint32_t& len)
 			case DT_INT:
 				*value	= child->_child[idx]._as_int;
 				break;
+			case DT_DOUBLE:
+				if (child->_child[idx]._as_dbl > 0x7FFFFFFFFFFFFFFF)			return false;
+				else	if (child->_child[idx]._as_dbl < 0x8000000000000000)	return false;
+						else	*value	= static_cast<int64_t>(child->_child[idx]._as_dbl);
+				break;
 		}
 
 		value++;
@@ -278,6 +302,11 @@ bool	dal_t::get_arr_uint64(const char* key, uint64_t* value, uint32_t& len)
 			case DT_INT:
 				if (child->_child[idx]._as_int & 0x8000000000000000)	return false;
 				else	*value	= child->_child[idx]._as_int;
+				break;
+			case DT_DOUBLE:
+				if (child->_child[idx]._as_dbl > 0xFFFFFFFFFFFFFFFF)	return false;
+				else	if (child->_child[idx]._as_dbl < 0.0)			return false;
+						else	*value	= static_cast<uint64_t>(child->_child[idx]._as_dbl);
 				break;
 		}
 
@@ -350,7 +379,7 @@ bool	dal_t::get_arr_dbl(const char* key, double* value, uint32_t& len)
 				*value	= static_cast<double>(child->_child[idx]._as_int);
 				break;
 			case DT_DOUBLE:
-				*value	= child->_as_dbl;
+				*value	= child->_child[idx]._as_dbl;
 				break;
 		}
 

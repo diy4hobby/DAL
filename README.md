@@ -119,3 +119,6 @@ Deseritization is supported from:
 2.1.0
 - Added methods for getting the contents of arrays. Methods are not safe - before calling methods, the developer must make sure that he has allocated enough memory to copy the values ​​of the array. The number of elements in an array can be obtained using the "get_array_size" method.
 ***
+2.1.1
+- Minor improvements in getting array values.
+***
