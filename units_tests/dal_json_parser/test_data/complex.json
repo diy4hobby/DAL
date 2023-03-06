@@ -1,0 +1,3547 @@
+{
+    "byte_order": "little_endian",
+    "factory": [
+        {
+            "name": "fact_general_firmwareVer",
+            "type": "u32_arr_t",
+            "access": "read_only",
+            "index": 0,
+            "offset": 0,
+            "size": 12,
+            "value": [
+                2,
+                10,
+                0
+            ],
+            "defaultValue": [
+                2,
+                10,
+                0
+            ],
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "maxCount": 3
+        },
+        {
+            "name": "fact_general_firmwareStatus",
+            "type": "string_t",
+            "access": "read_only",
+            "index": 1,
+            "offset": 12,
+            "size": 128,
+            "value": "test_calib",
+            "maxLen": 128,
+            "defaultValue": "test_calib"
+        },
+        {
+            "name": "fact_general_hardwareVer",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 2,
+            "offset": 140,
+            "size": 4,
+            "value": 302388224,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 302388224
+        },
+        {
+            "name": "fact_general_productCode",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 3,
+            "offset": 144,
+            "size": 4,
+            "value": 627,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 627
+        },
+        {
+            "name": "fact_general_serial",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 4,
+            "offset": 148,
+            "size": 4,
+            "value": 190021,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 0
+        },
+        {
+            "name": "fact_general_pcbSerial",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 5,
+            "offset": 152,
+            "size": 4,
+            "value": 1410395246,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 0
+        },
+        {
+            "name": "fact_general_lifeTime",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 6,
+            "offset": 156,
+            "size": 4,
+            "value": 613564,
+            "min": 0,
+            "max": 1577846300,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "s"
+        },
+        {
+            "name": "fact_general_workTime",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 7,
+            "offset": 160,
+            "size": 4,
+            "value": 144214,
+            "min": 0,
+            "max": 1577846300,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "s"
+        },
+        {
+            "name": "fact_general_startsCount",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 8,
+            "offset": 164,
+            "size": 4,
+            "value": 334,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "times"
+        },
+        {
+            "name": "fact_general_customerID",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 9,
+            "offset": 168,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "id"
+        },
+        {
+            "name": "fact_general_fpgaFreq",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 10,
+            "offset": 172,
+            "size": 4,
+            "value": 100000000,
+            "min": 10000000,
+            "max": 500000000,
+            "step": 0,
+            "defaultValue": 100000000,
+            "units": "Hz"
+        },
+        {
+            "name": "fact_general_smr",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 11,
+            "offset": 176,
+            "size": 4,
+            "value": 25,
+            "min": 0,
+            "max": 10000,
+            "step": 0,
+            "defaultValue": 80,
+            "units": "mm"
+        },
+        {
+            "name": "fact_general_mr",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 12,
+            "offset": 180,
+            "size": 4,
+            "value": 10,
+            "min": 0,
+            "max": 10000,
+            "step": 0,
+            "defaultValue": 130,
+            "units": "mm"
+        },
+        {
+            "name": "fact_general_xsmr",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 13,
+            "offset": 184,
+            "size": 4,
+            "value": 8,
+            "min": 0,
+            "max": 10000,
+            "step": 0,
+            "defaultValue": 40,
+            "units": "mm"
+        },
+        {
+            "name": "fact_general_xemr",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 14,
+            "offset": 188,
+            "size": 4,
+            "value": 11,
+            "min": 0,
+            "max": 20000,
+            "step": 0,
+            "defaultValue": 86,
+            "units": "mm"
+        },
+        {
+            "name": "fact_general_pixDivider",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 15,
+            "offset": 192,
+            "size": 4,
+            "value": 32,
+            "min": 0,
+            "max": 65528,
+            "step": 8,
+            "defaultValue": 32
+        },
+        {
+            "name": "fact_general_profDivider",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 16,
+            "offset": 196,
+            "size": 4,
+            "value": 16384,
+            "min": 0,
+            "max": 65528,
+            "step": 8,
+            "defaultValue": 16384
+        },
+        {
+            "name": "fact_general_oemDevName",
+            "type": "string_t",
+            "access": "locked",
+            "index": 17,
+            "offset": 200,
+            "size": 128,
+            "value": "Laser scanner",
+            "maxLen": 128,
+            "defaultValue": "RF627"
+        },
+        {
+            "name": "fact_general_authStatus",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 18,
+            "offset": 328,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "AUTH_STATUS_USER",
+                    "label": "User"
+                },
+                {
+                    "value": 65535,
+                    "key": "AUTH_STATUS_FACTORY",
+                    "label": "Factory"
+                }
+            ]
+        },
+        {
+            "name": "fact_general_calibTimestamp",
+            "type": "uint64_t",
+            "access": "read_only",
+            "index": 19,
+            "offset": 332,
+            "size": 8,
+            "value": 1676443099,
+            "min": 0,
+            "max": 18446744073709551615,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "s"
+        },
+        {
+            "name": "fact_sensor_name",
+            "type": "string_t",
+            "access": "locked",
+            "index": 20,
+            "offset": 340,
+            "size": 64,
+            "value": "SENSOR TYPE 1",
+            "maxLen": 64,
+            "defaultValue": "SENSOR TYPE1"
+        },
+        {
+            "name": "fact_sensor_width",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 21,
+            "offset": 404,
+            "size": 4,
+            "value": 648,
+            "min": 1,
+            "max": 16384,
+            "step": 0,
+            "defaultValue": 648,
+            "units": "pixels"
+        },
+        {
+            "name": "fact_sensor_height",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 22,
+            "offset": 408,
+            "size": 4,
+            "value": 488,
+            "min": 1,
+            "max": 16384,
+            "step": 0,
+            "defaultValue": 488,
+            "units": "lines"
+        },
+        {
+            "name": "fact_sensor_pixFreq",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 23,
+            "offset": 412,
+            "size": 4,
+            "value": 40000000,
+            "min": 1000000,
+            "max": 500000000,
+            "step": 0,
+            "defaultValue": 40000000,
+            "units": "Hz"
+        },
+        {
+            "name": "fact_sensor_frmConstPart",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 24,
+            "offset": 416,
+            "size": 4,
+            "value": 3500,
+            "min": 200,
+            "max": 200000,
+            "step": 0,
+            "defaultValue": 4350,
+            "units": "ticks"
+        },
+        {
+            "name": "fact_sensor_frmPerLinePart",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 25,
+            "offset": 420,
+            "size": 4,
+            "value": 160,
+            "min": 10,
+            "max": 100000,
+            "step": 0,
+            "defaultValue": 160,
+            "units": "ticks"
+        },
+        {
+            "name": "fact_sensor_minExposure",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 26,
+            "offset": 424,
+            "size": 4,
+            "value": 3000,
+            "min": 0,
+            "max": 100000000,
+            "step": 10,
+            "defaultValue": 7000,
+            "units": "ns"
+        },
+        {
+            "name": "fact_sensor_maxExposure",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 27,
+            "offset": 428,
+            "size": 4,
+            "value": 300000000,
+            "min": 0,
+            "max": 300000000,
+            "step": 10,
+            "defaultValue": 300000000,
+            "units": "ns"
+        },
+        {
+            "name": "fact_network_macAddr",
+            "type": "u32_arr_t",
+            "access": "locked",
+            "index": 28,
+            "offset": 432,
+            "size": 24,
+            "value": [
+                0,
+                10,
+                53,
+                110,
+                2,
+                189
+            ],
+            "defaultValue": [
+                0,
+                10,
+                53,
+                1,
+                2,
+                3
+            ],
+            "min": 0,
+            "max": 255,
+            "step": 0,
+            "maxCount": 6
+        },
+        {
+            "name": "fact_network_forceAutoNegTime",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 29,
+            "offset": 456,
+            "size": 4,
+            "value": 5,
+            "min": 0,
+            "max": 255,
+            "step": 0,
+            "defaultValue": 5,
+            "units": "s"
+        },
+        {
+            "name": "fact_network_webSockServicePort",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 30,
+            "offset": 460,
+            "size": 4,
+            "value": 50002,
+            "min": 16384,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 50002
+        },
+        {
+            "name": "fact_network_webSockDataPort",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 31,
+            "offset": 464,
+            "size": 4,
+            "value": 50003,
+            "min": 16384,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 50003
+        },
+        {
+            "name": "fact_network_webSockMathPort",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 32,
+            "offset": 468,
+            "size": 4,
+            "value": 50004,
+            "min": 16384,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 50004
+        },
+        {
+            "name": "fact_laser_waveLength",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 33,
+            "offset": 472,
+            "size": 4,
+            "value": 660,
+            "min": 0,
+            "max": 10000,
+            "step": 0,
+            "defaultValue": 650,
+            "units": "nm"
+        },
+        {
+            "name": "fact_laser_minValue",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 34,
+            "offset": 476,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 4095,
+            "step": 0,
+            "defaultValue": 0
+        },
+        {
+            "name": "fact_laser_maxValue",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 35,
+            "offset": 480,
+            "size": 4,
+            "value": 4095,
+            "min": 0,
+            "max": 4095,
+            "step": 0,
+            "defaultValue": 4095
+        },
+        {
+            "name": "fact_laser_preemption",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 36,
+            "offset": 484,
+            "size": 4,
+            "value": 7,
+            "min": 0,
+            "max": 1000000,
+            "step": 0,
+            "defaultValue": 7000,
+            "units": "ns"
+        },
+        {
+            "name": "fact_laser_lifeTime",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 37,
+            "offset": 488,
+            "size": 4,
+            "value": 116915,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "s"
+        },
+        {
+            "name": "fact_eip_identity_vendorID",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 38,
+            "offset": 492,
+            "size": 4,
+            "value": 1588,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 1588
+        },
+        {
+            "name": "fact_eip_identity_deviceType",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 39,
+            "offset": 496,
+            "size": 4,
+            "value": 43,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 43
+        },
+        {
+            "name": "fact_eip_identity_productCode",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 40,
+            "offset": 500,
+            "size": 4,
+            "value": 627,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 627
+        },
+        {
+            "name": "fact_serviceProtocol_maxPacketSize",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 41,
+            "offset": 504,
+            "size": 4,
+            "value": 1200,
+            "min": 256,
+            "max": 65000,
+            "step": 0,
+            "defaultValue": 1200,
+            "units": "bytes"
+        },
+        {
+            "name": "fact_license_smartPackages",
+            "type": "set_t",
+            "access": "locked",
+            "index": 42,
+            "offset": 508,
+            "size": 4,
+            "value": 1,
+            "defaultValue": 1,
+            "valuesSet": [
+                {
+                    "value": 1,
+                    "key": "LICENSE_PACKAGE_SMART",
+                    "label": "Base"
+                },
+                {
+                    "value": 2,
+                    "key": "LICENSE_PACKAGE_INDUSTRIAL",
+                    "label": "Industrial"
+                },
+                {
+                    "value": 4,
+                    "key": "LICENSE_PACKAGE_WELD",
+                    "label": "Weld"
+                }
+            ]
+        },
+        {
+            "name": "fact_dump_unitSize",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 43,
+            "offset": 512,
+            "size": 4,
+            "value": 8256,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 8256,
+            "units": "bytes"
+        },
+        {
+            "name": "fact_sensor_imgFlip",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 44,
+            "offset": 516,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 3,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FLIP_MODE_OFF",
+                    "label": "No"
+                },
+                {
+                    "value": 1,
+                    "key": "FLIP_MODE_X",
+                    "label": "X"
+                },
+                {
+                    "value": 2,
+                    "key": "FLIP_MODE_Z",
+                    "label": "Z"
+                },
+                {
+                    "value": 3,
+                    "key": "FLIP_MODE_XZ",
+                    "label": "XZ"
+                }
+            ]
+        },
+        {
+            "name": "fact_sensor_analogGain",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 45,
+            "offset": 520,
+            "size": 4,
+            "value": 7,
+            "min": 0,
+            "max": 7,
+            "step": 0,
+            "defaultValue": 7
+        },
+        {
+            "name": "fact_sensor_digitalGain",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 46,
+            "offset": 524,
+            "size": 4,
+            "value": 36,
+            "min": 0,
+            "max": 55,
+            "step": 0,
+            "defaultValue": 36
+        },
+        {
+            "name": "fact_sensor_blackOdd",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 47,
+            "offset": 528,
+            "size": 4,
+            "value": 2600,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 2600
+        },
+        {
+            "name": "fact_sensor_blackEven",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 48,
+            "offset": 532,
+            "size": 4,
+            "value": 2650,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 2650
+        },
+        {
+            "name": "fact_sensor_initRegs",
+            "type": "u32_arr_t",
+            "access": "read_only",
+            "index": 49,
+            "offset": 536,
+            "size": 144,
+            "value": [
+                41,
+                1,
+                83,
+                155,
+                58,
+                20,
+                59,
+                0,
+                60,
+                11,
+                69,
+                9,
+                80,
+                4,
+                97,
+                0,
+                98,
+                12,
+                101,
+                98,
+                102,
+                34,
+                103,
+                64,
+                106,
+                90,
+                107,
+                110,
+                108,
+                91,
+                109,
+                82,
+                110,
+                80,
+                117,
+                91
+            ],
+            "defaultValue": [
+                41,
+                1,
+                83,
+                155,
+                58,
+                20,
+                59,
+                0,
+                60,
+                11,
+                69,
+                9,
+                80,
+                4,
+                97,
+                0,
+                98,
+                12,
+                101,
+                98,
+                102,
+                34,
+                103,
+                64,
+                106,
+                90,
+                107,
+                110,
+                108,
+                91,
+                109,
+                82,
+                110,
+                80,
+                117,
+                91
+            ],
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "maxCount": 64
+        },
+        {
+            "name": "fact_sensor_edrPiecewiseDiv1",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 50,
+            "offset": 792,
+            "size": 4,
+            "value": 32,
+            "min": 1,
+            "max": 255,
+            "step": 0,
+            "defaultValue": 32
+        },
+        {
+            "name": "fact_sensor_edrPiecewiseDiv2",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 51,
+            "offset": 796,
+            "size": 4,
+            "value": 64,
+            "min": 1,
+            "max": 255,
+            "step": 0,
+            "defaultValue": 64
+        }
+    ],
+    "user": [
+        {
+            "name": "user_general_deviceState",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 52,
+            "offset": 800,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 524288,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "DEV_STATE_NORMAL",
+                    "label": "Normal operation"
+                },
+                {
+                    "value": 1,
+                    "key": "DEV_STATE_CALIB_FILE_RCV",
+                    "label": "Receiving of the calibration file"
+                },
+                {
+                    "value": 2,
+                    "key": "DEV_STATE_CALIB_FILE_SND",
+                    "label": "Sending of the calibration file"
+                },
+                {
+                    "value": 4,
+                    "key": "DEV_STATE_CALIB_FILE_SAVE",
+                    "label": "Saving of the calibration file"
+                },
+                {
+                    "value": 8,
+                    "key": "DEV_STATE_FLASH_ERASE",
+                    "label": "Erasing of the flash memory"
+                },
+                {
+                    "value": 16,
+                    "key": "DEV_STATE_FLASH_SEC_RCV",
+                    "label": "Receiving of the flash sector data"
+                },
+                {
+                    "value": 32,
+                    "key": "DEV_STATE_FLASH_SEC_SND",
+                    "label": "Sending of the flash sector data"
+                },
+                {
+                    "value": 64,
+                    "key": "DEV_STATE_FLASH_SEC_SAVE",
+                    "label": "Saving of the flash sector"
+                },
+                {
+                    "value": 128,
+                    "key": "DEV_STATE_FIRMWARE_RCV",
+                    "label": "Receiving of the firmware data"
+                },
+                {
+                    "value": 256,
+                    "key": "DEV_STATE_FIRMWARE_SND",
+                    "label": "Sending of the firmware data"
+                },
+                {
+                    "value": 512,
+                    "key": "DEV_STATE_FIRMWARE_SAVE",
+                    "label": "Saving of the firmware"
+                },
+                {
+                    "value": 2048,
+                    "key": "DEV_STATE_DUMP_DOWNLOAD",
+                    "label": "Downloading dump data"
+                },
+                {
+                    "value": 4096,
+                    "key": "DEV_STATE_ETH_EXCESS",
+                    "label": "Required connection speed exceeds current"
+                },
+                {
+                    "value": 524288,
+                    "key": "DEV_STATE_HARDWARE_INIT",
+                    "label": "Initializing of the device hardware"
+                }
+            ]
+        },
+        {
+            "name": "user_general_deviceName",
+            "type": "string_t",
+            "access": "write",
+            "index": 53,
+            "offset": 804,
+            "size": 128,
+            "value": "RF627ser scanner",
+            "maxLen": 128,
+            "defaultValue": "2D laser scanner"
+        },
+        {
+            "name": "user_general_logSaveEnabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 54,
+            "offset": 932,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_general_logSize",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 55,
+            "offset": 936,
+            "size": 4,
+            "value": 111,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 0
+        },
+        {
+            "name": "user_sysMon_fpgaTemp",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 56,
+            "offset": 940,
+            "size": 4,
+            "value": 52.609588623046875,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_paramsChanged",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 57,
+            "offset": 944,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 7,
+            "step": 0,
+            "defaultValue": 0
+        },
+        {
+            "name": "user_sysMon_tempSens00",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 58,
+            "offset": 948,
+            "size": 4,
+            "value": 43.0625,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens00Max",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 59,
+            "offset": 952,
+            "size": 4,
+            "value": 54,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens00Min",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 60,
+            "offset": 956,
+            "size": 4,
+            "value": 43,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens01",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 61,
+            "offset": 960,
+            "size": 4,
+            "value": -100,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens01Max",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 62,
+            "offset": 964,
+            "size": 4,
+            "value": 0,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens01Min",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 63,
+            "offset": 968,
+            "size": 4,
+            "value": -100,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens10",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 64,
+            "offset": 972,
+            "size": 4,
+            "value": -100,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens10Max",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 65,
+            "offset": 976,
+            "size": 4,
+            "value": 0,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens10Min",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 66,
+            "offset": 980,
+            "size": 4,
+            "value": -100,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens11",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 67,
+            "offset": 984,
+            "size": 4,
+            "value": -100,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens11Max",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 68,
+            "offset": 988,
+            "size": 4,
+            "value": 0,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_tempSens11Min",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 69,
+            "offset": 992,
+            "size": 4,
+            "value": -100,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sysMon_cmosSensorTemp",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 70,
+            "offset": 996,
+            "size": 4,
+            "value": 51.16935729980469,
+            "min": -100,
+            "max": 150,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "В°C"
+        },
+        {
+            "name": "user_sensor_syncSource",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 71,
+            "offset": 1000,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 3,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "SYNC_INTERNAL",
+                    "label": "Internal"
+                },
+                {
+                    "value": 1,
+                    "key": "SYNC_EXTERNAL",
+                    "label": "External"
+                },
+                {
+                    "value": 2,
+                    "key": "SYNC_SOFTWARE_EXT",
+                    "label": "Software, external"
+                },
+                {
+                    "value": 3,
+                    "key": "SYNC_SOFTWARE",
+                    "label": "Software, internal"
+                }
+            ]
+        },
+        {
+            "name": "user_sensor_framerate",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 72,
+            "offset": 1004,
+            "size": 4,
+            "value": 490,
+            "min": 1,
+            "max": 100000,
+            "step": 0,
+            "defaultValue": 485,
+            "units": "Hz"
+        },
+        {
+            "name": "user_sensor_maxFramerate",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 73,
+            "offset": 1008,
+            "size": 4,
+            "value": 490,
+            "min": 1,
+            "max": 100000,
+            "step": 0,
+            "defaultValue": 485,
+            "units": "Hz"
+        },
+        {
+            "name": "user_sensor_exposureControl",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 74,
+            "offset": 1012,
+            "size": 4,
+            "value": 1,
+            "min": 0,
+            "max": 5,
+            "step": 0,
+            "defaultValue": 1,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "EXPOSE_AUTO",
+                    "label": "Auto"
+                },
+                {
+                    "value": 1,
+                    "key": "EXPOSE_FIXED",
+                    "label": "Fixed"
+                },
+                {
+                    "value": 2,
+                    "key": "EXPOSE_ADJUST",
+                    "label": "Adjust"
+                },
+                {
+                    "value": 3,
+                    "key": "EXPOSE_MULTI_2",
+                    "label": "2 exposures"
+                },
+                {
+                    "value": 4,
+                    "key": "EXPOSE_MULTI_3",
+                    "label": "3 exposures"
+                },
+                {
+                    "value": 5,
+                    "key": "EXPOSE_DIFF",
+                    "label": "Difference"
+                }
+            ]
+        },
+        {
+            "name": "user_sensor_exposure1",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 75,
+            "offset": 1016,
+            "size": 4,
+            "value": 1187210,
+            "min": 3000,
+            "max": 300000000,
+            "step": 0,
+            "defaultValue": 300000,
+            "units": "ns"
+        },
+        {
+            "name": "user_sensor_exposure2",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 76,
+            "offset": 1020,
+            "size": 4,
+            "value": 300000,
+            "min": 3000,
+            "max": 300000000,
+            "step": 0,
+            "defaultValue": 300000,
+            "units": "ns"
+        },
+        {
+            "name": "user_sensor_exposure3",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 77,
+            "offset": 1024,
+            "size": 4,
+            "value": 300000,
+            "min": 3000,
+            "max": 300000000,
+            "step": 0,
+            "defaultValue": 300000,
+            "units": "ns"
+        },
+        {
+            "name": "user_sensor_exposureAdjust",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 78,
+            "offset": 1028,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_sensor_maxExposure",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 79,
+            "offset": 1032,
+            "size": 4,
+            "value": 1997050,
+            "min": 3000,
+            "max": 3000000000,
+            "step": 0,
+            "defaultValue": 1443000,
+            "units": "ns"
+        },
+        {
+            "name": "user_sensor_defectivePixels",
+            "type": "u32_arr_t",
+            "access": "write",
+            "index": 80,
+            "offset": 1036,
+            "size": 128,
+            "value": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "defaultValue": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "min": 0,
+            "max": 4096,
+            "step": 0,
+            "maxCount": 32
+        },
+        {
+            "name": "user_roi_enabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 81,
+            "offset": 1164,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_roi_active",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 82,
+            "offset": 1168,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_roi_mode",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 83,
+            "offset": 1172,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 2,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "ROI_MODE_MANUAL",
+                    "label": "Manual"
+                },
+                {
+                    "value": 1,
+                    "key": "ROI_MODE_AUTO",
+                    "label": "Auto"
+                },
+                {
+                    "value": 2,
+                    "key": "ROI_MODE_AUTOSCAN",
+                    "label": "Auto-scan"
+                }
+            ]
+        },
+        {
+            "name": "user_roi_pos",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 84,
+            "offset": 1176,
+            "size": 4,
+            "value": 100,
+            "min": 0,
+            "max": 1280,
+            "step": 0,
+            "defaultValue": 100,
+            "units": "lines"
+        },
+        {
+            "name": "user_roi_maxPos",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 85,
+            "offset": 1180,
+            "size": 4,
+            "value": 424,
+            "min": 0,
+            "max": 1280,
+            "step": 0,
+            "defaultValue": 1180,
+            "units": "lines"
+        },
+        {
+            "name": "user_roi_reqProfSize",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 86,
+            "offset": 1184,
+            "size": 4,
+            "value": 320,
+            "min": 0,
+            "max": 1280,
+            "step": 64,
+            "defaultValue": 320,
+            "units": "points"
+        },
+        {
+            "name": "user_roi_zsmr",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 87,
+            "offset": 1188,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 10000,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "mm"
+        },
+        {
+            "name": "user_roi_zemr",
+            "type": "float_t",
+            "access": "read_only",
+            "index": 88,
+            "offset": 1192,
+            "size": 4,
+            "value": 10,
+            "min": 0,
+            "max": 10000,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "mm"
+        },
+        {
+            "name": "user_network_speed",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 89,
+            "offset": 1196,
+            "size": 4,
+            "value": 1000,
+            "min": 10,
+            "max": 1000,
+            "step": 0,
+            "defaultValue": 1000,
+            "valuesEnum": [
+                {
+                    "value": 10,
+                    "key": "LINK_SPEED_10MBIT",
+                    "label": "10"
+                },
+                {
+                    "value": 100,
+                    "key": "LINK_SPEED_100MBIT",
+                    "label": "100"
+                },
+                {
+                    "value": 1000,
+                    "key": "LINK_SPEED_1GBIT",
+                    "label": "1000"
+                }
+            ],
+            "units": "Mbps"
+        },
+        {
+            "name": "user_network_requiredSpeed",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 90,
+            "offset": 1200,
+            "size": 4,
+            "value": 9,
+            "min": 1,
+            "max": 10000,
+            "step": 0,
+            "defaultValue": 1,
+            "units": "Mbps"
+        },
+        {
+            "name": "user_network_autoNeg",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 91,
+            "offset": 1204,
+            "size": 4,
+            "value": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 1,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_network_ip",
+            "type": "u32_arr_t",
+            "access": "write",
+            "index": 92,
+            "offset": 1208,
+            "size": 16,
+            "value": [
+                192,
+                168,
+                1,
+                30
+            ],
+            "defaultValue": [
+                192,
+                168,
+                1,
+                30
+            ],
+            "min": 0,
+            "max": 255,
+            "step": 0,
+            "maxCount": 4
+        },
+        {
+            "name": "user_network_mask",
+            "type": "u32_arr_t",
+            "access": "write",
+            "index": 93,
+            "offset": 1224,
+            "size": 16,
+            "value": [
+                255,
+                255,
+                255,
+                0
+            ],
+            "defaultValue": [
+                255,
+                255,
+                255,
+                0
+            ],
+            "min": 0,
+            "max": 255,
+            "step": 0,
+            "maxCount": 4
+        },
+        {
+            "name": "user_network_gateway",
+            "type": "u32_arr_t",
+            "access": "write",
+            "index": 94,
+            "offset": 1240,
+            "size": 16,
+            "value": [
+                192,
+                168,
+                1,
+                1
+            ],
+            "defaultValue": [
+                192,
+                168,
+                1,
+                1
+            ],
+            "min": 0,
+            "max": 255,
+            "step": 0,
+            "maxCount": 4
+        },
+        {
+            "name": "user_network_hostIP",
+            "type": "u32_arr_t",
+            "access": "write",
+            "index": 95,
+            "offset": 1256,
+            "size": 16,
+            "value": [
+                192,
+                168,
+                1,
+                2
+            ],
+            "defaultValue": [
+                192,
+                168,
+                1,
+                2
+            ],
+            "min": 0,
+            "max": 255,
+            "step": 0,
+            "maxCount": 4
+        },
+        {
+            "name": "user_network_hostPort",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 96,
+            "offset": 1272,
+            "size": 4,
+            "value": 50010,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 50022
+        },
+        {
+            "name": "user_network_webPort",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 97,
+            "offset": 1276,
+            "size": 4,
+            "value": 80,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 80
+        },
+        {
+            "name": "user_network_servicePort",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 98,
+            "offset": 1280,
+            "size": 4,
+            "value": 50011,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 50011
+        },
+        {
+            "name": "user_streams_udpEnabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 99,
+            "offset": 1284,
+            "size": 4,
+            "value": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_streams_format",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 100,
+            "offset": 1288,
+            "size": 4,
+            "value": 16,
+            "min": 16,
+            "max": 32,
+            "step": 0,
+            "defaultValue": 17,
+            "valuesEnum": [
+                {
+                    "value": 16,
+                    "key": "DATA_FORMAT_RAW_PROFILE",
+                    "label": "RAW"
+                },
+                {
+                    "value": 17,
+                    "key": "DATA_FORMAT_PROFILE",
+                    "label": "Profile"
+                },
+                {
+                    "value": 32,
+                    "key": "DATA_FORMAT_METRIC",
+                    "label": "Metric"
+                }
+            ]
+        },
+        {
+            "name": "user_streams_includeIntensity",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 101,
+            "offset": 1292,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_streams_udpPacketsCounter",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 102,
+            "offset": 1296,
+            "size": 4,
+            "value": 71675723,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 0
+        },
+        {
+            "name": "user_processing_intensityClipping",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 103,
+            "offset": 1300,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "defaultValue": 1,
+            "units": "%"
+        },
+        {
+            "name": "user_processing_threshold",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 104,
+            "offset": 1304,
+            "size": 4,
+            "value": 8,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "defaultValue": 2,
+            "units": "%"
+        },
+        {
+            "name": "user_processing_signalWidthMin",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 105,
+            "offset": 1308,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 15,
+            "step": 1,
+            "defaultValue": 0,
+            "units": "points"
+        },
+        {
+            "name": "user_processing_signalWidthMax",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 106,
+            "offset": 1312,
+            "size": 4,
+            "value": 15,
+            "min": 1,
+            "max": 15,
+            "step": 1,
+            "defaultValue": 15,
+            "units": "points"
+        },
+        {
+            "name": "user_processing_profPerSec",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 107,
+            "offset": 1316,
+            "size": 4,
+            "value": 490,
+            "min": 0,
+            "max": 100000,
+            "step": 0,
+            "defaultValue": 490,
+            "units": "pps"
+        },
+        {
+            "name": "user_processing_medianMode",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 108,
+            "offset": 1320,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 15,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "OFF",
+                    "label": "Off"
+                },
+                {
+                    "value": 3,
+                    "key": "3",
+                    "label": "3"
+                },
+                {
+                    "value": 5,
+                    "key": "5",
+                    "label": "5"
+                },
+                {
+                    "value": 7,
+                    "key": "7",
+                    "label": "7"
+                },
+                {
+                    "value": 9,
+                    "key": "9",
+                    "label": "9"
+                },
+                {
+                    "value": 11,
+                    "key": "11",
+                    "label": "11"
+                },
+                {
+                    "value": 13,
+                    "key": "13",
+                    "label": "13"
+                },
+                {
+                    "value": 15,
+                    "key": "15",
+                    "label": "15"
+                }
+            ]
+        },
+        {
+            "name": "user_processing_bilateralMode",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 109,
+            "offset": 1324,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 15,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "OFF",
+                    "label": "Off"
+                },
+                {
+                    "value": 3,
+                    "key": "3",
+                    "label": "3"
+                },
+                {
+                    "value": 5,
+                    "key": "5",
+                    "label": "5"
+                },
+                {
+                    "value": 7,
+                    "key": "7",
+                    "label": "7"
+                },
+                {
+                    "value": 9,
+                    "key": "9",
+                    "label": "9"
+                },
+                {
+                    "value": 11,
+                    "key": "11",
+                    "label": "11"
+                },
+                {
+                    "value": 13,
+                    "key": "13",
+                    "label": "13"
+                },
+                {
+                    "value": 15,
+                    "key": "15",
+                    "label": "15"
+                }
+            ]
+        },
+        {
+            "name": "user_processing_peakMode",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 110,
+            "offset": 1328,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 5,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "PEAK_MODE_INTENSITY",
+                    "label": "Max intensity"
+                },
+                {
+                    "value": 1,
+                    "key": "PEAK_MODE_FIRST",
+                    "label": "First"
+                },
+                {
+                    "value": 2,
+                    "key": "PEAK_MODE_LAST",
+                    "label": "Last"
+                },
+                {
+                    "value": 3,
+                    "key": "PEAK_MODE_NUMBER_2",
+                    "label": "Prefer #2"
+                },
+                {
+                    "value": 4,
+                    "key": "PEAK_MODE_NUMBER_3",
+                    "label": "Prefer #3"
+                },
+                {
+                    "value": 5,
+                    "key": "PEAK_MODE_NUMBER_4",
+                    "label": "Prefer #4"
+                }
+            ]
+        },
+        {
+            "name": "user_processing_flip",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 111,
+            "offset": 1332,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 3,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FLIP_MODE_OFF",
+                    "label": "No"
+                },
+                {
+                    "value": 1,
+                    "key": "FLIP_MODE_X",
+                    "label": "X"
+                },
+                {
+                    "value": 2,
+                    "key": "FLIP_MODE_Z",
+                    "label": "Z"
+                },
+                {
+                    "value": 3,
+                    "key": "FLIP_MODE_XZ",
+                    "label": "XZ"
+                }
+            ]
+        },
+        {
+            "name": "user_laser_enabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 112,
+            "offset": 1336,
+            "size": 4,
+            "value": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 1,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_laser_value",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 113,
+            "offset": 1340,
+            "size": 4,
+            "value": 26,
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "defaultValue": 0,
+            "units": "%"
+        },
+        {
+            "name": "user_trigger_sync_source",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 114,
+            "offset": 1344,
+            "size": 4,
+            "value": 1,
+            "min": 1,
+            "max": 4,
+            "step": 0,
+            "defaultValue": 1,
+            "valuesEnum": [
+                {
+                    "value": 1,
+                    "key": "TRIG_SOURCE_IN1",
+                    "label": "Input #1"
+                },
+                {
+                    "value": 2,
+                    "key": "TRIG_SOURCE_IN2",
+                    "label": "Input #2"
+                },
+                {
+                    "value": 3,
+                    "key": "TRIG_SOURCE_IN1_OR_IN2",
+                    "label": "Inputs #1 OR #2"
+                },
+                {
+                    "value": 4,
+                    "key": "TRIG_SOURCE_IN1_AND_IN2",
+                    "label": "Inputs #1 AND #2"
+                }
+            ]
+        },
+        {
+            "name": "user_trigger_sync_strictEnabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 115,
+            "offset": 1348,
+            "size": 4,
+            "value": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 1,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_trigger_sync_divider",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 116,
+            "offset": 1352,
+            "size": 4,
+            "value": 1,
+            "min": 1,
+            "max": 8192,
+            "step": 1,
+            "defaultValue": 1
+        },
+        {
+            "name": "user_trigger_sync_delay",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 117,
+            "offset": 1356,
+            "size": 4,
+            "value": 700,
+            "min": 700,
+            "max": 100000000,
+            "step": 100,
+            "defaultValue": 700,
+            "units": "ns"
+        },
+        {
+            "name": "user_trigger_sync_value",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 118,
+            "offset": 1360,
+            "size": 4,
+            "value": 71676502,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 0
+        },
+        {
+            "name": "user_trigger_counter_type",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 119,
+            "offset": 1364,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "TRIG_COUNTER_UNIDIR",
+                    "label": "Unidirectional"
+                },
+                {
+                    "value": 1,
+                    "key": "TRIG_COUNTER_BIDIR",
+                    "label": "Bidirectional"
+                }
+            ]
+        },
+        {
+            "name": "user_trigger_counter_maxValue",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 120,
+            "offset": 1368,
+            "size": 4,
+            "value": 4294967295,
+            "min": 1,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 4294967295
+        },
+        {
+            "name": "user_trigger_counter_resetTimerEnabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 121,
+            "offset": 1372,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_trigger_counter_resetTimerValue",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 122,
+            "offset": 1376,
+            "size": 4,
+            "value": 4294967295,
+            "min": 1000,
+            "max": 4294967000,
+            "step": 1000,
+            "defaultValue": 4294967295,
+            "units": "ns"
+        },
+        {
+            "name": "user_trigger_counter_value",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 123,
+            "offset": 1380,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 0
+        },
+        {
+            "name": "user_trigger_counter_dir",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 124,
+            "offset": 1384,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "defaultValue": 0
+        },
+        {
+            "name": "user_input1_enabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 125,
+            "offset": 1388,
+            "size": 4,
+            "value": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_input1_mode",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 126,
+            "offset": 1392,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 5,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "IN1_MODE_RISE_OR_FALL",
+                    "label": "Rise or fall"
+                },
+                {
+                    "value": 1,
+                    "key": "IN1_MODE_RISE",
+                    "label": "Rise"
+                },
+                {
+                    "value": 2,
+                    "key": "IN1_MODE_FALL",
+                    "label": "Fall"
+                },
+                {
+                    "value": 3,
+                    "key": "IN1_MODE_LVL1",
+                    "label": "High level"
+                },
+                {
+                    "value": 4,
+                    "key": "IN1_MODE_LVL0",
+                    "label": "Low level"
+                },
+                {
+                    "value": 5,
+                    "key": "IN1_MODE_UART",
+                    "label": "USART IN"
+                }
+            ]
+        },
+        {
+            "name": "user_input2_enabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 127,
+            "offset": 1396,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_input2_mode",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 128,
+            "offset": 1400,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 5,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "IN2_MODE_RISE_OR_FALL",
+                    "label": "Rise or fall"
+                },
+                {
+                    "value": 1,
+                    "key": "IN2_MODE_RISE",
+                    "label": "Rise"
+                },
+                {
+                    "value": 2,
+                    "key": "IN2_MODE_FALL",
+                    "label": "Fall"
+                },
+                {
+                    "value": 3,
+                    "key": "IN2_MODE_LVL1",
+                    "label": "High level"
+                },
+                {
+                    "value": 4,
+                    "key": "IN2_MODE_LVL0",
+                    "label": "Low level"
+                },
+                {
+                    "value": 5,
+                    "key": "IN2_MODE_UART",
+                    "label": "USART IN"
+                }
+            ]
+        },
+        {
+            "name": "user_input3_enabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 129,
+            "offset": 1404,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_input3_mode",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 130,
+            "offset": 1408,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "IN3_MODE_RISE",
+                    "label": "Rise"
+                },
+                {
+                    "value": 1,
+                    "key": "IN3_MODE_FALL",
+                    "label": "Fall"
+                }
+            ]
+        },
+        {
+            "name": "user_input1_samples",
+            "type": "u32_arr_t",
+            "access": "read_only",
+            "index": 131,
+            "offset": 1412,
+            "size": 24,
+            "value": [
+                4294967295,
+                4294967295,
+                4294967295,
+                4294967295,
+                4294967295,
+                4294967295
+            ],
+            "defaultValue": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "maxCount": 6
+        },
+        {
+            "name": "user_input2_samples",
+            "type": "u32_arr_t",
+            "access": "read_only",
+            "index": 132,
+            "offset": 1436,
+            "size": 24,
+            "value": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "defaultValue": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "maxCount": 6
+        },
+        {
+            "name": "user_input3_samples",
+            "type": "u32_arr_t",
+            "access": "read_only",
+            "index": 133,
+            "offset": 1460,
+            "size": 24,
+            "value": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "defaultValue": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0
+            ],
+            "min": 0,
+            "max": 4294967295,
+            "step": 0,
+            "maxCount": 6
+        },
+        {
+            "name": "user_output1_enabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 134,
+            "offset": 1484,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_output1_mode",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 135,
+            "offset": 1488,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 6,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "OUT_MODE_EXPOSE_START",
+                    "label": "Exposure start"
+                },
+                {
+                    "value": 1,
+                    "key": "OUT_MODE_EXPOSE_TIME",
+                    "label": "Exposure time"
+                },
+                {
+                    "value": 2,
+                    "key": "OUT_MODE_IN1_REPEATER",
+                    "label": "In1 repeater"
+                },
+                {
+                    "value": 3,
+                    "key": "OUT_MODE_IN2_REPEATER",
+                    "label": "In2 repeater"
+                },
+                {
+                    "value": 4,
+                    "key": "OUT_MODE_IN3_REPEATER",
+                    "label": "In3 repeater"
+                },
+                {
+                    "value": 5,
+                    "key": "OUT_MODE_CPU_DEFINED",
+                    "label": "Logic"
+                },
+                {
+                    "value": 6,
+                    "key": "OUT_MODE_UART",
+                    "label": "USART OUT"
+                }
+            ]
+        },
+        {
+            "name": "user_output1_pulseWidth",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 136,
+            "offset": 1492,
+            "size": 4,
+            "value": 1000,
+            "min": 10,
+            "max": 1000000,
+            "step": 10,
+            "defaultValue": 1000,
+            "units": "ns"
+        },
+        {
+            "name": "user_output2_enabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 137,
+            "offset": 1496,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_output2_mode",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 138,
+            "offset": 1500,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 6,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "OUT_MODE_EXPOSE_START",
+                    "label": "Exposure start"
+                },
+                {
+                    "value": 1,
+                    "key": "OUT_MODE_EXPOSE_TIME",
+                    "label": "Exposure time"
+                },
+                {
+                    "value": 2,
+                    "key": "OUT_MODE_IN1_REPEATER",
+                    "label": "In1 repeater"
+                },
+                {
+                    "value": 3,
+                    "key": "OUT_MODE_IN2_REPEATER",
+                    "label": "In2 repeater"
+                },
+                {
+                    "value": 4,
+                    "key": "OUT_MODE_IN3_REPEATER",
+                    "label": "In3 repeater"
+                },
+                {
+                    "value": 5,
+                    "key": "OUT_MODE_CPU_DEFINED",
+                    "label": "Logic"
+                },
+                {
+                    "value": 6,
+                    "key": "OUT_MODE_UART",
+                    "label": "USART OUT"
+                }
+            ]
+        },
+        {
+            "name": "user_output2_pulseWidth",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 139,
+            "offset": 1504,
+            "size": 4,
+            "value": 1000,
+            "min": 10,
+            "max": 1000000,
+            "step": 10,
+            "defaultValue": 1000,
+            "units": "ns"
+        },
+        {
+            "name": "user_dump_enabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 140,
+            "offset": 1508,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_dump_capacity",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 141,
+            "offset": 1512,
+            "size": 4,
+            "value": 81284,
+            "min": 1,
+            "max": 81284,
+            "step": 0,
+            "defaultValue": 81284,
+            "units": "profiles"
+        },
+        {
+            "name": "user_dump_size",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 142,
+            "offset": 1516,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 81284,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "profiles"
+        },
+        {
+            "name": "user_dump_timeStamp",
+            "type": "uint64_t",
+            "access": "read_only",
+            "index": 143,
+            "offset": 1520,
+            "size": 8,
+            "value": 0,
+            "min": 0,
+            "max": 18446744073709551615,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "ticks"
+        },
+        {
+            "name": "user_dump_view3d_motionType",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 144,
+            "offset": 1528,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "MOTION_TYPE_LINEAR",
+                    "label": "Linear"
+                },
+                {
+                    "value": 1,
+                    "key": "MOTION_TYPE_RADIAL",
+                    "label": "Radial"
+                }
+            ]
+        },
+        {
+            "name": "user_dump_view3d_ySource",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 145,
+            "offset": 1532,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 2,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "Y_AXIS_SYSTEM_TIME",
+                    "label": "System time"
+                },
+                {
+                    "value": 1,
+                    "key": "Y_AXIS_STEP_COUNTER",
+                    "label": "Step counter"
+                },
+                {
+                    "value": 2,
+                    "key": "Y_AXIS_MEASURES_COUNTER",
+                    "label": "Measures counter"
+                }
+            ]
+        },
+        {
+            "name": "user_dump_view3d_yStep",
+            "type": "double_t",
+            "access": "write",
+            "index": 146,
+            "offset": 1536,
+            "size": 8,
+            "value": 5.000000237487257e-4,
+            "min": 0,
+            "max": 10000,
+            "step": 0,
+            "defaultValue": 0.0005,
+            "units": "mm"
+        },
+        {
+            "name": "user_dump_view3d_paintMode",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 147,
+            "offset": 1544,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "PAINT_MODE_HEIGHTMAP",
+                    "label": "Heightmap"
+                },
+                {
+                    "value": 1,
+                    "key": "PAINT_MODE_INTENSITY",
+                    "label": "Intensity"
+                }
+            ]
+        },
+        {
+            "name": "user_dump_view3d_decimation",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 148,
+            "offset": 1548,
+            "size": 4,
+            "value": 1,
+            "min": 1,
+            "max": 200,
+            "step": 0,
+            "defaultValue": 1,
+            "valuesEnum": [
+                {
+                    "value": 1,
+                    "key": "DUMP_VIEW3D_DECIM_1",
+                    "label": "No"
+                },
+                {
+                    "value": 2,
+                    "key": "DUMP_VIEW3D_DECIM_2",
+                    "label": "2"
+                },
+                {
+                    "value": 5,
+                    "key": "DUMP_VIEW3D_DECIM_5",
+                    "label": "5"
+                },
+                {
+                    "value": 10,
+                    "key": "DUMP_VIEW3D_DECIM_10",
+                    "label": "10"
+                },
+                {
+                    "value": 20,
+                    "key": "DUMP_VIEW3D_DECIM_20",
+                    "label": "20"
+                },
+                {
+                    "value": 50,
+                    "key": "DUMP_VIEW3D_DECIM_50",
+                    "label": "50"
+                },
+                {
+                    "value": 100,
+                    "key": "DUMP_VIEW3D_DECIM_100",
+                    "label": "100"
+                },
+                {
+                    "value": 200,
+                    "key": "DUMP_VIEW3D_DECIM_200",
+                    "label": "200"
+                }
+            ]
+        },
+        {
+            "name": "user_eip_tcpPort",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 149,
+            "offset": 1552,
+            "size": 4,
+            "value": 44818,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 44818
+        },
+        {
+            "name": "user_eip_udpPort",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 150,
+            "offset": 1556,
+            "size": 4,
+            "value": 2222,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 2222
+        },
+        {
+            "name": "user_modbustcp_port",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 151,
+            "offset": 1560,
+            "size": 4,
+            "value": 502,
+            "min": 0,
+            "max": 65535,
+            "step": 0,
+            "defaultValue": 502
+        },
+        {
+            "name": "user_webgui_pwdVerifyEnabled",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 152,
+            "offset": 1564,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_webgui_viewMode",
+            "type": "uint32_t",
+            "access": "locked",
+            "index": 153,
+            "offset": 1568,
+            "size": 4,
+            "value": 4,
+            "min": 0,
+            "max": 16,
+            "step": 0,
+            "defaultValue": 4,
+            "valuesEnum": [
+                {
+                    "value": 4,
+                    "key": "WEBGUI_VIEW_MODE_ENGINEER",
+                    "label": "Engineer"
+                },
+                {
+                    "value": 8,
+                    "key": "WEBGUI_VIEW_MODE_ADJUSTER",
+                    "label": "Adjuster"
+                },
+                {
+                    "value": 16,
+                    "key": "WEBGUI_VIEW_MODE_OPERATOR",
+                    "label": "Operator"
+                }
+            ]
+        },
+        {
+            "name": "user_webgui_engineerPwdHash",
+            "type": "string_t",
+            "access": "locked",
+            "index": 154,
+            "offset": 1572,
+            "size": 128,
+            "value": "",
+            "maxLen": 128,
+            "defaultValue": ""
+        },
+        {
+            "name": "user_webgui_adjusterPwdHash",
+            "type": "string_t",
+            "access": "locked",
+            "index": 155,
+            "offset": 1700,
+            "size": 128,
+            "value": "",
+            "maxLen": 128,
+            "defaultValue": ""
+        },
+        {
+            "name": "user_smart_bindDistance",
+            "type": "float_t",
+            "access": "write",
+            "index": 156,
+            "offset": 1828,
+            "size": 4,
+            "value": 0.25118863582611084,
+            "min": 0.009999999776482582,
+            "max": 1000,
+            "step": 0,
+            "defaultValue": 10,
+            "units": "mm"
+        },
+        {
+            "name": "user_smart_divideThreshold",
+            "type": "float_t",
+            "access": "write",
+            "index": 157,
+            "offset": 1832,
+            "size": 4,
+            "value": 0.20000000298023224,
+            "min": 0.009999999776482582,
+            "max": 1000,
+            "step": 0,
+            "defaultValue": 1,
+            "units": "mm"
+        },
+        {
+            "name": "user_smart_minContourSize",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 158,
+            "offset": 1836,
+            "size": 4,
+            "value": 10,
+            "min": 2,
+            "max": 1296,
+            "step": 0,
+            "defaultValue": 5,
+            "units": "points"
+        },
+        {
+            "name": "user_smart_maxLinesCount",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 159,
+            "offset": 1840,
+            "size": 4,
+            "value": 20,
+            "min": 1,
+            "max": 100,
+            "step": 1,
+            "defaultValue": 20,
+            "units": "lines"
+        },
+        {
+            "name": "user_smart_sectorsEnabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 160,
+            "offset": 1844,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 1,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_smart_sectorsMinPoints",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 161,
+            "offset": 1848,
+            "size": 4,
+            "value": 20,
+            "min": 5,
+            "max": 1296,
+            "step": 0,
+            "defaultValue": 20,
+            "units": "points"
+        },
+        {
+            "name": "user_smart_sectorsMinR",
+            "type": "float_t",
+            "access": "write",
+            "index": 162,
+            "offset": 1852,
+            "size": 4,
+            "value": 1,
+            "min": 0.009999999776482582,
+            "max": 1000,
+            "step": 0,
+            "defaultValue": 1,
+            "units": "mm"
+        },
+        {
+            "name": "user_smart_sectorsMaxR",
+            "type": "float_t",
+            "access": "write",
+            "index": 163,
+            "offset": 1856,
+            "size": 4,
+            "value": 2,
+            "min": 0.009999999776482582,
+            "max": 1000,
+            "step": 0,
+            "defaultValue": 2,
+            "units": "mm"
+        },
+        {
+            "name": "user_smart_sectorsAccuracy",
+            "type": "float_t",
+            "access": "write",
+            "index": 164,
+            "offset": 1860,
+            "size": 4,
+            "value": 0.5,
+            "min": 0.009999999776482582,
+            "max": 1000,
+            "step": 0,
+            "defaultValue": 0.5,
+            "units": "mm"
+        },
+        {
+            "name": "user_smart_sectorsCombineThreshold",
+            "type": "float_t",
+            "access": "write",
+            "index": 165,
+            "offset": 1864,
+            "size": 4,
+            "value": 0.5,
+            "min": 0.009999999776482582,
+            "max": 1000,
+            "step": 0,
+            "defaultValue": 0.5,
+            "units": "mm"
+        },
+        {
+            "name": "user_smart_outliersFilteringEnabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 166,
+            "offset": 1868,
+            "size": 4,
+            "value": 1,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 1,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_smart_outliersLineThreshold",
+            "type": "float_t",
+            "access": "write",
+            "index": 167,
+            "offset": 1872,
+            "size": 4,
+            "value": 0.223872110247612,
+            "min": 0.009999999776482582,
+            "max": 1000,
+            "step": 0,
+            "defaultValue": 0.5,
+            "units": "mm"
+        },
+        {
+            "name": "user_smart_outliersArcThreshold",
+            "type": "float_t",
+            "access": "write",
+            "index": 168,
+            "offset": 1876,
+            "size": 4,
+            "value": 0.5,
+            "min": 0.009999999776482582,
+            "max": 1000,
+            "step": 0,
+            "defaultValue": 0.5,
+            "units": "mm"
+        },
+        {
+            "name": "user_smart_elapsedTime",
+            "type": "uint32_t",
+            "access": "read_only",
+            "index": 169,
+            "offset": 1880,
+            "size": 4,
+            "value": 338,
+            "min": 0,
+            "max": 10000000,
+            "step": 0,
+            "defaultValue": 0,
+            "units": "us"
+        },
+        {
+            "name": "user_inputs_physicalType",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 170,
+            "offset": 1884,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 0,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "IN_PHYSICAL_RS485",
+                    "label": "RS485"
+                }
+            ]
+        },
+        {
+            "name": "user_outputs_physicalType",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 171,
+            "offset": 1888,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 0,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "OUT_PHYSICAL_RS485",
+                    "label": "RS485"
+                }
+            ]
+        },
+        {
+            "name": "user_sensor_doubleSpeedEnabled",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 172,
+            "offset": 1892,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 1,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "FALSE",
+                    "label": "false"
+                },
+                {
+                    "value": 1,
+                    "key": "TRUE",
+                    "label": "true"
+                }
+            ]
+        },
+        {
+            "name": "user_sensor_edrType",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 173,
+            "offset": 1896,
+            "size": 4,
+            "value": 0,
+            "min": 0,
+            "max": 2,
+            "step": 0,
+            "defaultValue": 0,
+            "valuesEnum": [
+                {
+                    "value": 0,
+                    "key": "EDR_DISABLE",
+                    "label": "EDR disabled"
+                },
+                {
+                    "value": 1,
+                    "key": "EDR_COLUMN",
+                    "label": "Column EDR"
+                },
+                {
+                    "value": 2,
+                    "key": "EDR_PIECEWISE",
+                    "label": "Piecewise linear EDR"
+                }
+            ]
+        },
+        {
+            "name": "user_sensor_edrColumnDivider",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 174,
+            "offset": 1900,
+            "size": 4,
+            "value": 2,
+            "min": 2,
+            "max": 32,
+            "step": 0,
+            "defaultValue": 2
+        },
+        {
+            "name": "user_streams_pointsCount",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 175,
+            "offset": 1904,
+            "size": 4,
+            "value": 648,
+            "min": 648,
+            "max": 1296,
+            "step": 648,
+            "defaultValue": 648,
+            "units": "points"
+        },
+        {
+            "name": "user_roi_size",
+            "type": "uint32_t",
+            "access": "write",
+            "index": 176,
+            "offset": 1908,
+            "size": 4,
+            "value": 64,
+            "min": 8,
+            "max": 488,
+            "step": 8,
+            "defaultValue": 64,
+            "units": "lines"
+        }
+    ]
+}

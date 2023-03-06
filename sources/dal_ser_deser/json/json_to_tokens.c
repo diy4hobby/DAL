@@ -316,7 +316,8 @@ jsonReadResult_e	json_to_tokens(char* json, uint32_t jsonLen, jsonReadToken_t* t
 				}
 				switch (*reader.pos)
 				{
-					case 0x00:										return JSON_READ_UNEXPECTED_EOF;
+				case 0x00:											if (token == NULL)	{	reader.pos = reader.end; break;	}
+																	else				return JSON_READ_UNEXPECTED_EOF;
 					case ',': case '}': case ']':					break;
 					case ' ': case '\r': case '\n': case '\t':		break;
 					default:	++reader.pos;						continue;

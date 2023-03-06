@@ -193,7 +193,7 @@ public:
 	uint32_t		to_json(uint8_t* buf, uint32_t size, bool pretty = true);
 	//Deserilization methods
 	dalResult_e		from_mpack(uint8_t* buf, uint32_t size);
-	dalResult_e		from_json(uint8_t* buf, uint32_t size);
+	dalResult_e		from_json(uint8_t* buf, uint32_t size, uint32_t tokens = 8192);
 	dalResult_e		from_webapi(uint8_t* buf, uint32_t size);
 }dal_t;
 //===============================================================================================================================

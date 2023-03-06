@@ -6,3 +6,5 @@ units_tests/dal_add_node/out
 units_tests/dal_add_node/.vs
 units_tests/dal_attach_node/out
 units_tests/dal_attach_node/.vs
+units_tests/dal_json_parser/out
+units_tests/dal_json_parser/.vs

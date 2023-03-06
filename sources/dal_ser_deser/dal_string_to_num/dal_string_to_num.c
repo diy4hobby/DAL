@@ -333,6 +333,7 @@ dalStrtonumResult_t	dal_strntonum(char** str, uint32_t* size)
 	uint64_t	mantissa;
 	uint32_t	num_count		= 0;
 	int64_t		exponent		= 0;
+	uint8_t		NUM_COUNT_MAX	= 15;
 
 	if (**str == '0')
 	{	//0 cannot be followed by an integer
@@ -358,7 +359,7 @@ dalStrtonumResult_t	dal_strntonum(char** str, uint32_t* size)
 
 		while (_dal_is_integer(**str) && (*size > 0))
 		{
-			if (num_count < 20)
+			if (num_count < NUM_COUNT_MAX)
 			{	digit			= **str - '0';
 				mantissa		= (mantissa << 3) + (mantissa << 1) + digit;//10 * mantissa + digit;
 				++num_count;
@@ -380,7 +381,7 @@ dalStrtonumResult_t	dal_strntonum(char** str, uint32_t* size)
 			++*str;
 			--*size;
 			if (*size == 0)		return result;
-			if (num_count < 20)
+			if (num_count < NUM_COUNT_MAX)
 			{	mantissa			= (mantissa << 3) + (mantissa << 1) + digit;//mantissa * 10 + digit;
 				--exponent;
 				++num_count;
@@ -392,7 +393,7 @@ dalStrtonumResult_t	dal_strntonum(char** str, uint32_t* size)
 
 		while (_dal_is_integer(**str) && (*size > 0))
 		{
-			if (num_count < 20)
+			if (num_count < NUM_COUNT_MAX)
 			{	unsigned char	digit	= **str - '0';
 				mantissa				= (mantissa << 3) + (mantissa << 1) + digit;//mantissa * 10 + digit;
 				--exponent;

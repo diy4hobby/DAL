@@ -133,7 +133,7 @@ dalResult_e	json_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dalD
 
 
 //===============================================================================================================================
-dalResult_e	dal_t::from_json(uint8_t* buf, uint32_t size)
+dalResult_e	dal_t::from_json(uint8_t* buf, uint32_t size, uint32_t tokens)
 {
 	while (this->_child != nullptr)
 	{
@@ -142,18 +142,17 @@ dalResult_e	dal_t::from_json(uint8_t* buf, uint32_t size)
 		this->_child	= next;
 	}
 
-	uint32_t			tokensMax	= 1024;
-	jsonReadToken_t*	tokens		= static_cast<jsonReadToken_t*>(_dal_memHooks.alloc_data(tokensMax * sizeof(jsonReadToken_t)));
+	jsonReadToken_t*	tokensBuf	= static_cast<jsonReadToken_t*>(_dal_memHooks.alloc_data(tokens * sizeof(jsonReadToken_t)));
 
 	uint32_t			tokensReaded= 0;
-	jsonReadResult_e	readResult	= json_to_tokens(reinterpret_cast<char*>(buf), size, tokens, tokensMax, &tokensReaded);
+	jsonReadResult_e	readResult	= json_to_tokens(reinterpret_cast<char*>(buf), size, tokensBuf, tokens, &tokensReaded);
 	if (readResult != JSON_READ_OK)
-	{	_dal_memHooks.free_data(tokens);
+	{	_dal_memHooks.free_data(tokensBuf);
 		return DAL_FORMAT_ERR;
 	}
 
 	jsonReadContext_t	context;
-	context.curr			= tokens;
+	context.curr			= tokensBuf;
 	context.count			= tokensReaded;
 	context.allocMemory		= nullptr;
 
@@ -165,7 +164,7 @@ dalResult_e	dal_t::from_json(uint8_t* buf, uint32_t size)
 
 	dalResult_e			result		= _dal_deserialize_recurse(0, &deser, this);
 
-	_dal_memHooks.free_data(tokens);
+	_dal_memHooks.free_data(tokensBuf);
 	if (context.allocMemory != nullptr)	_dal_memHooks.free_data(context.allocMemory);
 
 	return result;

@@ -122,3 +122,6 @@ Deseritization is supported from:
 2.1.1
 - Minor improvements in getting array values.
 ***
+2.1.2
+- Fixed an error parsing a JSON string that occurs if there is still data after the closing bracket of the top object.
+***

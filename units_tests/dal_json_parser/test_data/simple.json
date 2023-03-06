@@ -1,0 +1,14 @@
+{
+    "name": "user_sysMon_fpgaTemp",
+    "type": "float_t",
+    "access": "read_only",
+    "index": 56,
+    "offset": 940,
+    "size": 4,
+    "value": 52.609588623046875,
+    "min": -100,
+    "max": 150,
+    "step": 0,
+    "defaultValue": 0,
+    "units": "В°C"
+}
