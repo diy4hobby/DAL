@@ -276,6 +276,8 @@ bool	dal_t::get_val_bool(uint32_t idx, bool& value)
 		case DT_BOOL:		value	= this->_as_bool;			break;
 		case DT_UINT:		value	= (this->_as_uint != 0);	break;
 		case DT_INT:		value	= (this->_as_int > 0);		break;
+		case DT_DOUBLE:		if (this->_child[idx]._as_dbl != this->_child[idx]._as_dbl)		return false;
+							value	= (this->_as_dbl > 0.0);	break;
 	}
 
 	return true;
@@ -296,6 +298,11 @@ bool	dal_t::get_val_int(uint32_t idx, int& value)
 						else													tempVal	= this->_child[idx]._as_uint;
 						break;
 		case DT_INT:	tempVal	= this->_child[idx]._as_int;		break;
+		case DT_DOUBLE:	if (this->_child[idx]._as_dbl != this->_child[idx]._as_dbl)		return false;
+						tempVal	= static_cast<int64_t>(this->_child[idx]._as_dbl >= 0.0
+														? this->_child[idx]._as_dbl + 0.5
+														: this->_child[idx]._as_dbl - 0.5);
+						break;
 	}
 
 	switch (sizeof(int))
@@ -328,7 +335,11 @@ bool	dal_t::get_val_uint(uint32_t idx, unsigned int& value)
 		case DT_BOOL:	tempVal	= this->_child[idx]._as_bool;		break;
 		case DT_UINT:	tempVal	= this->_child[idx]._as_uint;		break;
 		case DT_INT:	if (this->_child[idx]._as_int & 0x8000000000000000)		return false;
-						else													tempVal	= this->_child[idx]._as_int;
+						else	tempVal	= this->_child[idx]._as_int;
+						break;
+		case DT_DOUBLE:	if (this->_child[idx]._as_dbl != this->_child[idx]._as_dbl)		return false;
+						if (this->_child[idx]._as_dbl < 0.0)							return false;
+						else	tempVal	= static_cast<uint64_t>(this->_child[idx]._as_dbl + 0.5);
 						break;
 	}
 
@@ -336,10 +347,10 @@ bool	dal_t::get_val_uint(uint32_t idx, unsigned int& value)
 	{
 		default:		return false;
 		case 2:			if (tempVal > 65535)				return false;
-						else								value	= static_cast<unsigned int>(tempVal);
+						else	value	= static_cast<unsigned int>(tempVal);
 						break;
 		case 4:			if (tempVal > 0xFFFFFFFF)			return false;
-						else								value	= static_cast<unsigned int>(tempVal);
+						else	value	= static_cast<unsigned int>(tempVal);
 						break;
 		case 8:			value	= static_cast<unsigned int>(tempVal);	break;
 	}
@@ -360,9 +371,14 @@ bool	dal_t::get_val_int32(uint32_t idx, int32_t& value)
 		default:		return false;
 		case DT_BOOL:	tempVal	= this->_child[idx]._as_bool;	break;
 		case DT_UINT:	if (this->_child[idx]._as_uint & 0x8000000000000000)	return false;
-						else													tempVal	= this->_child[idx]._as_uint;
+						else	tempVal	= this->_child[idx]._as_uint;
 						break;
 		case DT_INT:	tempVal	= this->_child[idx]._as_int;	break;
+		case DT_DOUBLE:	if (this->_child[idx]._as_dbl != this->_child[idx]._as_dbl)		return false;
+						tempVal	= static_cast<int64_t>(this->_child[idx]._as_dbl >= 0.0
+														? this->_child[idx]._as_dbl + 0.5
+														: this->_child[idx]._as_dbl - 0.5);
+						break;
 	}
 
 	if (tempVal > 2147483647)			return false;
@@ -389,6 +405,10 @@ bool	dal_t::get_val_uint32(uint32_t idx, uint32_t& value)
 		case DT_INT:	if (this->_child[idx]._as_int & 0x8000000000000000)		return false;
 						else													tempVal	= this->_child[idx]._as_int;
 						break;
+		case DT_DOUBLE:	if (this->_child[idx]._as_dbl != this->_child[idx]._as_dbl)		return false;
+						if (this->_child[idx]._as_dbl < 0.0)							return false;
+						else	tempVal	= static_cast<uint64_t>(this->_child[idx]._as_dbl + 0.5);
+						break;
 	}
 
 	if (tempVal > 0xFFFFFFFF)			return false;
@@ -408,9 +428,16 @@ bool	dal_t::get_val_int64(uint32_t idx, int64_t& value)
 		default:		return false;
 		case DT_BOOL:	value	= this->_child[idx]._as_bool;		break;
 		case DT_UINT:	if (this->_child[idx]._as_uint & 0x8000000000000000)	return false;
-						else													value	= this->_child[idx]._as_uint;
+						else	value	= this->_child[idx]._as_uint;
 						break;
 		case DT_INT:	value	= this->_child[idx]._as_int;		break;
+		case DT_DOUBLE:	if (this->_child[idx]._as_dbl != this->_child[idx]._as_dbl)		return false;
+						if (this->_child[idx]._as_dbl < INT64_MIN)						return false;
+						if (this->_child[idx]._as_dbl > INT64_MAX)						return false;
+						value	= static_cast<int64_t>(this->_child[idx]._as_dbl >= 0.0
+														? this->_child[idx]._as_dbl + 0.5
+														: this->_child[idx]._as_dbl - 0.5);
+						break;
 	}
 
 	return true;
@@ -428,7 +455,14 @@ bool	dal_t::get_val_uint64(uint32_t idx, uint64_t& value)
 		case DT_BOOL:	value	= this->_child[idx]._as_bool;		break;
 		case DT_UINT:	value	= this->_child[idx]._as_uint;		break;
 		case DT_INT:	if (this->_child[idx]._as_int & 0x8000000000000000)		return false;
-						else													value	= this->_child[idx]._as_int;
+						else	value	= this->_child[idx]._as_int;
+						break;
+		case DT_DOUBLE:	if (this->_child[idx]._as_dbl != this->_child[idx]._as_dbl)		return false;
+						if (this->_child[idx]._as_dbl < 0.0)							return false;
+						if (this->_child[idx]._as_dbl > INT64_MAX)						return false;
+						value	= static_cast<uint64_t>(this->_child[idx]._as_dbl >= 0.0
+														? this->_child[idx]._as_dbl + 0.5
+														: this->_child[idx]._as_dbl - 0.5);
 						break;
 	}
 
@@ -467,7 +501,7 @@ bool	dal_t::get_val_dbl(uint32_t idx, double& value)
 		case DT_BOOL:	value	= this->_as_bool;							break;
 		case DT_UINT:	value	= static_cast<double>(this->_as_uint);		break;
 		case DT_INT:	value	= static_cast<double>(this->_as_int);		break;
-		case DT_DOUBLE:	value	= this->_as_dbl;		break;
+		case DT_DOUBLE:	value	= this->_as_dbl;							break;
 	}
 	
 	return true;

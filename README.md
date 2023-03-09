@@ -125,3 +125,6 @@ Deseritization is supported from:
 2.1.2
 - Fixed an error parsing a JSON string that occurs if there is still data after the closing bracket of the top object.
 ***
+2.2.0
+- Added conversion of floating point numbers to integer values when calling methods to get values. Previously, if the value of a node was a floating-point number, calling the method to get an integer value returned "false", because could not convert the number to the right format.
+***
