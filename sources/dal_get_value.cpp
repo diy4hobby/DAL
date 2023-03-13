@@ -36,6 +36,11 @@ bool	dal_t::get_val_int(const char* key, int& value)
 						else										tempVal	= child->_as_uint;
 						break;
 		case DT_INT:	tempVal	= child->_as_int;		break;
+		case DT_DOUBLE:	if (child->_as_dbl != child->_as_dbl)		return false;
+						tempVal	= static_cast<int64_t>(child->_as_dbl >= 0.0
+														? child->_as_dbl + 0.5
+														: child->_as_dbl - 0.5);
+						break;
 	}
 
 	switch (sizeof(int))
@@ -72,6 +77,10 @@ bool	dal_t::get_val_uint(const char* key, unsigned int& value)
 		case DT_INT:	if (child->_as_uint & 0x8000000000000000)	return false;
 						else										tempVal	= child->_as_int;
 						break;
+		case DT_DOUBLE:	if (child->_as_dbl != child->_as_dbl)		return false;
+						if (child->_as_dbl < 0.0)					return false;
+						else	tempVal	= static_cast<uint64_t>(child->_as_dbl + 0.5);
+						break;
 	}
 
 	switch (sizeof(unsigned int))
@@ -106,6 +115,11 @@ bool	dal_t::get_val_int32(const char* key, int32_t& value)
 						else										tempVal	= child->_as_uint;
 						break;
 		case DT_INT:	tempVal	= child->_as_int;		break;
+		case DT_DOUBLE:	if (child->_as_dbl != child->_as_dbl)		return false;
+						tempVal	= static_cast<int64_t>(child->_as_dbl >= 0.0
+														? child->_as_dbl + 0.5
+														: child->_as_dbl - 0.5);
+						break;
 	}
 
 	if (tempVal > 2147483647)			return false;
@@ -131,6 +145,10 @@ bool	dal_t::get_val_uint32(const char* key, uint32_t& value)
 		case DT_INT:	if (child->_as_int & 0x8000000000000000)	return false;
 						else										tempVal	= child->_as_int;
 						break;
+		case DT_DOUBLE:	if (child->_as_dbl != child->_as_dbl)		return false;
+						if (child->_as_dbl < 0.0)					return false;
+						else	tempVal	= static_cast<uint64_t>(child->_as_dbl + 0.5);
+						break;
 	}
 
 	if (tempVal > 0xFFFFFFFF)			return false;
@@ -153,6 +171,13 @@ bool	dal_t::get_val_int64(const char* key, int64_t& value)
 						else										value	= child->_as_uint;
 						break;
 		case DT_INT:	value	= child->_as_int;		break;
+		case DT_DOUBLE:	if (child->_as_dbl != child->_as_dbl)		return false;
+						if (child->_as_dbl < INT64_MIN)				return false;
+						if (child->_as_dbl > INT64_MAX)				return false;
+						value	= static_cast<int64_t>(child->_as_dbl >= 0.0
+														? child->_as_dbl + 0.5
+														: child->_as_dbl - 0.5);
+						break;
 	}
 
 	return true;
@@ -171,6 +196,13 @@ bool	dal_t::get_val_uint64(const char* key, uint64_t& value)
 		case DT_UINT:	value	= child->_as_uint;			break;
 		case DT_INT:	if (child->_as_int & 0x8000000000000000)	return false;
 						else										value	= child->_as_int;
+						break;
+		case DT_DOUBLE:	if (child->_as_dbl != child->_as_dbl)		return false;
+						if (child->_as_dbl < 0.0)					return false;
+						if (child->_as_dbl > INT64_MAX)				return false;
+						value	= static_cast<uint64_t>(child->_as_dbl >= 0.0
+														? child->_as_dbl + 0.5
+														: child->_as_dbl - 0.5);
 						break;
 	}
 
@@ -209,7 +241,7 @@ bool	dal_t::get_val_dbl(const char* key, double& value)
 		case DT_BOOL:	value	= child->_as_bool;							break;
 		case DT_UINT:	value	= static_cast<double>(child->_as_uint);		break;
 		case DT_INT:	value	= static_cast<double>(child->_as_int);		break;
-		case DT_DOUBLE:	value	= static_cast<double>(child->_as_dbl);		break;
+		case DT_DOUBLE:	value	= child->_as_dbl;		break;
 	}
 	
 	return true;
