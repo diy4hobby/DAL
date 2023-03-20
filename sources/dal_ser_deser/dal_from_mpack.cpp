@@ -192,6 +192,7 @@ dalResult_e	mpack_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dal
 			if (*available < sizeof(uint8_t))	return DAL_FORMAT_ERR;
 			value->size		= mpack_read_u8(buf, available);
 			if (*available < value->size)		return DAL_FORMAT_ERR;
+			value->type		= DVT_STR;
 			value->as_str	= reinterpret_cast<char*>(*buf);
 			*buf			+= value->size;
 			*available		-= value->size;

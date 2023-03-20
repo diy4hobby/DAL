@@ -128,3 +128,6 @@ Deseritization is supported from:
 2.2.0
 - Added conversion of floating point numbers to integer values when calling methods to get values. Previously, if the value of a node was a floating-point number, calling the method to get an integer value returned "false", because could not convert the number to the right format.
 ***
+2.2.1
+- Fixed a bug in MessagePack deserialization method - the type was defined incorrectly, which caused valid MessagePack to be parsed with a format error.
+***
