@@ -131,3 +131,6 @@ Deseritization is supported from:
 2.2.1
 - Fixed a bug in MessagePack deserialization method - the type was defined incorrectly, which caused valid MessagePack to be parsed with a format error.
 ***
+2.2.2
+- Fixed a bug in methods for getting values ​​by index.
+***

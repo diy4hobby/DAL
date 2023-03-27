@@ -510,11 +510,11 @@ bool	dal_t::get_val_flt(uint32_t idx, float& value)
 	switch (this->_child[idx]._type)
 	{
 		default:		return false;
-		case DT_BOOL:	value	= this->_as_bool;							break;
-		case DT_UINT:	value	= static_cast<float>(this->_as_uint);		break;
-		case DT_INT:	value	= static_cast<float>(this->_as_int);		break;
-		case DT_DOUBLE:	if (this->_as_dbl != this->_as_dbl)	value	= 0x7fc00000;	//NAN
-						else								value	= static_cast<float>(this->_as_dbl);
+		case DT_BOOL:	value	= this->_child[idx]._as_bool;							break;
+		case DT_UINT:	value	= static_cast<float>(this->_child[idx]._as_uint);		break;
+		case DT_INT:	value	= static_cast<float>(this->_child[idx]._as_int);		break;
+		case DT_DOUBLE:	if (this->_child[idx]._as_dbl != this->_child[idx]._as_dbl)	value	= 0x7fc00000;	//NAN
+						else														value	= static_cast<float>(this->_as_dbl);
 						break;
 	}
 	
@@ -530,10 +530,10 @@ bool	dal_t::get_val_dbl(uint32_t idx, double& value)
 	switch (this->_child[idx]._type)
 	{
 		default:		return false;
-		case DT_BOOL:	value	= this->_as_bool;							break;
-		case DT_UINT:	value	= static_cast<double>(this->_as_uint);		break;
-		case DT_INT:	value	= static_cast<double>(this->_as_int);		break;
-		case DT_DOUBLE:	value	= this->_as_dbl;							break;
+		case DT_BOOL:	value	= this->_child[idx]._as_bool;							break;
+		case DT_UINT:	value	= static_cast<double>(this->_child[idx]._as_uint);		break;
+		case DT_INT:	value	= static_cast<double>(this->_child[idx]._as_int);		break;
+		case DT_DOUBLE:	value	= this->_child[idx]._as_dbl;							break;
 	}
 	
 	return true;
@@ -545,7 +545,7 @@ bool	dal_t::get_val_str(uint32_t idx, const char*& value)
 	if (this->_size <= idx)								return false;
 	if (!(this->_child[idx]._type & DT_STRING))			return false;
 	
-	value	= this->_as_str;
+	value	= this->_child[idx]._as_str;
 	
 	return true;
 };
@@ -556,7 +556,7 @@ bool	dal_t::get_val_str(uint32_t idx, char*& value)
 	if (this->_size <= idx)								return false;
 	if (!(this->_child[idx]._type & DT_STRING))			return false;
 	
-	value	= this->_as_str;
+	value	= this->_child[idx]._as_str;
 	
 	return true;
 };
@@ -567,8 +567,8 @@ bool	dal_t::get_val_str(uint32_t idx, dalStr_t& value)
 	if (this->_size <= idx)								return false;
 	if (!(this->_child[idx]._type & DT_STRING))			return false;
 	
-	value.data	= this->_as_str;
-	value.size	= this->_size;
+	value.data	= this->_child[idx]._as_str;
+	value.size	= this->_child[idx]._size;
 	
 	return true;
 };
@@ -579,8 +579,8 @@ bool	dal_t::get_val_blob(uint32_t idx, dalBlob_t& value)
 	if (this->_size <= idx)								return false;
 	if (!(this->_child[idx]._type & DT_STRING))			return false;
 	
-	value.data	= this->_as_blob;
-	value.size	= this->_size;
+	value.data	= this->_child[idx]._as_blob;
+	value.size	= this->_child[idx]._size;
 	
 	return true;
 };
