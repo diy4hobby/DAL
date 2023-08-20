@@ -28,7 +28,7 @@ typedef enum
 extern "C" {
 #endif
 
-inline uint8_t mpack_read_u8(uint8_t** data, uint32_t* available)
+inline uint8_t dal_mpack_read_u8(uint8_t** data, uint32_t* available)
 {
 	uint8_t	val			= *data[0];
 	*data				+= sizeof(uint8_t);
@@ -36,7 +36,7 @@ inline uint8_t mpack_read_u8(uint8_t** data, uint32_t* available)
 	return val;
 }
 
-inline uint16_t mpack_read_u16(uint8_t** data, uint32_t* available)
+inline uint16_t dal_mpack_read_u16(uint8_t** data, uint32_t* available)
 {
 	uint16_t	val		= (((uint16_t)(*data)[0]) << 8) | (uint16_t)(*data)[1];
 	*data				+= sizeof(uint16_t);
@@ -44,7 +44,7 @@ inline uint16_t mpack_read_u16(uint8_t** data, uint32_t* available)
 	return val;
 }
 
-inline uint32_t mpack_read_u32(uint8_t** data, uint32_t* available)
+inline uint32_t dal_mpack_read_u32(uint8_t** data, uint32_t* available)
 {
 	uint32_t	val		= (((uint32_t)(*data)[0]) << 24) | (((uint32_t)(*data)[1]) << 16)
 							| (((uint32_t)(*data)[2]) << 8) | (uint32_t)(*data)[3];
@@ -53,7 +53,7 @@ inline uint32_t mpack_read_u32(uint8_t** data, uint32_t* available)
 	return val;
 }
 
-inline uint64_t mpack_read_u64(uint8_t** data, uint32_t* available)
+inline uint64_t dal_mpack_read_u64(uint8_t** data, uint32_t* available)
 {
 	uint64_t	val		= (((uint64_t)(*data)[0]) << 56) | (((uint64_t)(*data)[1]) << 48)
 							| (((uint64_t)(*data)[2]) << 40) | (((uint64_t)(*data)[3]) << 32)
@@ -64,7 +64,7 @@ inline uint64_t mpack_read_u64(uint8_t** data, uint32_t* available)
 	return val;
 }
 
-inline mpackResult_e mpack_write_u8(uint8_t** data, uint32_t* available, uint8_t val)
+inline mpackResult_e dal_mpack_write_u8(uint8_t** data, uint32_t* available, uint8_t val)
 {
 	if (*available < sizeof(uint8_t))		return MPACK_BUF_OVERFLOW;
 	(*data)[0]			= val;
@@ -73,7 +73,7 @@ inline mpackResult_e mpack_write_u8(uint8_t** data, uint32_t* available, uint8_t
 	return MPACK_OK;
 }
 
-inline mpackResult_e mpack_write_u16(uint8_t** data, uint32_t* available, uint16_t val)
+inline mpackResult_e dal_mpack_write_u16(uint8_t** data, uint32_t* available, uint16_t val)
 {
 	if (*available < sizeof(uint16_t))		return MPACK_BUF_OVERFLOW;
 	(*data)[0]			= (val >> 8) & 0xFF;
@@ -83,7 +83,7 @@ inline mpackResult_e mpack_write_u16(uint8_t** data, uint32_t* available, uint16
 	return MPACK_OK;
 }
 
-inline mpackResult_e mpack_write_u32(uint8_t** data, uint32_t* available, uint32_t val)
+inline mpackResult_e dal_mpack_write_u32(uint8_t** data, uint32_t* available, uint32_t val)
 {
 	if (*available < sizeof(uint32_t))		return MPACK_BUF_OVERFLOW;
 	(*data)[0]			= (val >> 24) & 0xFF;
@@ -95,7 +95,7 @@ inline mpackResult_e mpack_write_u32(uint8_t** data, uint32_t* available, uint32
 	return MPACK_OK;
 }
 
-inline mpackResult_e mpack_write_u64(uint8_t** data, uint32_t* available, uint64_t val)
+inline mpackResult_e dal_mpack_write_u64(uint8_t** data, uint32_t* available, uint64_t val)
 {
 	if (*available < sizeof(uint64_t))		return MPACK_BUF_OVERFLOW;
 	(*data)[0]			= (val >> 56) & 0xFF;
@@ -111,38 +111,38 @@ inline mpackResult_e mpack_write_u64(uint8_t** data, uint32_t* available, uint64
 	return MPACK_OK;
 }
 
-inline int8_t  mpack_read_i8 (uint8_t** data, uint32_t* available) {return (int8_t) mpack_read_u8 (data, available);}
-inline int16_t mpack_read_i16(uint8_t** data, uint32_t* available) {return (int16_t)mpack_read_u16(data, available);}
-inline int32_t mpack_read_i32(uint8_t** data, uint32_t* available) {return (int32_t)mpack_read_u32(data, available);}
-inline int64_t mpack_read_i64(uint8_t** data, uint32_t* available) {return (int64_t)mpack_read_u64(data, available);}
-inline mpackResult_e mpack_write_i8 (uint8_t** data, uint32_t* available, int8_t  val) {return mpack_write_u8 (data, available, (uint8_t) val);}
-inline mpackResult_e mpack_write_i16(uint8_t** data, uint32_t* available, int16_t val) {return mpack_write_u16(data, available, (uint16_t)val);}
-inline mpackResult_e mpack_write_i32(uint8_t** data, uint32_t* available, int32_t val) {return mpack_write_u32(data, available, (uint32_t)val);}
-inline mpackResult_e mpack_write_i64(uint8_t** data, uint32_t* available, int64_t val) {return mpack_write_u64(data, available, (uint64_t)val);}
+inline int8_t  dal_mpack_read_i8 (uint8_t** data, uint32_t* available) {return (int8_t) dal_mpack_read_u8 (data, available);}
+inline int16_t dal_mpack_read_i16(uint8_t** data, uint32_t* available) {return (int16_t)dal_mpack_read_u16(data, available);}
+inline int32_t dal_mpack_read_i32(uint8_t** data, uint32_t* available) {return (int32_t)dal_mpack_read_u32(data, available);}
+inline int64_t dal_mpack_read_i64(uint8_t** data, uint32_t* available) {return (int64_t)dal_mpack_read_u64(data, available);}
+inline mpackResult_e dal_mpack_write_i8 (uint8_t** data, uint32_t* available, int8_t  val) {return dal_mpack_write_u8 (data, available, (uint8_t) val);}
+inline mpackResult_e dal_mpack_write_i16(uint8_t** data, uint32_t* available, int16_t val) {return dal_mpack_write_u16(data, available, (uint16_t)val);}
+inline mpackResult_e dal_mpack_write_i32(uint8_t** data, uint32_t* available, int32_t val) {return dal_mpack_write_u32(data, available, (uint32_t)val);}
+inline mpackResult_e dal_mpack_write_i64(uint8_t** data, uint32_t* available, int64_t val) {return dal_mpack_write_u64(data, available, (uint64_t)val);}
 
-inline float mpack_read_float(uint8_t** data, uint32_t* available)
+inline float dal_mpack_read_float(uint8_t** data, uint32_t* available)
 {
 	static_assert(sizeof(float) == sizeof(uint32_t), "float size not as expected");
 	union
 	{	float		f;
 		uint32_t	u;
 	}val;
-	val.u 				= mpack_read_u32(data, available);
+	val.u 				= dal_mpack_read_u32(data, available);
 	return val.f;
 }
 
-inline double mpack_read_double(uint8_t** data, uint32_t* available)
+inline double dal_mpack_read_double(uint8_t** data, uint32_t* available)
 {
 	static_assert(sizeof(double) == sizeof(uint64_t), "double size not as expected");
 	union
 	{	double		d;
 		uint64_t	u;
 	}val;
-	val.u				= mpack_read_u64(data, available);
+	val.u				= dal_mpack_read_u64(data, available);
 	return val.d;
 }
 
-inline mpackResult_e mpack_write_float(uint8_t** data, uint32_t* available, float value)
+inline mpackResult_e dal_mpack_write_float(uint8_t** data, uint32_t* available, float value)
 {
 	static_assert(sizeof(float) == sizeof(uint32_t), "float size not as expected");
 	union
@@ -150,10 +150,10 @@ inline mpackResult_e mpack_write_float(uint8_t** data, uint32_t* available, floa
 		uint32_t	u;
 	}val;
     val.f				= value;
-    return mpack_write_u32(data, available, val.u);
+    return dal_mpack_write_u32(data, available, val.u);
 }
 
-inline mpackResult_e mpack_write_double(uint8_t** data, uint32_t* available, double value)
+inline mpackResult_e dal_mpack_write_double(uint8_t** data, uint32_t* available, double value)
 {
 	static_assert(sizeof(double) == sizeof(uint64_t), "double size not as expected");
 	union
@@ -161,7 +161,7 @@ inline mpackResult_e mpack_write_double(uint8_t** data, uint32_t* available, dou
 		uint64_t	u;
 	}val;
 	val.d				= value;
-	return mpack_write_u64(data, available, val.u);
+	return dal_mpack_write_u64(data, available, val.u);
 }
 
 #ifdef __cplusplus
@@ -218,18 +218,18 @@ inline mpackResult_e mpack_write_double(uint8_t** data, uint32_t* available, dou
 extern "C" {
 #endif
 
-	mpackResult_e	mpack_write_str(uint8_t** buf, uint32_t* available, const char* data, uint32_t dataLen);
-	mpackResult_e	mpack_write_nil(uint8_t** buf, uint32_t* available);
-	mpackResult_e	mpack_write_bool(uint8_t** buf, uint32_t* available, bool_t value);
-	mpackResult_e	mpack_write_uint(uint8_t** buf, uint32_t* available, uint64_t value);
-	mpackResult_e	mpack_write_int(uint8_t** buf, uint32_t* available, int64_t value);
-	mpackResult_e	mpack_write_flt(uint8_t** buf, uint32_t* available, float value);
-	mpackResult_e	mpack_write_dbl(uint8_t** buf, uint32_t* available, double value);
-	mpackResult_e	mpack_write_blob(uint8_t** buf, uint32_t* available, uint8_t* value, uint32_t len);
-	mpackResult_e	mpack_write_map_beg(uint8_t** buf, uint32_t* available, uint32_t count);
-	mpackResult_e	mpack_write_map_end(uint8_t** buf, uint32_t* available);
-	mpackResult_e	mpack_write_arr_beg(uint8_t** buf, uint32_t* available, uint32_t count);
-	mpackResult_e	mpack_write_arr_end(uint8_t** buf, uint32_t* available);
+	mpackResult_e	dal_mpack_write_str(uint8_t** buf, uint32_t* available, const char* data, uint32_t dataLen);
+	mpackResult_e	dal_mpack_write_nil(uint8_t** buf, uint32_t* available);
+	mpackResult_e	dal_mpack_write_bool(uint8_t** buf, uint32_t* available, bool_t value);
+	mpackResult_e	dal_mpack_write_uint(uint8_t** buf, uint32_t* available, uint64_t value);
+	mpackResult_e	dal_mpack_write_int(uint8_t** buf, uint32_t* available, int64_t value);
+	mpackResult_e	dal_mpack_write_flt(uint8_t** buf, uint32_t* available, float value);
+	mpackResult_e	dal_mpack_write_dbl(uint8_t** buf, uint32_t* available, double value);
+	mpackResult_e	dal_mpack_write_blob(uint8_t** buf, uint32_t* available, uint8_t* value, uint32_t len);
+	mpackResult_e	dal_mpack_write_map_beg(uint8_t** buf, uint32_t* available, uint32_t count);
+	mpackResult_e	dal_mpack_write_map_end(uint8_t** buf, uint32_t* available);
+	mpackResult_e	dal_mpack_write_arr_beg(uint8_t** buf, uint32_t* available, uint32_t count);
+	mpackResult_e	dal_mpack_write_arr_end(uint8_t** buf, uint32_t* available);
 
 #ifdef __cplusplus
 } // closing brace for extern "C"

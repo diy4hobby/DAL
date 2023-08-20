@@ -9,7 +9,7 @@ dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, 
 dalResult_e	mpack_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dalDeserializerValue_t* value)
 {
 	if (*available < sizeof(uint8_t))	return DAL_FORMAT_ERR;
-	uint8_t			type		= mpack_read_u8(buf, available);
+	uint8_t			type		= dal_mpack_read_u8(buf, available);
 
 	switch (type)
 	{
@@ -87,7 +87,7 @@ dalResult_e	mpack_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dal
 		// bin8
 		case 0xc4:
 			if (*available < sizeof(uint8_t))	return DAL_FORMAT_ERR;
-			value->size		= mpack_read_u8(buf, available);
+			value->size		= dal_mpack_read_u8(buf, available);
 			if (*available < value->size)		return DAL_FORMAT_ERR;
 			value->type		= DVT_BLOB;
 			value->as_blob	= *buf;
@@ -98,7 +98,7 @@ dalResult_e	mpack_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dal
 		// bin16
 		case 0xc5:
 			if (*available < sizeof(uint16_t))	return DAL_FORMAT_ERR;
-			value->size		= mpack_read_u16(buf, available);
+			value->size		= dal_mpack_read_u16(buf, available);
 			if (*available < value->size)		return DAL_FORMAT_ERR;
 			value->type		= DVT_BLOB;
 			value->as_blob	= *buf;
@@ -109,7 +109,7 @@ dalResult_e	mpack_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dal
 		// bin32
 		case 0xc6:
 			if (*available < sizeof(uint32_t))	return DAL_FORMAT_ERR;
-			value->size		= mpack_read_u32(buf, available);
+			value->size		= dal_mpack_read_u32(buf, available);
 			if (*available < value->size)		return DAL_FORMAT_ERR;
 			value->type		= DVT_BLOB;
 			value->as_blob	= *buf;
@@ -121,76 +121,76 @@ dalResult_e	mpack_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dal
 		case 0xca:
 			if (*available < sizeof(float))		return DAL_FORMAT_ERR;
 			value->type		= DVT_DBL;
-			value->as_dbl	= mpack_read_float(buf, available);
+			value->as_dbl	= dal_mpack_read_float(buf, available);
 			break;
 
 		// double
 		case 0xcb:
 			if (*available < sizeof(double))	return DAL_FORMAT_ERR;
 			value->type		= DVT_DBL;
-			value->as_dbl	= mpack_read_double(buf, available);
+			value->as_dbl	= dal_mpack_read_double(buf, available);
 			break;
 
 		// uint8
 		case 0xcc:
 			if (*available < sizeof(uint8_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_UINT;
-			value->as_uint	= mpack_read_u8(buf, available);
+			value->as_uint	= dal_mpack_read_u8(buf, available);
 			break;
 
 		// uint16
 		case 0xcd:
 			if (*available < sizeof(uint16_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_UINT;
-			value->as_uint	= mpack_read_u16(buf, available);
+			value->as_uint	= dal_mpack_read_u16(buf, available);
 			break;
 
 		// uint32
 		case 0xce:
 			if (*available < sizeof(uint32_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_UINT;
-			value->as_uint	= mpack_read_u32(buf, available);
+			value->as_uint	= dal_mpack_read_u32(buf, available);
 			break;
 
 		// uint64
 		case 0xcf:
 			if (*available < sizeof(uint64_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_UINT;
-			value->as_uint	= mpack_read_u64(buf, available);
+			value->as_uint	= dal_mpack_read_u64(buf, available);
 			break;
 
 		// int8
 		case 0xd0:
 			if (*available < sizeof(int8_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_INT;
-			value->as_int	= mpack_read_i8(buf, available);
+			value->as_int	= dal_mpack_read_i8(buf, available);
 			break;
 
 		// int16
 		case 0xd1:
 			if (*available < sizeof(int16_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_INT;
-			value->as_int	= mpack_read_i16(buf, available);
+			value->as_int	= dal_mpack_read_i16(buf, available);
 			break;
 
 		// int32
 		case 0xd2:
 			if (*available < sizeof(int32_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_INT;
-			value->as_int	= mpack_read_i32(buf, available);
+			value->as_int	= dal_mpack_read_i32(buf, available);
 			break;
 
 		// int64
 		case 0xd3:
 			if (*available < sizeof(int64_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_INT;
-			value->as_int	= mpack_read_i64(buf, available);
+			value->as_int	= dal_mpack_read_i64(buf, available);
 			break;
 
 		// str8
 		case 0xd9:
 			if (*available < sizeof(uint8_t))	return DAL_FORMAT_ERR;
-			value->size		= mpack_read_u8(buf, available);
+			value->size		= dal_mpack_read_u8(buf, available);
 			if (*available < value->size)		return DAL_FORMAT_ERR;
 			value->type		= DVT_STR;
 			value->as_str	= reinterpret_cast<char*>(*buf);
@@ -201,7 +201,7 @@ dalResult_e	mpack_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dal
 		// str16
 		case 0xda:
 			if (*available < sizeof(uint16_t))	return DAL_FORMAT_ERR;
-			value->size		= mpack_read_u16(buf, available);
+			value->size		= dal_mpack_read_u16(buf, available);
 			if (*available < value->size)		return DAL_FORMAT_ERR;
 			value->type		= DVT_STR;
 			value->as_str	= reinterpret_cast<char*>(*buf);
@@ -212,7 +212,7 @@ dalResult_e	mpack_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dal
 		// str32
 		case 0xdb:
 			if (*available < sizeof(uint32_t))	return DAL_FORMAT_ERR;
-			value->size		= mpack_read_u32(buf, available);
+			value->size		= dal_mpack_read_u32(buf, available);
 			if (*available < value->size)		return DAL_FORMAT_ERR;
 			value->type		= DVT_STR;
 			value->as_str	= reinterpret_cast<char*>(*buf);
@@ -224,28 +224,28 @@ dalResult_e	mpack_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dal
 		case 0xdc:
 			if (*available < sizeof(uint16_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_ARRAY;
-			value->size		= mpack_read_u16(buf, available);
+			value->size		= dal_mpack_read_u16(buf, available);
 			break;
 
 		// array32
 		case 0xdd:
 			if (*available < sizeof(uint32_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_ARRAY;
-			value->size		= mpack_read_u16(buf, available);
+			value->size		= dal_mpack_read_u16(buf, available);
 			break;
 
 		// map16
 		case 0xde:
 			if (*available < sizeof(uint16_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_OBJECT;
-			value->size		= mpack_read_u16(buf, available);
+			value->size		= dal_mpack_read_u16(buf, available);
 			break;
 
 		// map32
 		case 0xdf:
 			if (*available < sizeof(uint32_t))	return DAL_FORMAT_ERR;
 			value->type		= DVT_OBJECT;
-			value->size		= mpack_read_u32(buf, available);
+			value->size		= dal_mpack_read_u32(buf, available);
 			break;
 	}
 

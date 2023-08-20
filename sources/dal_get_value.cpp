@@ -285,7 +285,7 @@ bool	dal_t::get_val_blob(const char* key, dalBlob_t& value)
 {
 	dal_t*	child	= this->get_child(key);
 	if (child == nullptr)				return false;
-	if (!(child->_type & DT_STRING))	return false;
+	if (!(child->_type & DT_BLOB))	return false;
 	
 	value.data	= child->_as_blob;
 	value.size	= child->_size;
@@ -577,7 +577,7 @@ bool	dal_t::get_val_blob(uint32_t idx, dalBlob_t& value)
 {
 	if (this->_type != DT_ARRAY)						return false;
 	if (this->_size <= idx)								return false;
-	if (!(this->_child[idx]._type & DT_STRING))			return false;
+	if (!(this->_child[idx]._type & DT_BLOB))			return false;
 	
 	value.data	= this->_child[idx]._as_blob;
 	value.size	= this->_child[idx]._size;

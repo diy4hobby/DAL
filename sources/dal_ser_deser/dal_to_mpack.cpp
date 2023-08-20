@@ -8,49 +8,49 @@ dalResult_e	_dal_serialize_recurse(dalSerializer_t* ser, dal_t* node);
 
 dalResult_e	dal_to_mpack_write_key(void* ctx, dalBlob_t* buf, dalStr_t* key)
 {
-	if (mpack_write_str(&buf->data, &buf->size, key->data, key->size) != MPACK_OK)		return DAL_MEM_ERR;
+	if (dal_mpack_write_str(&buf->data, &buf->size, key->data, key->size) != MPACK_OK)		return DAL_MEM_ERR;
 	return DAL_OK;
 };
 
 dalResult_e	dal_to_mpack_write_bool(void* ctx, dalBlob_t* buf, bool value)
 {
-	if (mpack_write_bool(&buf->data, &buf->size, value) != MPACK_OK)	return DAL_MEM_ERR;
+	if (dal_mpack_write_bool(&buf->data, &buf->size, value) != MPACK_OK)	return DAL_MEM_ERR;
 	return DAL_OK;
 };
 
 dalResult_e	dal_to_mpack_write_uint(void* ctx, dalBlob_t* buf, uint64_t value)
 {
-	if (mpack_write_uint(&buf->data, &buf->size, value) != MPACK_OK)	return DAL_MEM_ERR;
+	if (dal_mpack_write_uint(&buf->data, &buf->size, value) != MPACK_OK)	return DAL_MEM_ERR;
 	return DAL_OK;
 };
 
 dalResult_e	dal_to_mpack_write_int(void* ctx, dalBlob_t* buf, int64_t value)
 {
-	if (mpack_write_int(&buf->data, &buf->size, value) != MPACK_OK)		return DAL_MEM_ERR;
+	if (dal_mpack_write_int(&buf->data, &buf->size, value) != MPACK_OK)		return DAL_MEM_ERR;
 	return DAL_OK;
 };
 
 dalResult_e	dal_to_mpack_write_dbl(void* ctx, dalBlob_t* buf, double value)
 {
-	if (mpack_write_dbl(&buf->data, &buf->size, value) != MPACK_OK)		return DAL_MEM_ERR;
+	if (dal_mpack_write_dbl(&buf->data, &buf->size, value) != MPACK_OK)		return DAL_MEM_ERR;
 	return DAL_OK;
 };
 
 dalResult_e	dal_to_mpack_write_str(void* ctx, dalBlob_t* buf, dalStr_t* value)
 {
-	if (mpack_write_str(&buf->data, &buf->size, value->data, value->size) != MPACK_OK)		return DAL_MEM_ERR;
+	if (dal_mpack_write_str(&buf->data, &buf->size, value->data, value->size) != MPACK_OK)		return DAL_MEM_ERR;
 	return DAL_OK;
 };
 
 dalResult_e	dal_to_mpack_write_blob(void* ctx, dalBlob_t* buf, dalBlob_t* value)
 {
-	if (mpack_write_blob(&buf->data, &buf->size, value->data, value->size) != MPACK_OK)		return DAL_MEM_ERR;
+	if (dal_mpack_write_blob(&buf->data, &buf->size, value->data, value->size) != MPACK_OK)		return DAL_MEM_ERR;
 	return DAL_OK;
 };
 
 dalResult_e	dal_to_mpack_write_obj_beg(void* ctx, dalBlob_t* buf, uint32_t count)
 {
-	if (mpack_write_map_beg(&buf->data, &buf->size, count) != MPACK_OK)		return DAL_MEM_ERR;
+	if (dal_mpack_write_map_beg(&buf->data, &buf->size, count) != MPACK_OK)		return DAL_MEM_ERR;
 	return DAL_OK;
 };
 
@@ -61,7 +61,7 @@ dalResult_e	dal_to_mpack_write_obj_end(void* ctx, dalBlob_t* buf)
 
 dalResult_e	dal_to_mpack_write_arr_beg(void* ctx, dalBlob_t* buf, uint32_t count)
 {
-	if (mpack_write_arr_beg(&buf->data, &buf->size, count) != MPACK_OK)		return DAL_MEM_ERR;
+	if (dal_mpack_write_arr_beg(&buf->data, &buf->size, count) != MPACK_OK)		return DAL_MEM_ERR;
 	return DAL_OK;
 };
 

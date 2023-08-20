@@ -51,7 +51,7 @@ int main()
 
 	//Serialize the object in JSON to check the resulting structure
 	uint8_t		buf[4096]	= {0};
-	uint32_t	len			= topObj->to_json(buf, sizeof(buf));
+	uint32_t	len			= topObj->to_mpack(buf, sizeof(buf));
 
 	dal_delete(topObj);
 

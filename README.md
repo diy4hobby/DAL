@@ -134,3 +134,6 @@ Deseritization is supported from:
 2.2.2
 - Fixed a bug in methods for getting values ​​by index.
 ***
+2.2.3
+- Fixed a bug when getting a value of "blob" type.
+***
