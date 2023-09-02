@@ -7,9 +7,12 @@ void	dal_t::detach()
 {
 	if (this->_parent != nullptr)
 	{
+		if (this->_parent->_type & TUPLE_TYPE)	this->_parent->_size--;
+
 		if (this->_parent->_last == this)
 		{	this->_parent->_last	= this->_prev;
 		}
+		
 		//If the detach node has a parent, then we need to check if is this node the first in the list of children, if yes
 		//before we need to remove it from the list of children and assign the next one as the first node
 		if (this->_parent->_child == this)

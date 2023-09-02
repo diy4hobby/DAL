@@ -140,3 +140,6 @@ Deseritization is supported from:
 2.3.0
 - The work with arrays has been significantly changed, now they are not linear memory areas, but lists of nodes, this simplifies working with arrays, although it slightly reduces the speed of their processing.
 ***
+2.3.1
+- Bug fixes for serialization/deserialization
+***

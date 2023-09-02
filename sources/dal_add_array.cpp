@@ -20,8 +20,6 @@ dal_t*	dal_t::add_array(dalStr_t* key, uint32_t count)
 		{	dal_delete(newChild);
 			return nullptr;
 		}
-		
-		newChild->_size++;
 		count--;
 	}
 

@@ -17,6 +17,7 @@ dalResult_e	dal_t::_add_item(dal_t* node)
 		this->_last			= node;
 	}
 	node->_parent			= this;
+	if (this->_type & TUPLE_TYPE)	this->_size++;
 	return DAL_OK;
 };
 
