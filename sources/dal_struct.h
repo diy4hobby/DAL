@@ -83,24 +83,25 @@ private:
 public:
 	dalNodeType_e	type()		{return this->_type;}
 	dal_t*			parent()	{return this->_parent;}
+	dal_t*			next()		{return this->_next;}
 	dalStr_t		key();
 	void			rename(dalStr_t* key);
 	void			rename(const char* newName);
+	uint32_t		size();
+	bool			compare(dal_t* node);			//Compare with other dal structure
+	dal_t*			duplicate();					//Create copy of this node
+	//Working with child elements of a node
+	dal_t*			add_child(dalNodeType_e type = DT_OBJECT);	//Create new child
+	dal_t*			add_child(const char* key, dalNodeType_e type = DT_OBJECT);	//Create new child
+	dal_t*			get_child(const char* key);		//Access child node
+	dal_t*			get_child(uint32_t idx);		//Access child node
+	bool			has_child(const char* key);		//Check if node has chld with specified name
+	uint32_t		count_childs();
 	dal_t*			attach(dalStr_t* key, dal_t* node);
 	dal_t*			attach(char* key, dal_t* node);
 	dal_t*			attach(dal_t* node);
 	void			detach();						//Detach from parent node
-	dal_t*			create_child(dalNodeType_e type = DT_OBJECT);	//Create new child
-	dal_t*			create_child(const char* key, dalNodeType_e type = DT_OBJECT);	//Create new child
-	dal_t*			get_child(const char* key);		//Access child node
-	dal_t*			get_child(uint32_t idx);		//Access child node
-	bool			has_child(const char* key);		//Check if node has chld with specified name
-	dal_t*			get_next();						//Getting the next node
-	uint32_t		count_childs();
-	uint32_t		size();
-	bool			compare(dal_t* node);			//Compare with other dal structure
-	dal_t*			duplicate();					//Create copy of this node
-	//Adding child elements
+	//Adding child values
 	dal_t*			add_val_bool(dalStr_t* key, bool value);
 	dal_t*			add_val_int(dalStr_t* key, int64_t value);
 	dal_t*			add_val_uint(dalStr_t* key, uint64_t value);
@@ -144,7 +145,7 @@ public:
 	//Get item of array
 	uint32_t		get_array_size();
 	dal_t*			get_array_item(uint32_t idx);
-	//Setting value of the node
+	//Set value of the node
 	dal_t&			operator=(bool value);
 	dal_t&			operator=(uint64_t value);
 	dal_t&			operator=(int64_t value);

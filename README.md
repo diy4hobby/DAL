@@ -143,3 +143,6 @@ Deseritization is supported from:
 2.3.1
 - Bug fixes for serialization/deserialization
 ***
+2.3.2
+- Some changes in the API that can be easily fixed in the user software. Significantly compatibility is not broken.
+***

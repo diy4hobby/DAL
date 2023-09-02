@@ -9,14 +9,14 @@ extern	dalMemHooks_t		_dal_memHooks;
 //===============================================================================================================================
 dal_t*	dal_t::add_array(dalStr_t* key, uint32_t count)
 {
-	dal_t*	newChild	= this->create_child(DT_ARRAY);
+	dal_t*	newChild	= this->add_child(DT_ARRAY);
 	if (newChild == nullptr)			return nullptr;
 	newChild->rename(key);
 	
 	//Allocate memory for nodes
 	while (count > 0)
 	{
-		if (newChild->create_child() == nullptr)
+		if (newChild->add_child() == nullptr)
 		{	dal_delete(newChild);
 			return nullptr;
 		}
@@ -28,7 +28,7 @@ dal_t*	dal_t::add_array(dalStr_t* key, uint32_t count)
 
 dal_t*	dal_t::add_array(const char* key)
 {
-	dal_t*	newChild	= this->create_child(DT_ARRAY);
+	dal_t*	newChild	= this->add_child(DT_ARRAY);
 	if (newChild == nullptr)			return nullptr;
 	newChild->rename(key);
 	return newChild;

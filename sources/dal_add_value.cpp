@@ -8,7 +8,7 @@ extern	dalMemHooks_t		_dal_memHooks;
 //===============================================================================================================================
 dal_t*	dal_t::add_val_bool(dalStr_t* key, bool value)
 {
-	dal_t*	newChild	= this->create_child(DT_BOOL);
+	dal_t*	newChild	= this->add_child(DT_BOOL);
 	if (newChild == nullptr)			return nullptr;
 	newChild->rename(key);
 	newChild->_as_bool	= value;
@@ -18,7 +18,7 @@ dal_t*	dal_t::add_val_bool(dalStr_t* key, bool value)
 
 dal_t*	dal_t::add_val_int(dalStr_t* key, int64_t value)
 {
-	dal_t*	newChild	= this->create_child(DT_INT);
+	dal_t*	newChild	= this->add_child(DT_INT);
 	if (newChild == nullptr)			return nullptr;
 	newChild->rename(key);
 	newChild->_as_int	= value;
@@ -28,7 +28,7 @@ dal_t*	dal_t::add_val_int(dalStr_t* key, int64_t value)
 
 dal_t*	dal_t::add_val_uint(dalStr_t* key, uint64_t value)
 {
-	dal_t*	newChild	= this->create_child(DT_UINT);
+	dal_t*	newChild	= this->add_child(DT_UINT);
 	if (newChild == nullptr)			return nullptr;
 	newChild->rename(key);
 	newChild->_as_uint	= value;
@@ -38,7 +38,7 @@ dal_t*	dal_t::add_val_uint(dalStr_t* key, uint64_t value)
 
 dal_t*	dal_t::add_val_dbl(dalStr_t* key, double value)
 {
-	dal_t*	newChild	= this->create_child(DT_DOUBLE);
+	dal_t*	newChild	= this->add_child(DT_DOUBLE);
 	if (newChild == nullptr)			return nullptr;
 	newChild->rename(key);
 	newChild->_as_dbl	= value;
@@ -48,7 +48,7 @@ dal_t*	dal_t::add_val_dbl(dalStr_t* key, double value)
 
 dal_t*	dal_t::add_val_str(dalStr_t* key, char* value)
 {
-	dal_t*	newChild	= this->create_child(DT_STRING);
+	dal_t*	newChild	= this->add_child(DT_STRING);
 	if (newChild == nullptr)			return nullptr;
 
 	newChild->_size		= dal_string_length(value, DAL_MAX_CSTR_LEN);
@@ -69,7 +69,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, char* value)
 
 dal_t*	dal_t::add_val_str(dalStr_t* key, const char* value)
 {
-	dal_t*	newChild	= this->create_child(DT_STRING);
+	dal_t*	newChild	= this->add_child(DT_STRING);
 	if (newChild == nullptr)			return nullptr;
 
 	newChild->_size		= dal_string_length(value, DAL_MAX_CSTR_LEN);
@@ -91,7 +91,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, const char* value)
 
 dal_t*	dal_t::add_val_str(dalStr_t* key, char* value, uint32_t len)
 {
-	dal_t*	newChild	= this->create_child(DT_STRING);
+	dal_t*	newChild	= this->add_child(DT_STRING);
 	if (newChild == nullptr)			return nullptr;
 
 	newChild->_size		= len;
@@ -112,7 +112,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, char* value, uint32_t len)
 
 dal_t*	dal_t::add_val_blob(dalStr_t* key, void*& value, uint32_t len)
 {
-	dal_t*	newChild	= this->create_child(DT_BLOB);
+	dal_t*	newChild	= this->add_child(DT_BLOB);
 	if (newChild == nullptr)			return nullptr;
 
 	newChild->_size		= len;
@@ -133,7 +133,7 @@ dal_t*	dal_t::add_val_blob(dalStr_t* key, void*& value, uint32_t len)
 
 dal_t*	dal_t::add_val_ref(dalStr_t* key, void* value, uint32_t len)
 {
-	dal_t*	newChild	= this->create_child(DT_BLOB_REF);
+	dal_t*	newChild	= this->add_child(DT_BLOB_REF);
 	if (newChild == nullptr)			return nullptr;
 
 	newChild->_size		= len;

@@ -63,7 +63,7 @@ dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, 
 			{
 				result		= _dal_deserialize_recurse(nesting + 1, deser, arrNode);
 				if (result != DAL_OK)		return result;
-				arrNode		= arrNode->get_next();
+				arrNode		= arrNode->next();
 			}
 			break;
 
@@ -76,7 +76,7 @@ dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, 
 				result		= deser->read(deser->context, &deser->buf, &deser->available, &value);
 				if (result != DAL_OK)		return result;
 				if (value.type != DVT_STR)	return DAL_FORMAT_ERR;
-				newNode		= node->create_child();
+				newNode		= node->add_child();
 				valStr.data	= value.as_str;
 				valStr.size	= value.size;
 				newNode->rename(&valStr);

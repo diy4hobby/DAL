@@ -42,7 +42,7 @@ int main()
 	topObj->add_val_dbl("dbl_value", 10.987654321);
 
 	//Adding a child object - making the structure more complex
-	dal_t*		chldObj			= topObj->create_child("child_obj");
+	dal_t*		chldObj			= topObj->add_child("child_obj");
 	int			testArr[5]		= {50, 40, 30, 20, 10};
 	chldObj->add_arr_int("int_array", testArr, 5);
 	memset(testArr, 0, 5 * sizeof(int));
