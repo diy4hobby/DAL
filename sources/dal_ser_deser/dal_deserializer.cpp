@@ -1,4 +1,5 @@
 #include "../dal_struct.h"
+#include "../dal_utils.h"
 #include "dal_deserializer.h"
 
 
@@ -52,13 +53,17 @@ dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, 
 			break;
 
 		case DVT_ARRAY:
-			arrNode			= node->convert_to_array(value.size);
+			if (node == nullptr)						return DAL_FORMAT_ERR;
+			else	if (node->parent() == nullptr)		return DAL_FORMAT_ERR;
+			arrNode			= node->parent()->add_array(node->key().data, value.size);
+			dal_delete(node);
 			if (arrNode == nullptr)		return DAL_MEM_ERR;
+			arrNode			= arrNode->get_array_item(0);
 			while (value.size-- > 0)
 			{
 				result		= _dal_deserialize_recurse(nesting + 1, deser, arrNode);
 				if (result != DAL_OK)		return result;
-				arrNode++;
+				arrNode		= arrNode->get_next();
 			}
 			break;
 

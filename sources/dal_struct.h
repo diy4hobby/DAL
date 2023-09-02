@@ -54,6 +54,7 @@ private:
 	struct dal_t*				_prev;
 	struct dal_t*				_next;
 	struct dal_t*				_child;
+	struct dal_t*				_last;
 	char						_key[DAL_KEY_SIZE];
 	uint32_t					_key_len;
 	uint32_t					_key_hash;
@@ -71,8 +72,9 @@ private:
 											//used for as_str and as_blob to have aligned
 											//8 bytes pointers
 	dalResult_e					_copy_trivial(dal_t* src);//Copy key and value of source node
+	dalResult_e					_add_item(dal_t* node);	//Adding an element to childrens at the end of a list
 
-	friend			dal_t*		dal_create();
+	friend			dal_t*		dal_create(dalNodeType_e type);
 	friend			void		dal_delete(dal_t* node);
 	friend			uint32_t	_dal_size_recurse(dal_t* node);
 	friend			dalResult_e	_dal_serialize_recurse(dalSerializer_t* ser, dal_t* node);
@@ -88,11 +90,12 @@ public:
 	dal_t*			attach(char* key, dal_t* node);
 	dal_t*			attach(dal_t* node);
 	void			detach();						//Detach from parent node
-	dal_t*			create_child();					//Create new child
-	dal_t*			create_child(const char* key);	//Create new child
+	dal_t*			create_child(dalNodeType_e type = DT_OBJECT);	//Create new child
+	dal_t*			create_child(const char* key, dalNodeType_e type = DT_OBJECT);	//Create new child
 	dal_t*			get_child(const char* key);		//Access child node
 	dal_t*			get_child(uint32_t idx);		//Access child node
 	bool			has_child(const char* key);		//Check if node has chld with specified name
+	dal_t*			get_next();						//Getting the next node
 	uint32_t		count_childs();
 	uint32_t		size();
 	bool			compare(dal_t* node);			//Compare with other dal structure
@@ -117,8 +120,8 @@ public:
 	dal_t*			add_val_ref(const char* key, void* value, uint32_t len);
 	dal_t*			add_val_blob(const char* key, void*& value, uint32_t len);
 	//Adding child arrays
-	dal_t*			convert_to_array(uint32_t count);
 	dal_t*			add_array(dalStr_t* key, uint32_t count);
+	dal_t*			add_array(const char* key);
 	dal_t*			add_arr_bool(dalStr_t* key, bool* arr, uint32_t count);
 	dal_t*			add_arr_int(dalStr_t* key, int* arr, uint32_t count);
 	dal_t*			add_arr_uint(dalStr_t* key, unsigned int* arr, uint32_t count);

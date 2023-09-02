@@ -32,15 +32,16 @@ dal_t*	_dal_duplicate_recurse(dal_t* src, dal_t* parent)
 			parent->_key_len	= src->_key_len;
 			parent->_key_hash	= src->_key_hash;
 			dal_bytedata_copy(parent->_key, src->_key, src->_key_len);
-			parent->convert_to_array(src->_size);
+			parent->_type		= DT_ARRAY;
+			for (uint32_t idx = 0; idx < src->_size; idx++)		parent->create_child();
 			srcItem				= src->_child;
 			dstItem				= parent->_child;
 			count				= src->_size;
 			while (count > 0)
 			{
 				_dal_duplicate_recurse(srcItem, dstItem);
-				srcItem++;
-				dstItem++;
+				srcItem	= srcItem->_next;
+				dstItem	= dstItem->_next;
 				count--;
 			}
 			return parent;

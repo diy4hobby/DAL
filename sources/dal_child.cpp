@@ -5,20 +5,33 @@
 
 
 //===============================================================================================================================
-
-dal_t*	dal_t::create_child()
+dalResult_e	dal_t::_add_item(dal_t* node)
 {
-	dal_t*		newChild	= dal_create();
-	if (newChild == nullptr)	return nullptr;
-	newChild->_parent		= this;
-	newChild->_next			= this->_child;
-	this->_child			= newChild;
-	return newChild;
+	if (node == nullptr)	return DAL_MEM_ERR;
+	if (this->_child == nullptr)
+	{	this->_child		= node;
+		this->_last			= node;
+	}else{
+		this->_last->_next	= node;
+		node->_prev			= this->_last;
+		this->_last			= node;
+	}
+	node->_parent			= this;
+	return DAL_OK;
 };
 
-dal_t*	dal_t::create_child(const char* key)
+dal_t*	dal_t::create_child(dalNodeType_e type)
 {
-	dal_t*		newChild	= create_child();
+	dal_t*		newChild	= dal_create(type);
+	if (newChild == nullptr)					return nullptr;
+	if (this->_add_item(newChild) == DAL_OK)	return newChild;
+	dal_delete(newChild);
+	return nullptr;
+};
+
+dal_t*	dal_t::create_child(const char* key, dalNodeType_e type)
+{
+	dal_t*		newChild	= create_child(type);
 	if (newChild == nullptr)	return nullptr;
 	newChild->rename(key);
 	return newChild;
@@ -67,6 +80,11 @@ bool	dal_t::has_child(const char* key)
 		child			= child->_next;
 	}
 	return false;
+};
+
+dal_t*	dal_t::get_next()
+{
+	return this->_next;
 };
 
 uint32_t	dal_t::count_childs()

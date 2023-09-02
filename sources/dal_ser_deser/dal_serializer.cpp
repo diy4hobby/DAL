@@ -63,10 +63,12 @@ dalResult_e	_dal_serialize_recurse(dalSerializer_t* ser, dal_t* node)
 			itemsCount	= node->_size;
 			result		= ser->wr_arr_beg(ser->context, &ser->buf, itemsCount);
 			if (result != DAL_OK)	return result;
+			child		= node->_child;
 			for (uint32_t idx = 0; idx < itemsCount; idx++)
 			{
-				result		= _dal_serialize_recurse(ser, &node->_child[idx]);
+				result		= _dal_serialize_recurse(ser, child);
 				if (result != DAL_OK)			return result;
+				child		= child->_next;
 			}
 			result		= ser->wr_arr_end(ser->context, &ser->buf);
 			if (result != DAL_OK)	return result;

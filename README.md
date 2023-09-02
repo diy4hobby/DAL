@@ -137,3 +137,6 @@ Deseritization is supported from:
 2.2.3
 - Fixed a bug when getting a value of "blob" type.
 ***
+2.3.0
+- The work with arrays has been significantly changed, now they are not linear memory areas, but lists of nodes, this simplifies working with arrays, although it slightly reduces the speed of their processing.
+***

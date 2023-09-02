@@ -16,7 +16,7 @@
 dalResult_e		dal_init(dalMemHooks_t* mem);
 
 //Creating an empty object
-dal_t*			dal_create();
+dal_t*			dal_create(dalNodeType_e type = DT_OBJECT);
 
 //Delete object and all childs
 void			dal_delete(dal_t* node);

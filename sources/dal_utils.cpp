@@ -16,7 +16,7 @@ dalResult_e	dal_init(dalMemHooks_t* mem)
 };
 
 //Creating an empty object
-dal_t*	dal_create()
+dal_t*	dal_create(dalNodeType_e type)
 {
 	//Allocate memory for new object and check is really allocated
 	dal_t*	node		= _dal_memHooks.alloc_node();
@@ -26,10 +26,11 @@ dal_t*	dal_create()
 	node->_key_hash		= 0;
 	node->_parent		= nullptr;
 	node->_child		= nullptr;
+	node->_last			= nullptr;
 	node->_prev			= nullptr;
 	node->_next			= nullptr;
 	//Set node type - object
-	node->_type			= DT_OBJECT;
+	node->_type			= type;
 	node->_size			= 0;
 	return node;
 };
@@ -39,20 +40,8 @@ void	dal_delete(dal_t* node)
 {
 	if (node == nullptr)		return;
 
-	//For arrays, the removing of child elements is done separately, because pointer to child element
-	//actually points to the memory allocated for the array of nodes
-	if (node->_type != DT_ARRAY)
-	{
-		if (node->_child != nullptr)
-		{
-			dal_t*	child		= node->_child;
-			while (child != nullptr)
-			{	dal_t*	next	= child->_next;
-				dal_delete(child);
-				child			= next;
-			}
-		}
-	}
+	//Making sure the node is removed from the parent object
+	node->detach();
 
 	switch (node->_type)
 	{
@@ -69,21 +58,16 @@ void	dal_delete(dal_t* node)
 							_dal_memHooks.free_node(node);
 							break;
 		case DT_BLOB_REF:	_dal_memHooks.free_node(node);			break;
-		case DT_ARRAY:		for (uint32_t idx = 0; idx < node->_size; idx++)
-							{
-								dal_t*	child	= node->_child[idx]._child;
-								while (child != nullptr)
-								{
-									dal_t*	next	= child->_next;
-									dal_delete(child);
-									child			= next;
-								}
+		case DT_ARRAY:
+		case DT_OBJECT:{	dal_t*	child		= node->_child;
+							while (child != NULL)
+							{	dal_t*	next	= child->_next;
+								dal_delete(child);
+								child			= next;
 							}
-							_dal_memHooks.free_data(node->_child);
 							_dal_memHooks.free_node(node);
 							break;
-		case DT_OBJECT:		_dal_memHooks.free_node(node);
-							break;
+						}
 	}
 }
 //===============================================================================================================================

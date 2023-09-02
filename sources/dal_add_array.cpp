@@ -7,185 +7,176 @@ extern	dalMemHooks_t		_dal_memHooks;
 
 
 //===============================================================================================================================
-dal_t*	dal_t::convert_to_array(uint32_t count)
-{
-	if (this->_type & ALLOCATED_MEM_TYPE)	_dal_memHooks.free_data(this->_mem_ptr);
-
-	dal_t*	child		= this->_child;
-	dal_t*	next;
-	while (child != nullptr)
-	{	next			= child->_next;
-		dal_delete(child);
-		child			= next;
-	}
-
-	this->_type			= DT_ARRAY;
-	this->_child		= static_cast<dal_t*>(_dal_memHooks.alloc_data(count * sizeof(dal_t)));
-
-	if (this->_child == nullptr)
-	{	this->_size		= 0;
-		return nullptr;
-	}
-
-	dal_bytedata_zero(this->_child, count * sizeof(dal_t));
-
-	this->_size			= count;
-	return this->_child;
-};
-
-
 dal_t*	dal_t::add_array(dalStr_t* key, uint32_t count)
 {
-	dal_t*	newChild	= dal_create();
+	dal_t*	newChild	= this->create_child(DT_ARRAY);
 	if (newChild == nullptr)			return nullptr;
-	//Allocate memory for nodes pointers array
-	newChild->_child	= static_cast<dal_t*>(_dal_memHooks.alloc_data(count * sizeof(dal_t)));
-	if (newChild->_child == nullptr)
-	{	dal_delete(newChild);
-		return nullptr;
+	newChild->rename(key);
+	
+	//Allocate memory for nodes
+	while (count > 0)
+	{
+		if (newChild->create_child() == nullptr)
+		{	dal_delete(newChild);
+			return nullptr;
+		}
+		
+		newChild->_size++;
+		count--;
 	}
 
-	dal_t*		item	= newChild->_child;
-	uint32_t	itemIdx	= count;
-	while (itemIdx-- > 0)
-	{	item->_parent	= nullptr;
-		item->_prev		= nullptr;
-		item->_next		= nullptr;
-		item->_child	= nullptr;
-		item->_key[0]	= 0x00;
-		item->_key_len	= 0;
-		item->_key_hash	= 0;
-		item->_type		= DT_UNKN;
-		item->_size		= 0;
-		++item;
-	}
+	return newChild;
+};
 
-	newChild->_size		= count;
-	newChild->_type		= DT_ARRAY;
-	this->attach(key, newChild);
-
-	return newChild->_child;
+dal_t*	dal_t::add_array(const char* key)
+{
+	dal_t*	newChild	= this->create_child(DT_ARRAY);
+	if (newChild == nullptr)			return nullptr;
+	newChild->rename(key);
+	return newChild;
 };
 
 dal_t*	dal_t::add_arr_bool(dalStr_t* key, bool* arr, uint32_t count)
 {
-	dal_t*	newArray	= this->add_array(key, count);
-	if (newArray == nullptr)			return nullptr;
+	dal_t*	array	= this->add_array(key, count);
+	if (array == nullptr)			return nullptr;
+	dal_t*	item		= array->_child;
 
 	while (count-- > 0)
 	{
-		*newArray++		= *arr++;
+		*item	= *arr++;
+		item	= item->_next;
 	}
 
-	return newArray;
+	return array;
 };
 
 dal_t*	dal_t::add_arr_int(dalStr_t* key, int* arr, uint32_t count)
 {
-	dal_t*	newArray	= this->add_array(key, count);
-	if (newArray == nullptr)			return nullptr;
-	int64_t		value;
+	dal_t*	array	= this->add_array(key, count);
+	if (array == nullptr)			return nullptr;
+	dal_t*	item		= array->_child;
+	int64_t	value;
+
 	while (count-- > 0)
 	{
-		value			= *arr++;
-		*newArray++		= value;
+		value	= *arr++;
+		*item	= value;
+		item	= item->_next;
 	}
 
-	return newArray;
+	return array;
 };
 
 dal_t*	dal_t::add_arr_uint(dalStr_t* key, unsigned int* arr, uint32_t count)
 {
-	dal_t*	newArray	= this->add_array(key, count);
-	if (newArray == nullptr)			return nullptr;
+	dal_t*	array	= this->add_array(key, count);
+	if (array == nullptr)			return nullptr;
+	dal_t*		item		= array->_child;
 	uint64_t	value;
+
 	while (count-- > 0)
 	{
-		value			= *arr++;
-		*newArray++		= value;
+		value	= *arr++;
+		*item	= value;
+		item	= item->_next;
 	}
 
-	return newArray;
+	return array;
 };
 
 dal_t*	dal_t::add_arr_int32(dalStr_t* key, int32_t* arr, uint32_t count)
 {
-	dal_t*	newArray	= this->add_array(key, count);
-	if (newArray == nullptr)			return nullptr;
+	dal_t*	array	= this->add_array(key, count);
+	if (array == nullptr)			return nullptr;
+	dal_t*		item		= array->_child;
 	int64_t		value;
+
 	while (count-- > 0)
 	{
-		value			= *arr++;
-		*newArray++		= value;
+		value	= *arr++;
+		*item	= value;
+		item	= item->_next;
 	}
 
-	return newArray;
+	return array;
 };
 
 dal_t*	dal_t::add_arr_uint32(dalStr_t* key, uint32_t* arr, uint32_t count)
 {
-	dal_t*	newArray	= this->add_array(key, count);
-	if (newArray == nullptr)			return nullptr;
+	dal_t*	array	= this->add_array(key, count);
+	if (array == nullptr)			return nullptr;
+	dal_t*		item		= array->_child;
 	uint64_t	value;
+
 	while (count-- > 0)
 	{
-		value			= *arr++;
-		*newArray++		= value;
+		value	= *arr++;
+		*item	= value;
+		item	= item->_next;
 	}
 
-	return newArray;
+	return array;
 };
 
 dal_t*	dal_t::add_arr_int64(dalStr_t* key, int64_t* arr, uint32_t count)
 {
-	dal_t*	newArray	= this->add_array(key, count);
-	if (newArray == nullptr)			return nullptr;
+	dal_t*	array	= this->add_array(key, count);
+	if (array == nullptr)			return nullptr;
+	dal_t*	item		= array->_child;
 
 	while (count-- > 0)
 	{
-		*newArray++		= *arr++;
+		*item	= *arr++;
+		item	= item->_next;
 	}
 
-	return newArray;
+	return array;
 };
 
 dal_t*	dal_t::add_arr_uint64(dalStr_t* key, uint64_t* arr, uint32_t count)
 {
-	dal_t*	newArray	= this->add_array(key, count);
-	if (newArray == nullptr)			return nullptr;
+	dal_t*	array	= this->add_array(key, count);
+	if (array == nullptr)			return nullptr;
+	dal_t*	item		= array->_child;
 
 	while (count-- > 0)
 	{
-		*newArray++		= *arr++;
+		*item	= *arr++;
+		item	= item->_next;
 	}
 
-	return newArray;
+	return array;
 };
 
 dal_t*	dal_t::add_arr_flt(dalStr_t* key, float* arr, uint32_t count)
 {
-	dal_t*	newArray	= this->add_array(key, count);
-	if (newArray == nullptr)			return nullptr;
+	dal_t*	array	= this->add_array(key, count);
+	if (array == nullptr)			return nullptr;
+	dal_t*	item		= array->_child;
 
 	while (count-- > 0)
 	{
-		*newArray++		= *arr++;
+		*item	= *arr++;
+		item	= item->_next;
 	}
 
-	return newArray;
+	return array;
 };
 
 dal_t*	dal_t::add_arr_dbl(dalStr_t* key, double* arr, uint32_t count)
 {
-	dal_t*	newArray	= this->add_array(key, count);
-	if (newArray == nullptr)			return nullptr;
+	dal_t*	array	= this->add_array(key, count);
+	if (array == nullptr)			return nullptr;
+	dal_t*	item		= array->_child;
 
 	while (count-- > 0)
 	{
-		*newArray++		= *arr++;
+		*item	= *arr++;
+		item	= item->_next;
 	}
 
-	return newArray;
+	return array;
 };
 
 //===============================================================================================================================
@@ -281,6 +272,8 @@ uint32_t	dal_t::get_array_size()
 dal_t*	dal_t::get_array_item(uint32_t idx)
 {
 	if (idx > this->_size)	return nullptr;
-	return &this->_child[idx];
+	dal_t*	child	= this->_child;
+	while (idx-- > 0)	child	= child->_next;
+	return child;
 };
 //===============================================================================================================================
