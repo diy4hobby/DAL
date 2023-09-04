@@ -51,7 +51,7 @@ bool	dal_t::get_val_int(const char* key, int& value)
 							else						value	= static_cast<int>(tempVal);
 					break;
 		case 4:		if (tempVal > 2147483647)			return false;
-					else	if (tempVal < -2147483648)	return false;
+					else	if (tempVal < -2147483647)	return false;
 							else						value	= static_cast<int>(tempVal);
 					break;
 		case 8:		value	= static_cast<int>(tempVal);
@@ -345,7 +345,7 @@ bool	dal_t::get_val_int(uint32_t idx, int& value)
 								else						value	= static_cast<int>(tempVal);
 						break;
 		case 4:			if (tempVal > 2147483647)			return false;
-						else	if (tempVal < -2147483648)	return false;
+						else	if (tempVal < -2147483647)	return false;
 								else						value	= static_cast<int>(tempVal);
 						break;
 		case 8:			value	= static_cast<int>(tempVal);	break;

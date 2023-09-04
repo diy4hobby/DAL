@@ -146,3 +146,6 @@ Deseritization is supported from:
 2.3.2
 - Some changes in the API that can be easily fixed in the user software. Significantly compatibility is not broken.
 ***
+2.3.3
+- Fixed a bug in getting numeric values ​​related to number representation -2147483648.
+***
