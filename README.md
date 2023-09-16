@@ -149,3 +149,6 @@ Deseritization is supported from:
 2.3.3
 - Fixed a bug in getting numeric values ​​related to number representation -2147483648.
 ***
+2.3.4
+- Fixed a bug when calling the get object size method related to incorrect processing of arrays after changing their structure.
+***

@@ -29,11 +29,7 @@ uint32_t	_dal_size_recurse(dal_t* node)
 		case DT_STRING:		return (2 + node->_size + node->_key_len);
 		case DT_BLOB:		return (2 + node->_size + node->_key_len);
 		case DT_BLOB_REF:	return (2 + node->_size + node->_key_len);
-		case DT_ARRAY:		for (uint32_t idx = 0; idx < node->_size; idx++)
-							{
-								size	+= _dal_size_recurse(&node->_child[idx]);
-							}
-							return (2 + size + node->_key_len);
+		case DT_ARRAY:		return (2 + size + node->_key_len);
 		case DT_OBJECT:		return (2 + size + node->_key_len);
 	}
 
