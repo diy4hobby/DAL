@@ -98,7 +98,7 @@ public:
 	bool			has_child(const char* key);		//Check if node has chld with specified name
 	uint32_t		count_childs();
 	dal_t*			attach(dalStr_t* key, dal_t* node);
-	dal_t*			attach(char* key, dal_t* node);
+	dal_t*			attach(const char* key, dal_t* node);
 	dal_t*			attach(dal_t* node);
 	void			detach();						//Detach from parent node
 	//Adding child values

@@ -20,7 +20,7 @@ dal_t*	dal_t::attach(dalStr_t* key, dal_t* node)
 	return node;
 };
 
-dal_t*	dal_t::attach(char* key, dal_t* node)
+dal_t*	dal_t::attach(const char* key, dal_t* node)
 {
 	dalStr_t	dalStrKey;
 	dalStrKey.data			= key;

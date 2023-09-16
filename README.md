@@ -155,3 +155,6 @@ Deseritization is supported from:
 2.3.5
 - Fixed a bug when attaching a node.
 ***
+2.3.6
+- Minor usability improvements.
+***
