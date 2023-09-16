@@ -34,8 +34,10 @@ dal_t*	dal_t::attach(dal_t* node)
 
 	node->detach();
 	node->_parent			= this;
-	if (this->_child == nullptr)	this->_child	= node;
-	else
+	if (this->_child == nullptr)
+	{	this->_child		= node;
+		this->_last			= node;
+	}else
 	{	this->_child->_prev	= node;
 		node->_next			= this->_child;
 		this->_child		= node;

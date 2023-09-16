@@ -152,3 +152,6 @@ Deseritization is supported from:
 2.3.4
 - Fixed a bug when calling the get object size method related to incorrect processing of arrays after changing their structure.
 ***
+2.3.5
+- Fixed a bug when attaching a node.
+***
