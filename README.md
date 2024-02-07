@@ -1,5 +1,5 @@
 # DAL
-**Data Abstraction Layer (DAL)** - library of functions that allows developers of embedded systems to use data representation in the form of objects. The main design goal is to abstract data structure and simplify data handling, fast and easy serialization and deserialization for network transfer and saving/loading.
+**Data Abstraction Layer (DAL)** - library of functions that allows developers of embedded systems to use data representation in the form of objects. The main design goal is to abstract data structure and simplify data handling, fast and easy serialization (msgpack.org, JSON) and deserialization (msgpack.org, JSON, WebAPI) for network transfer and saving/loading.
 
 ## Nuances of working with dynamic memory
 Since working with memory is very important for embedded system developers, I would like to specify right away: none of the library methods allocate or free dynamic memory without using user-provided methods. Methods of allocating and releasing dynamic memory are provided by the user during library initialization.
