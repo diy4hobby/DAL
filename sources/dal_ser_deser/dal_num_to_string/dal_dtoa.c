@@ -193,7 +193,7 @@ static uint32_t _dal_grisu2(double d, char* digits, int32_t* K)
 	return _dal_generate_digits(&w, &upper, &lower, digits, K);
 }
 
-static uint32_t _dal_emit_digits(char* digits, int32_t ndigits, char* dest, int32_t K, bool_t neg)
+static uint32_t _dal_emit_digits(char* digits, uint32_t ndigits, char* dest, int32_t K, bool_t neg)
 {
 	uint64_t	exp				= dal_abs(K + ndigits - 1);
 

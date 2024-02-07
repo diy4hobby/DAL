@@ -1,3 +1,4 @@
+.vs
 examples/dal_example_base/out
 examples/dal_example_base/.vs
 units_tests/dal_string_to_num/out
