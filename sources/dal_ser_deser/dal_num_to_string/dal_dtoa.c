@@ -250,9 +250,9 @@ static uint32_t _dal_emit_digits(char* digits, uint32_t ndigits, char* dest, int
 	}//if (K < 0 && (K > -7 || exp < 4))
 
 	//write decimal w/ scientific notation
-	int32_t	temp				= (neg == TRUE) ? 17 : 18;
+	uint32_t	temp			= (neg == TRUE) ? 17 : 18;
 	ndigits						= dal_min(ndigits, temp);
-	char*	beg					= dest;
+	char*		beg				= dest;
 	*dest++						= digits[0];
 
 	if(ndigits > 1)
