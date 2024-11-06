@@ -193,7 +193,7 @@ static uint32_t _dal_grisu2(double d, char* digits, int32_t* K)
 	return _dal_generate_digits(&w, &upper, &lower, digits, K);
 }
 
-static uint32_t _dal_emit_digits(char* digits, uint32_t ndigits, char* dest, int32_t K, bool_t neg)
+static uint32_t _dal_emit_digits(char* digits, int32_t ndigits, char* dest, int32_t K, bool_t neg)
 {
 	uint64_t	exp				= dal_abs(K + ndigits - 1);
 
@@ -250,9 +250,9 @@ static uint32_t _dal_emit_digits(char* digits, uint32_t ndigits, char* dest, int
 	}//if (K < 0 && (K > -7 || exp < 4))
 
 	//write decimal w/ scientific notation
-	uint32_t	temp			= (neg == TRUE) ? 17 : 18;
+	int32_t	temp				= (neg == TRUE) ? 17 : 18;
 	ndigits						= dal_min(ndigits, temp);
-	char*		beg				= dest;
+	char*	beg					= dest;
 	*dest++						= digits[0];
 
 	if(ndigits > 1)

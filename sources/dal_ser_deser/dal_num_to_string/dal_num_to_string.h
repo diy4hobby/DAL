@@ -1,6 +1,6 @@
 #ifndef DAL_NUM_TO_STRING_H_
 #define DAL_NUM_TO_STRING_H_
-#include "../../dal_common/dal_base_types.h"
+#include "../../dal_common/dal_definitions.h"
 
 #ifdef __cplusplus
 extern "C" {

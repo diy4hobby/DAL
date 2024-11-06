@@ -2,6 +2,11 @@
 #include "../dal_utils.h"
 #include "dal_deserializer.h"
 
+extern "C"
+{
+extern bool_t	dal_string_compare(char* str1, const char* str2, uint32_t len2);
+extern uint32_t	dal_string_length(const char* str, uint32_t maxLen);
+}
 
 dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, dal_t* node)
 {
@@ -55,6 +60,13 @@ dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, 
 		case DVT_ARRAY:
 			if (node == nullptr)						return DAL_FORMAT_ERR;
 			else	if (node->parent() == nullptr)		return DAL_FORMAT_ERR;
+			/*if (dal_string_compare((char*)node->key().data, "valuesEnum", dal_string_length("valuesEnum", 16)) == true)
+			{
+				if (value.size == 1)
+				{
+					return DAL_FORMAT_ERR;
+				}
+			}*/
 			arrNode			= node->parent()->add_array(node->key().data, value.size);
 			dal_delete(node);
 			if (arrNode == nullptr)		return DAL_MEM_ERR;

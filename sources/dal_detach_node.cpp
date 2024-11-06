@@ -18,6 +18,7 @@ void	dal_t::detach()
 		{	this->_parent->_child	= this->_next;
 			this->_parent			= nullptr;
 		}
+		this->_parent	= nullptr;
 	}
 	//Now we bind the nodes to the left and right
 	if (this->_prev != nullptr)		this->_prev->_next	= this->_next;

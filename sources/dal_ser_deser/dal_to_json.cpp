@@ -236,6 +236,8 @@ dalResult_e	dal_to_json_write_blob(void* ctx, dalBlob_t* buf, dalBlob_t* value)
     	buf->data		+= 4;
     	buf->size		-= 4;
 	}
+	*buf->data++		= '"';
+	--buf->size;
 	*buf->data++		= ',';
 	--buf->size;
 	return DAL_OK;

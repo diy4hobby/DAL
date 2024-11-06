@@ -120,6 +120,7 @@ dalResult_e	json_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dalD
 				if (blob == nullptr)		return DAL_MEM_ERR;
 				value->type				= DVT_BLOB;
 				value->as_blob			= blob;
+				value->size				= context->curr->as_str.len;
 				context->allocMemory	= blob;
 				context->curr++;
 			}

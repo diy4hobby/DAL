@@ -1,6 +1,6 @@
 #ifndef DAL_STRING_TO_NUM_H_
 #define DAL_STRING_TO_NUM_H_
-#include "../../dal_common/dal_base_types.h"
+#include "../../dal_common/dal_definitions.h"
 
 typedef struct {
 	double			dbl_value;

@@ -3,6 +3,269 @@
 
 
 //===============================================================================================================================
+
+
+template<> bool	dal_t::get(bool& value, dalNodeType_e type)
+{
+	if (!(this->_type & NUMBER_TYPE & type))	return false;
+	
+	switch (this->_type)
+	{
+		default:			return false;
+		case DT_BOOL:		value	= this->_as_bool;			break;
+		case DT_UINT:		value	= (this->_as_uint != 0);	break;
+		case DT_INT:		value	= (this->_as_int > 0);		break;
+		case DT_DOUBLE:		value	= (this->_as_dbl > 0);		break;
+	}
+	return true;
+};
+
+template<> bool	dal_t::get(uint8_t& value, dalNodeType_e type)
+{
+	if (!(this->_type & NUMBER_TYPE & type))	return false;
+	
+	switch (this->_type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_as_bool;		break;
+		case DT_UINT:	value	= this->_as_uint;		break;
+		case DT_INT:	value	= this->_as_int;		break;
+		case DT_DOUBLE:	if (this->_as_dbl != this->_as_dbl)		return false;
+						value	= this->_as_dbl;
+						break;
+	}
+	return true;
+};
+
+template<> bool	dal_t::get(uint16_t& value, dalNodeType_e type)
+{
+	if (!(this->_type & NUMBER_TYPE & type))	return false;
+	
+	switch (this->_type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_as_bool;		break;
+		case DT_UINT:	value	= this->_as_uint;		break;
+		case DT_INT:	value	= this->_as_int;		break;
+		case DT_DOUBLE:	if (this->_as_dbl != this->_as_dbl)		return false;
+						value	= this->_as_dbl;
+						break;
+	}
+	return true;
+};
+
+template<> bool	dal_t::get(int& value, dalNodeType_e type)
+{
+	if (!(this->_type & NUMBER_TYPE & type))	return false;
+	
+	switch (this->_type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_as_bool;		break;
+		case DT_UINT:	value	= this->_as_uint;		break;
+		case DT_INT:	value	= this->_as_int;		break;
+		case DT_DOUBLE:	if (this->_as_dbl != this->_as_dbl)		return false;
+						value	= this->_as_dbl;
+						break;
+	}
+	return true;
+};
+
+template<> bool	dal_t::get(int64_t& value, dalNodeType_e type)
+{
+	if (!(this->_type & NUMBER_TYPE & type))	return false;
+	
+	switch (this->_type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_as_bool;		break;
+		case DT_UINT:	value	= this->_as_uint;		break;
+		case DT_INT:	value	= this->_as_int;		break;
+		case DT_DOUBLE:	if (this->_as_dbl != this->_as_dbl)		return false;
+						value	= this->_as_dbl;
+						break;
+	}
+	return true;
+};
+
+template<> bool	dal_t::get(unsigned int& value, dalNodeType_e type)
+{
+	if (!(this->_type & NUMBER_TYPE & type))	return false;
+	
+	switch (this->_type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_as_bool;		break;
+		case DT_UINT:	value	= this->_as_uint;		break;
+		case DT_INT:	value	= this->_as_int;		break;
+		case DT_DOUBLE:	if (this->_as_dbl != this->_as_dbl)		return false;
+						value	= this->_as_dbl;
+						break;
+	}
+	return true;
+};
+
+template<> bool	dal_t::get(uint64_t& value, dalNodeType_e type)
+{
+	if (!(this->_type & NUMBER_TYPE & type))	return false;
+	
+	switch (this->_type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_as_bool;			break;
+		case DT_UINT:	value	= this->_as_uint;			break;
+		case DT_INT:	value	= this->_as_int;			break;
+		case DT_DOUBLE:	if (this->_as_dbl != this->_as_dbl)		return false;
+						value	= this->_as_dbl;
+						break;
+	}
+	return true;
+};
+
+template<> bool	dal_t::get(double& value, dalNodeType_e type)
+{
+	if (!(this->_type & NUMBER_TYPE & type))	return false;
+	
+	switch (this->_type)
+	{
+		default:		return false;
+		case DT_BOOL:	value	= this->_as_bool;		break;
+		case DT_UINT:	value	= this->_as_uint;		break;
+		case DT_INT:	value	= this->_as_int;		break;
+		case DT_DOUBLE:	value	= this->_as_dbl;		break;
+	}
+	return true;
+};
+
+template<> bool	dal_t::get(float& value, dalNodeType_e type)
+{
+	double	val		= value;
+	bool	result	= this->get<double>(val, type);
+	value			= val;
+	return result;
+};
+
+template<> bool	dal_t::get(dal_t*& value, dalNodeType_e type)
+{
+	if (!(this->_type & TUPLE_TYPE & type))		return false;
+	value	= this;
+	return true;
+};
+
+template<> bool	dal_t::get(dalStr_t& value, dalNodeType_e type)
+{
+	if (!(this->_type & DT_STRING & type))		return false;
+
+	value.data	= this->_as_str;
+	value.size	= this->_size;
+	return true;
+};
+
+template<> bool	dal_t::get(dalBlobRef_t& value, dalNodeType_e type)
+{
+	if (!(this->_type & (DT_BLOB | DT_BLOB_REF) & type))		return false;
+
+	value.data	= this->_as_blob;
+	value.size	= this->_size;
+	return true;
+};
+
+
+//===============================================================================================================================
+
+
+template<> bool	dal_t::get(const char* key, bool& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)	return false;
+	return child->get(value);
+};
+
+template<> bool	dal_t::get(const char* key, uint8_t& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)	return false;
+	return child->get(value);
+};
+
+template<> bool	dal_t::get(const char* key, uint16_t& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)	return false;
+	return child->get(value);
+};
+
+template<> bool	dal_t::get(const char* key, int& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)	return false;
+	return child->get(value);
+};
+
+template<> bool	dal_t::get(const char* key, int64_t& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)	return false;
+	return child->get(value);
+};
+
+template<> bool	dal_t::get(const char* key, unsigned int& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)	return false;
+	return child->get(value);
+};
+
+template<> bool	dal_t::get(const char* key, uint64_t& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)	return false;
+	return child->get(value);
+};
+
+template<> bool	dal_t::get(const char* key, double& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)	return false;
+	return child->get(value);
+};
+
+template<> bool	dal_t::get(const char* key, float& value, dalNodeType_e type)
+{
+	double	val		= value;
+	bool	result	= this->get<double>(key, val);
+	value			= val;
+	return result;
+};
+
+template<> bool	dal_t::get(const char* key, dal_t*& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)	return false;
+	if (child->_type & type)
+	{		value	= child;
+			return true;
+	}else	return false;
+};
+
+template<> bool	dal_t::get(const char* key, dalStr_t& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)	return false;
+	return child->get(value);
+};
+
+template<> bool	dal_t::get(const char* key, dalBlobRef_t& value, dalNodeType_e type)
+{
+	dal_t*	child	= this->_get_child_by_path(key);
+	if (child == nullptr)		return false;
+	return child->get(value);
+};
+
+
+//===============================================================================================================================
+
+
 bool	dal_t::get_val_bool(const char* key, bool& value)
 {
 	dal_t*	child	= this->get_child(key);
@@ -285,7 +548,19 @@ bool	dal_t::get_val_blob(const char* key, dalBlob_t& value)
 {
 	dal_t*	child	= this->get_child(key);
 	if (child == nullptr)				return false;
-	if (!(child->_type & DT_BLOB))	return false;
+	if (!(child->_type & DT_BLOB))		return false;
+	
+	value.data	= child->_as_blob;
+	value.size	= child->_size;
+	
+	return true;
+};
+
+bool	dal_t::get_val_blob(const char* key, dalBlobRef_t& value)
+{
+	dal_t*	child	= this->get_child(key);
+	if (child == nullptr)				return false;
+	if (!(child->_type & DT_BLOB_REF))	return false;
 	
 	value.data	= child->_as_blob;
 	value.size	= child->_size;
@@ -578,6 +853,18 @@ bool	dal_t::get_val_blob(uint32_t idx, dalBlob_t& value)
 	if (this->_type != DT_ARRAY)						return false;
 	if (this->_size <= idx)								return false;
 	if (!(this->_child[idx]._type & DT_BLOB))			return false;
+	
+	value.data	= this->_child[idx]._as_blob;
+	value.size	= this->_child[idx]._size;
+	
+	return true;
+};
+
+bool	dal_t::get_val_blob(uint32_t idx, dalBlobRef_t& value)
+{
+	if (this->_type != DT_ARRAY)						return false;
+	if (this->_size <= idx)								return false;
+	if (!(this->_child[idx]._type & DT_BLOB_REF))		return false;
 	
 	value.data	= this->_child[idx]._as_blob;
 	value.size	= this->_child[idx]._size;

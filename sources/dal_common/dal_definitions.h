@@ -5,10 +5,10 @@
  *      Author: a.sheviakov
  */
 
-#ifndef DAL_BASE_TYPES_H_
-#define DAL_BASE_TYPES_H_
+#ifndef DAL_DEFINITIONS_H_
+#define DAL_DEFINITIONS_H_
 
-
+#define	ENABLE_MEMCPY
 
 #ifdef _MSC_VER
 
@@ -69,4 +69,4 @@
 
 #endif
 
-#endif /* DAL_BASE_TYPES_H_ */
+#endif /* DAL_DEFINITIONS_H_ */

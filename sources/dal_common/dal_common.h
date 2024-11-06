@@ -1,6 +1,6 @@
 #ifndef DAL_COMMON_H_
 #define DAL_COMMON_H_
-#include "dal_base_types.h"
+#include "dal_definitions.h"
 
 #ifdef __cplusplus
 extern "C" {

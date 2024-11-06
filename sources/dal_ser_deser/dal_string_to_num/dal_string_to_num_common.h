@@ -1,6 +1,6 @@
 #ifndef _DAL_STRING_TO_NUM_COMMON_H_
 #define _DAL_STRING_TO_NUM_COMMON_H_
-#include "../../dal_common/dal_base_types.h"
+#include "../../dal_common/dal_definitions.h"
 
 
 // Precomputed powers of ten from 10^0 to 10^22. These
