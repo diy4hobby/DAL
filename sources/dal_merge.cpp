@@ -56,7 +56,7 @@ void	_dal_merge_recurse(dal_t* first, dal_t* second)
 				}
 				while (firstItem != nullptr)
 				{
-					dal_t*	next	= firstItem->next();
+					dal_t*	next	= firstItem->_next;
 					dal_delete(firstItem);
 					firstItem		= next;
 				}
@@ -64,7 +64,7 @@ void	_dal_merge_recurse(dal_t* first, dal_t* second)
 				{
 					dal_t*	newItem	= secondItem->duplicate();
 					first->attach(newItem);
-					secondItem		= secondItem->next();
+					secondItem		= secondItem->_next;
 				}
 			return;}
 			

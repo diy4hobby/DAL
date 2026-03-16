@@ -15,11 +15,14 @@ static char encoding_table[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 								'w', 'x', 'y', 'z', '0', '1', '2', '3',
 								'4', '5', '6', '7', '8', '9', '+', '/'};
 
-dalResult_e	dal_to_json_write_indent(dalBlob_t* buf, uint32_t level)
+dalResult_e	dal_to_json_write_indent(dalBlob_t* buf, uint32_t level, bool_t newline)
 {
-	if (buf->size < 1)			return DAL_MEM_ERR;
-	*buf->data++		= '\n';
-	--buf->size;
+	if (newline == TRUE)
+	{
+		if (buf->size < 1)			return DAL_MEM_ERR;
+		*buf->data++		= '\n';
+		--buf->size;
+	}
 
 	if (buf->size < level)		return DAL_MEM_ERR;
 	for (uint8_t idx = 0; idx < level; idx++)
@@ -36,7 +39,7 @@ dalResult_e	dal_to_json_write_key(void* ctx, dalBlob_t* buf, dalStr_t* key)
 	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
 	if (context->pretty == TRUE)
 	{
-		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level);
+		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, TRUE);
 		if (result != DAL_OK)				return result;
 	}
 	if (buf->size < (key->size + 4))		return DAL_MEM_ERR;
@@ -59,7 +62,7 @@ dalResult_e	dal_to_json_write_bool(void* ctx, dalBlob_t* buf, bool value)
 	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
 	if (context->array_indent == TRUE)
 	{
-		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level);
+		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, FALSE);
 		if (result != DAL_OK)				return result;
 	}
 	if (value == TRUE)
@@ -89,7 +92,7 @@ dalResult_e	dal_to_json_write_uint(void* ctx, dalBlob_t* buf, uint64_t value)
 	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
 	if (context->array_indent == TRUE)
 	{
-		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level);
+		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, FALSE);
 		if (result != DAL_OK)				return result;
 	}
 	char		strVal[24];
@@ -109,7 +112,7 @@ dalResult_e	dal_to_json_write_int(void* ctx, dalBlob_t* buf, int64_t value)
 	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
 	if (context->array_indent == TRUE)
 	{
-		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level);
+		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, FALSE);
 		if (result != DAL_OK)				return result;
 	}
 	char		strVal[24];
@@ -129,7 +132,7 @@ dalResult_e	dal_to_json_write_dbl(void* ctx, dalBlob_t* buf, double value)
 	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
 	if (context->array_indent == TRUE)
 	{
-		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level);
+		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, FALSE);
 		if (result != DAL_OK)				return result;
 	}
 	char		strVal[24];
@@ -149,7 +152,7 @@ dalResult_e	dal_to_json_write_str(void* ctx, dalBlob_t* buf, dalStr_t* value)
 	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
 	if (context->array_indent == TRUE)
 	{
-		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level);
+		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, FALSE);
 		if (result != DAL_OK)				return result;
 	}
 	if (buf->size < (value->size + 2))		return DAL_MEM_ERR;
@@ -171,7 +174,7 @@ dalResult_e	dal_to_json_write_blob(void* ctx, dalBlob_t* buf, dalBlob_t* value)
 	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
 	if (context->array_indent == TRUE)
 	{
-		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level);
+		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, FALSE);
 		if (result != DAL_OK)				return result;
 	}
 	if (buf->size < (1 + 37))				return DAL_MEM_ERR;
@@ -245,10 +248,15 @@ dalResult_e	dal_to_json_write_blob(void* ctx, dalBlob_t* buf, dalBlob_t* value)
 
 dalResult_e	dal_to_json_write_obj_beg(void* ctx, dalBlob_t* buf, uint32_t count)
 {
+	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
+	if (context->pretty == TRUE)
+	{	dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, TRUE);
+		if (result != DAL_OK)				return result;
+	}
+
 	if (buf->size < 1)					return DAL_MEM_ERR;
 	*buf->data++		= '{';
 	--buf->size;
-	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
 	context->indent_level++;
 	return DAL_OK;
 };
@@ -263,7 +271,7 @@ dalResult_e	dal_to_json_write_obj_end(void* ctx, dalBlob_t* buf)
 	context->indent_level--;
 	if (context->pretty == TRUE)
 	{
-		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level);
+		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, TRUE);
 		if (result != DAL_OK)			return result;
 	}
 	*buf->data++		= '}';
@@ -275,12 +283,17 @@ dalResult_e	dal_to_json_write_obj_end(void* ctx, dalBlob_t* buf)
 
 dalResult_e	dal_to_json_write_arr_beg(void* ctx, dalBlob_t* buf, uint32_t count)
 {
+	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
+	if (context->pretty == TRUE)
+	{	dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, TRUE);
+		if (result != DAL_OK)				return result;
+	}
+
 	if (buf->size < 1)					return DAL_MEM_ERR;
 	*buf->data++		= '[';
 	--buf->size;
-	jsonWriteContext_t*	context	= static_cast<jsonWriteContext_t*>(ctx);
 	context->indent_level++;
-	context->array_indent	= context->pretty;
+	//context->array_indent	= context->pretty;
 	return DAL_OK;
 };
 
@@ -295,7 +308,7 @@ dalResult_e	dal_to_json_write_arr_end(void* ctx, dalBlob_t* buf)
 	context->array_indent	= false;
 	if (context->pretty == TRUE)
 	{
-		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level);
+		dalResult_e		result	= dal_to_json_write_indent(buf, context->indent_level, TRUE);
 		if (result != DAL_OK)			return result;
 	}
 	*buf->data++		= ']';

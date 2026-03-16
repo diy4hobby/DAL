@@ -3,7 +3,8 @@
     "",
     "\\examples",
     "\\examples\\dal_example_base",
-    "\\units_tests"
+    "\\sources"
   ],
+  "SelectedNode": "\\sources\\dal_set_value.cpp",
   "PreviewInSolutionExplorer": false
 }

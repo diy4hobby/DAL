@@ -59,7 +59,7 @@ dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, 
 
 		case DVT_ARRAY:
 			if (node == nullptr)						return DAL_FORMAT_ERR;
-			else	if (node->parent() == nullptr)		return DAL_FORMAT_ERR;
+			else	if (node->_parent == nullptr)		return DAL_FORMAT_ERR;
 			/*if (dal_string_compare((char*)node->key().data, "valuesEnum", dal_string_length("valuesEnum", 16)) == true)
 			{
 				if (value.size == 1)
@@ -67,7 +67,7 @@ dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, 
 					return DAL_FORMAT_ERR;
 				}
 			}*/
-			arrNode			= node->parent()->add_array(node->key().data, value.size);
+			arrNode			= node->_parent->add_array(node->_key, value.size);
 			dal_delete(node);
 			if (arrNode == nullptr)		return DAL_MEM_ERR;
 			arrNode			= arrNode->get_array_item(0);
@@ -75,7 +75,7 @@ dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, 
 			{
 				result		= _dal_deserialize_recurse(nesting + 1, deser, arrNode);
 				if (result != DAL_OK)		return result;
-				arrNode		= arrNode->next();
+				arrNode		= arrNode->_next;
 			}
 			break;
 
@@ -91,7 +91,7 @@ dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, 
 				newNode		= node->add_child();
 				valStr.data	= value.as_str;
 				valStr.size	= value.size;
-				newNode->rename(&valStr);
+				newNode->_rename(&valStr);
 				result		= _dal_deserialize_recurse(nesting + 1, deser, newNode);
 				if (result != DAL_OK)		return result;
 			}

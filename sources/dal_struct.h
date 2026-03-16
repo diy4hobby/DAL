@@ -13,6 +13,7 @@
 #include "dal_string_struct.h"
 #include "dal_blob_struct.h"
 #include "dal_ser_deser/dal_serializer.h"
+#include "dal_ser_deser/dal_deserializer.h"
 
 
 //===============================================================================================================================
@@ -46,6 +47,22 @@ typedef enum
 #define	DAL_MAX_CSTR_LEN		1 * 1024 * 1024	//Maximum length of c-style string (terminated by 0x00) - used in strnlen for safety
 #define DAL_PATH_DIVIDER		'/'
 //===============================================================================================================================
+
+
+//===============================================================================================================================
+//Data serilization/deserilization format
+typedef enum
+{
+	SERDES_UNKNOWN		= 0x0000,
+	SERDES_JSON			= 0x0001,
+	SERDES_MPACK		= 0x0002,
+	SERDES_WEBAPI		= 0x0004
+}dalSerDesFormat_e;
+
+#define	DAL_JSON_MAX_TOKENS		2*65536
+//===============================================================================================================================
+
+
 //A structure that stores polymorphic data, pointers to the next data in the hierarchy and/or adjacent data (equal in hierarchy)
 //Decorated as a structure, not a class, so that a new instance can be created from allocated memory blocks
 //(faster and more reliable), with the class instantiation is simple memory allocation would be wrong - problems with the virtual table will begin
@@ -53,53 +70,106 @@ typedef enum
 typedef struct dal_t
 {
 private:
-	struct dal_t*				_parent;
-	struct dal_t*				_prev;
-	struct dal_t*				_next;
-	struct dal_t*				_child;
-	struct dal_t*				_last;
-	char						_key[DAL_KEY_SIZE];
-	uint32_t					_key_len;
-	uint32_t					_key_hash;
-	dalNodeType_e				_type;
-	uint32_t					_size;
+	struct dal_t*				_parent	= nullptr;
+	struct dal_t*				_prev	= nullptr;
+	struct dal_t*				_next	= nullptr;
+	struct dal_t*				_child	= nullptr;
+	struct dal_t*				_last	= nullptr;
+	char						_key[DAL_KEY_SIZE]	= {0};
+	uint32_t					_key_len	= 0;
+	uint32_t					_key_hash	= 0;
+	dalNodeType_e				_type		= DT_UNKN;
+	uint32_t					_size		= 0;
 	union{
 		bool					_as_bool;
-		uint64_t				_as_uint;
+		uint64_t				_as_uint	= 0;
 		int64_t					_as_int;
 		char*					_as_str;
 		uint8_t*				_as_blob;
 		double					_as_dbl;
 	};
-	void*						_mem_ptr;	//Pointer to allocated memory (may not be aligned)
-											//used for as_str and as_blob to have aligned
-											//8 bytes pointers
+	void*						_mem_ptr	= nullptr;	//Pointer to allocated memory (may not be aligned)
+														//used for as_str and as_blob to have aligned
+														//8 bytes pointers
 	dalResult_e					_copy_trivial(dal_t* src);//Copy key and value of source node
 	dalResult_e					_add_item(dal_t* node);	//Adding an element to childrens at the end of a list
 	dal_t*						_get_child_by_hash(uint32_t hash);
 	dal_t*						_get_child_by_path(const char* path);
 	void						_rename(const char* key, uint32_t len, uint32_t hash);
+	void						_rename(const char* key, uint32_t len);
+	void						_rename(dalStr_t* key);
+	void						_rename(const char* newName);
 
 	friend			dal_t*		dal_create(dalNodeType_e type);
 	friend			void		dal_delete(dal_t* node);
 	friend			uint32_t	_dal_size_recurse(dal_t* node);
 	friend			dalResult_e	_dal_serialize_recurse(dalSerializer_t* ser, dal_t* node);
+	friend			dalResult_e	_dal_deserialize_recurse(uint8_t nesting, dalDeserializer_t* deser, dal_t* node);
 	friend			bool		_dal_compare_recurse(dal_t* node1, dal_t* node2);
 	friend			dal_t*		_dal_duplicate_recurse(dal_t* src, dal_t* parent);
 	friend			void		_dal_merge_recurse(dal_t* first, dal_t* second);
-	void						operator=(dal_t* value) = delete;//copying objects is prohibited (at least for now)
+
+	typedef	struct	dalProxy_t	{dal_t*	node;};
+
 public:
-	dalNodeType_e	type()		{return this->_type;}
-	dal_t*			parent()	{return this->_parent;}
-	dal_t*			next()		{return this->_next;}
-	dalStr_t		key();
-	void			rename(const char* key, uint32_t len);
-	void			rename(dalStr_t* key);
-	void			rename(const char* newName);
-	uint32_t		size();
-	bool			compare(dal_t* node);			//Compare with other dal structure
-	dal_t*			duplicate();					//Create copy of this node
-	void			merge(dal_t* node);
+	dal_t();
+	dal_t(const dal_t& src);
+	dal_t(const dal_t* src);
+	dal_t(int format, char* data, uint32_t size);
+	dal_t(int format, uint8_t* data, uint32_t size);
+	~dal_t();
+	uint32_t					serialize(dalSerDesFormat_e format, uint8_t* buf, uint32_t size);
+	uint32_t					serialize(dalSerDesFormat_e format, char* buf, uint32_t size);
+	void						rename(const char* newName)		{this->_rename(newName);};
+
+	dal_t&						operator= (const dal_t& src);
+	dal_t&						operator= (bool value);
+	dal_t&						operator= (uint32_t value);
+	dal_t&						operator= (uint64_t value);
+	dal_t&						operator= (int64_t value);
+	dal_t&						operator= (int value);
+	dal_t&						operator= (double value);
+	dal_t&						operator= (char* value);
+	dal_t&						operator= (const char* value);
+	dal_t&						operator= (dalStr_t& value);
+	dal_t&						operator= (dalBlob_t value);
+	dal_t&						operator= (dalBlobRef_t& value);
+	dal_t&						operator= (void* value);
+	dal_t&						operator= (dal_t* value);
+	dal_t&						operator= (dalProxy_t value);
+	dal_t&						operator[] (const char* key);
+	dal_t&						operator[] (int idx);
+	explicit					operator bool() const	{return (this == nullptr) ? false : (this->_type != DT_UNKN); }
+	//Getting value of the child node by key
+	template<typename T> bool	get(T& value, dalNodeType_e type = ANY_TYPE);
+	template<typename T> T		as()					{ T result{}; this->get<T>(result); return result; }
+	template<typename T>		operator T()			{ return as<T>(); }
+
+	uint32_t					count()					{ if (this->_type != DT_ARRAY) return 0; return this->_size; }
+	bool						is_array()				{ return (this->_type & DT_ARRAY); }
+	
+	dal_t*						duplicate();					//Create copy of this node
+	bool						valid()					{ return (this == nullptr) ? false : (this->_type != DT_UNKN); }
+	uint32_t					size();
+	bool						compare(dal_t* node);			//Compare with other dal structure
+	template<typename T> bool	compare(T value, dalNodeType_e type = ANY_TYPE);
+	template<typename T> bool	compare(const char* key, T value, dalNodeType_e type = ANY_TYPE);
+	void						merge(dal_t* node);
+	dalProxy_t					detach();						//Detach from parent node
+	dal_t*						next()					{ return this->_next; };
+
+
+	//dalNodeType_e	type()		{return this->_type;}
+	//dal_t*			parent()	{return this->_parent;}
+	//dal_t*			next()		{return this->_next;}
+	//dalStr_t		key();
+
+	
+	
+	
+	
+	
+	
 	//Working with child elements of a node
 	dal_t*			add_child(dalNodeType_e type = DT_OBJECT);	//Create new child
 	dal_t*			add_child(const char* key, dalNodeType_e type = DT_OBJECT);	//Create new child
@@ -113,7 +183,6 @@ public:
 	dal_t*			attach(dalStr_t* key, dal_t* node);
 	dal_t*			attach(const char* key, dal_t* node);
 	dal_t*			attach(dal_t* node);
-	void			detach();						//Detach from parent node
 	//Adding child values
 	dal_t*			add_val_bool(dalStr_t* key, bool value);
 	dal_t*			add_val_int(dalStr_t* key, int64_t value);
@@ -135,8 +204,7 @@ public:
 	dal_t*			add_val_ref(const char* key, void* value, uint32_t len);
 	dal_t*			add_val_blob(const char* key, void*& value, uint32_t len);
 	dal_t*			add_val_bin(const char* key, void* value, uint32_t len);
-	dal_t&	operator[] (const char* key);
-	dal_t&	operator[] (uint32_t idx);
+
 	//Adding child arrays
 	dal_t*			add_array(dalStr_t* key, uint32_t count);
 	dal_t*			add_array(const char* key);
@@ -162,24 +230,9 @@ public:
 	//Get item of array
 	uint32_t		get_array_size();
 	dal_t*			get_array_item(uint32_t idx);
-	//Set value of the node
-	dal_t&			operator=(bool value);
-	dal_t&			operator=(uint64_t value);
-	dal_t&			operator=(int64_t value);
-	dal_t&			operator=(double value);
-	dal_t&			operator=(char* value);
-	dal_t&			operator=(const char* value);
-	dal_t&			operator=(dalStr_t& value);
-	dal_t&			operator=(dalBlob_t& value);
-	dal_t&			operator=(dalBlobRef_t& value);
-	dal_t&			operator=(void* value);
-	dal_t&			operator<<(dal_t* value);
-	//Getting value of the child node by key
-	template<typename T> bool	get(T& value, dalNodeType_e type = ANY_TYPE);
-	template<typename T> bool	get(const char* key, T& value, dalNodeType_e type = ANY_TYPE);
+
+
 	//Checking the value of a node
-	template<typename T> bool	compare(T value, dalNodeType_e type = ANY_TYPE);
-	template<typename T> bool	compare(const char* key, T value, dalNodeType_e type = ANY_TYPE);
 	bool			get_val_bool(const char* key, bool& value);
 	bool			get_val_int(const char* key, int& value);
 	bool			get_val_uint(const char* key, unsigned int& value);
@@ -224,7 +277,7 @@ public:
 	uint32_t		to_json(uint8_t* buf, uint32_t size, bool pretty = true);
 	//Deserilization methods
 	dalResult_e		from_mpack(uint8_t* buf, uint32_t size);
-	dalResult_e		from_json(uint8_t* buf, uint32_t size, uint32_t tokens = 16384 /*8192*/);
+	dalResult_e		from_json(uint8_t* buf, uint32_t size, uint32_t tokens = DAL_JSON_MAX_TOKENS /*8192*/);
 	dalResult_e		from_webapi(uint8_t* buf, uint32_t size);
 }dal_t;
 //===============================================================================================================================

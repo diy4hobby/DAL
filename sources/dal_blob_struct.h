@@ -13,16 +13,20 @@
 
 //===============================================================================================================================
 //Aggregate types for binary data - used in assignment methods for more convenient implementation
-typedef struct
+typedef struct dalBlob_t
 {
-	uint8_t*	data;
-	uint32_t	size;
+	uint8_t*	data	= nullptr;
+	uint32_t	size	= 0;
+	explicit operator bool() const	{return (this->data != nullptr);};
+	dalBlob_t(void* d = nullptr, uint64_t s = 0) : data(static_cast<uint8_t*>(d)), size(s) {};
 }dalBlob_t;
 
-typedef struct
+typedef struct dalBlobRef_t
 {
-	uint8_t*	data;
-	uint32_t	size;
+	uint8_t*	data	= nullptr;
+	uint32_t	size	= 0;
+	explicit operator bool() const	{return (this->data != nullptr);};
+	dalBlobRef_t(void* d = nullptr, uint64_t s = 0) : data(static_cast<uint8_t*>(d)), size(s) {}
 }dalBlobRef_t;
 //===============================================================================================================================
 

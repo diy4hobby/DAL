@@ -10,7 +10,7 @@ dal_t*	dal_t::add_val_bool(dalStr_t* key, bool value)
 {
 	dal_t*	newChild	= this->add_child(DT_BOOL);
 	if (newChild == nullptr)			return nullptr;
-	newChild->rename(key);
+	newChild->_rename(key);
 	newChild->_as_bool	= value;
 	newChild->_size		= sizeof(bool);
 	return newChild;
@@ -20,7 +20,7 @@ dal_t*	dal_t::add_val_int(dalStr_t* key, int64_t value)
 {
 	dal_t*	newChild	= this->add_child(DT_INT);
 	if (newChild == nullptr)			return nullptr;
-	newChild->rename(key);
+	newChild->_rename(key);
 	newChild->_as_int	= value;
 	newChild->_size		= sizeof(int64_t);
 	return newChild;
@@ -30,7 +30,7 @@ dal_t*	dal_t::add_val_uint(dalStr_t* key, uint64_t value)
 {
 	dal_t*	newChild	= this->add_child(DT_UINT);
 	if (newChild == nullptr)			return nullptr;
-	newChild->rename(key);
+	newChild->_rename(key);
 	newChild->_as_uint	= value;
 	newChild->_size		= sizeof(uint64_t);
 	return newChild;
@@ -40,7 +40,7 @@ dal_t*	dal_t::add_val_dbl(dalStr_t* key, double value)
 {
 	dal_t*	newChild	= this->add_child(DT_DOUBLE);
 	if (newChild == nullptr)			return nullptr;
-	newChild->rename(key);
+	newChild->_rename(key);
 	newChild->_as_dbl	= value;
 	newChild->_size		= sizeof(double);
 	return newChild;
@@ -63,7 +63,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, char* value)
 		dal_bytedata_copy(newChild->_as_str, value, newChild->_size);
 		newChild->_as_str[newChild->_size]	= 0x00;
 	}
-	newChild->rename(key);
+	newChild->_rename(key);
 	return newChild;
 };
 
@@ -85,7 +85,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, const char* value)
 		dal_bytedata_copy(newChild->_as_str, tmp, newChild->_size);
 		newChild->_as_str[newChild->_size]	= 0x00;
 	}
-	newChild->rename(key);
+	newChild->_rename(key);
 	return newChild;
 };
 
@@ -106,7 +106,7 @@ dal_t*	dal_t::add_val_str(dalStr_t* key, char* value, uint32_t len)
 		dal_bytedata_copy(newChild->_as_str, value, newChild->_size);
 		newChild->_as_str[newChild->_size]	= 0x00;
 	}
-	newChild->rename(key);
+	newChild->_rename(key);
 	return newChild;
 };
 
@@ -127,7 +127,7 @@ dal_t*	dal_t::add_val_blob(dalStr_t* key, void*& value, uint32_t len)
 		newChild->_as_blob	= reinterpret_cast<uint8_t*>(dal_pointer_align_8(newChild->_mem_ptr));
 		value				= newChild->_as_blob;
 	}
-	newChild->rename(key);
+	newChild->_rename(key);
 	return newChild;
 };
 
@@ -148,7 +148,7 @@ dal_t*	dal_t::add_val_bin(dalStr_t* key, void* value, uint32_t len)
 		newChild->_as_blob	= reinterpret_cast<uint8_t*>(dal_pointer_align_8(newChild->_mem_ptr));
 		dal_bytedata_copy(newChild->_as_blob, value, len);
 	}
-	newChild->rename(key);
+	newChild->_rename(key);
 	return newChild;
 };
 
@@ -161,7 +161,7 @@ dal_t*	dal_t::add_val_ref(dalStr_t* key, void* value, uint32_t len)
 	newChild->_mem_ptr	= value;
 	newChild->_type		= DT_BLOB_REF;
 	newChild->_as_blob	= static_cast<uint8_t*>(value);
-	newChild->rename(key);
+	newChild->_rename(key);
 	return newChild;
 };
 
@@ -326,10 +326,9 @@ dal_t&	dal_t::operator[] (const char* key)
 		}
 
 		result	= result->_child;
-		while (idx > 0)
+		while (idx-- > 0)
 		{
 			result	= result->_next;
-			idx--;
 		}
 		return (*result)[symbol];
 	}
@@ -362,31 +361,32 @@ dal_t&	dal_t::operator[] (const char* key)
 	return *result;
 };
 
-dal_t&	dal_t::operator[] (uint32_t idx)
+dal_t&	dal_t::operator[] (int idx)
 {
+	if (idx < 0)	idx	= 0;
+
 	if (this->_type != DT_ARRAY)
 	{
 		while (this->_child != nullptr)
 		{
 			dal_delete(this->_child);
 		}
+		this->_type	= DT_ARRAY;
 	}
 
-	if (this->_size < idx)
+	if (this->_size <= idx)
 	{
 		uint32_t	need	= idx - this->_size + 1;
-		while (need > 0)
+		while (need-- > 0)
 		{
 			this->add_child(DT_UNKN);
-			need--;
 		}
 	}
 
 	dal_t*	result	= this->_child;
-	while (idx > 0)
+	while (idx-- > 0)
 	{
 		result	= result->_next;
-		idx--;
 	};
 	return *result;
 };

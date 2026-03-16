@@ -63,7 +63,10 @@ bool_t	json_check_for_digit(char val)
 
 jsonReadToken_t*	json_alloc_token(_jsonTokensPool_t* pool, jsonReadType_e type)
 {
-	if (pool->allocated == pool->count)		return NULL;
+	if (pool->allocated == pool->count)
+	{
+		return NULL;
+	}
 
 	jsonReadToken_t* result		= pool->next;
 	++pool->next;
@@ -248,7 +251,7 @@ jsonReadResult_e	json_to_tokens(char* json, uint32_t jsonLen, jsonReadToken_t* t
 				result			= json_append_token(&token, child);
 				if (result != JSON_READ_OK)				return result;
 				child->as_bool	= TRUE;
-				reader.pos	+= 4;
+				reader.pos	+= 4-1;
 				continue;
 
 			case 'f':
@@ -262,7 +265,7 @@ jsonReadResult_e	json_to_tokens(char* json, uint32_t jsonLen, jsonReadToken_t* t
 				result			= json_append_token(&token, child);
 				if (result != JSON_READ_OK)				return result;
 				child->as_bool	= FALSE;
-				reader.pos	+= 5;
+				reader.pos	+= 5-1;
 				continue;
 
 			case 'n':
@@ -274,7 +277,7 @@ jsonReadResult_e	json_to_tokens(char* json, uint32_t jsonLen, jsonReadToken_t* t
 				if (child == NULL)						return JSON_READ_TOKEN_ALLOC_ERROR;
 				result			= json_append_token(&token, child);
 				if (result != JSON_READ_OK)				return result;
-				reader.pos	+= 4;
+				reader.pos	+= 4-1;
 				continue;
 
 			case '"':
@@ -304,6 +307,7 @@ jsonReadResult_e	json_to_tokens(char* json, uint32_t jsonLen, jsonReadToken_t* t
 					result				= json_append_token(&token, child);
 					if (result != JSON_READ_OK)			return result;
 					child->as_int		= strtonum.int_value;
+					reader.pos--;
 					continue;
 				}
 				if (strtonum.dbl_valid == TRUE)
@@ -312,11 +316,12 @@ jsonReadResult_e	json_to_tokens(char* json, uint32_t jsonLen, jsonReadToken_t* t
 					result				= json_append_token(&token, child);
 					if (result != JSON_READ_OK)			return result;
 					child->as_dbl		= strtonum.dbl_value;
+					reader.pos--;
 					continue;
 				}
 				switch (*reader.pos)
 				{
-				case 0x00:											if (token == NULL)	{	reader.pos = reader.end; break;	}
+					case 0x00:										if (token == NULL)	{	reader.pos = reader.end; break;	}
 																	else				return JSON_READ_UNEXPECTED_EOF;
 					case ',': case '}': case ']':					break;
 					case ' ': case '\r': case '\n': case '\t':		break;

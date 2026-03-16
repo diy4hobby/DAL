@@ -9,7 +9,7 @@ dal_t*	dal_t::attach(dalStr_t* key, dal_t* node)
 	if (node == nullptr)				return nullptr;
 
 	node->detach();
-	node->rename(key);
+	node->_rename(key);
 	if (this->_child == nullptr)	this->_child	= node;
 	else
 	{	this->_child->_prev	= node;

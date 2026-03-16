@@ -35,7 +35,7 @@ dal_t*	dal_t::add_child(const char* key, dalNodeType_e type)
 {
 	dal_t*		newChild	= add_child(type);
 	if (newChild == nullptr)	return nullptr;
-	newChild->rename(key);
+	newChild->_rename(key);
 	return newChild;
 };
 

@@ -3,7 +3,7 @@
 
 
 //===============================================================================================================================
-void	dal_t::detach()
+dal_t::dalProxy_t dal_t::detach()
 {
 	if (this->_parent != nullptr)
 	{
@@ -25,5 +25,8 @@ void	dal_t::detach()
 	if (this->_next != nullptr)		this->_next->_prev	= this->_prev;
 	this->_prev			= nullptr;
 	this->_next			= nullptr;
+	
+	dalProxy_t	result(this);
+	return result;
 };
 //===============================================================================================================================

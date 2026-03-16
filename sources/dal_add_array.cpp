@@ -11,7 +11,7 @@ dal_t*	dal_t::add_array(dalStr_t* key, uint32_t count)
 {
 	dal_t*	newChild	= this->add_child(DT_ARRAY);
 	if (newChild == nullptr)			return nullptr;
-	newChild->rename(key);
+	newChild->_rename(key);
 	
 	//Allocate memory for nodes
 	while (count > 0)
@@ -30,7 +30,7 @@ dal_t*	dal_t::add_array(const char* key)
 {
 	dal_t*	newChild	= this->add_child(DT_ARRAY);
 	if (newChild == nullptr)			return nullptr;
-	newChild->rename(key);
+	newChild->_rename(key);
 	return newChild;
 };
 

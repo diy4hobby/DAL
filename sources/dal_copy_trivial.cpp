@@ -10,9 +10,12 @@ dalResult_e	dal_t::_copy_trivial(dal_t* src)
 {
 	if (src == nullptr)		return DAL_MEM_ERR;
 
-	this->_key_len		= src->_key_len;
-	this->_key_hash		= src->_key_hash;
-	dal_bytedata_copy(this->_key, src->_key, src->_key_len);
+	if (src->_key_len > 0)
+	{
+		this->_key_len		= src->_key_len;
+		this->_key_hash		= src->_key_hash;
+		dal_bytedata_copy(this->_key, src->_key, src->_key_len);
+	}
 
 	this->_type			= src->_type;
 	this->_size			= src->_size;
@@ -38,6 +41,7 @@ dalResult_e	dal_t::_copy_trivial(dal_t* src)
 			if (this->_mem_ptr == nullptr)	return DAL_MEM_ERR;
 			this->_as_str		= reinterpret_cast<char*>(dal_pointer_align_8(this->_mem_ptr));
 			dal_bytedata_copy(this->_as_str, src->_as_str, this->_size);
+			this->_as_str[this->_size]	= 0x00;//Null terminated
 			return DAL_OK;
 		case DT_BLOB:
 			this->_mem_ptr		= _dal_memHooks.alloc_data(this->_size + 8);

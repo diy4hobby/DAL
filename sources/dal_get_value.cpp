@@ -152,12 +152,28 @@ template<> bool	dal_t::get(dal_t*& value, dalNodeType_e type)
 	return true;
 };
 
+template<> bool	dal_t::get(dal_t& value, dalNodeType_e type)
+{
+	if (!(this->_type & TUPLE_TYPE & type))		return false;
+	value	= this;
+	return true;
+};
+
 template<> bool	dal_t::get(dalStr_t& value, dalNodeType_e type)
 {
 	if (!(this->_type & DT_STRING & type))		return false;
 
 	value.data	= this->_as_str;
 	value.size	= this->_size;
+	return true;
+};
+
+template<> bool	dal_t::get(char*& value, dalNodeType_e type)
+{
+	value			= const_cast<char*>("");
+	if (!(this->_type & DT_STRING & type))		return false;
+
+	value		= this->_as_str;
 	return true;
 };
 
@@ -173,7 +189,7 @@ template<> bool	dal_t::get(dalBlobRef_t& value, dalNodeType_e type)
 
 //===============================================================================================================================
 
-
+/*
 template<> bool	dal_t::get(const char* key, bool& value, dalNodeType_e type)
 {
 	dal_t*	child	= this->_get_child_by_path(key);
@@ -261,6 +277,10 @@ template<> bool	dal_t::get(const char* key, dalBlobRef_t& value, dalNodeType_e t
 	if (child == nullptr)		return false;
 	return child->get(value);
 };
+*/
+
+//===============================================================================================================================
+
 
 
 //===============================================================================================================================

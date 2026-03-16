@@ -13,10 +13,11 @@
 
 //===============================================================================================================================
 //Aggregate types for string - used in assignment methods for more convenient implementation
-typedef struct
+typedef struct dalStr_t
 {
-	const char*	data;
-	uint32_t	size;
+	const char*	data	= nullptr;
+	uint32_t	size	= 0;
+	explicit operator bool() const	{return (this->data != nullptr);};
 }dalStr_t;
 //===============================================================================================================================
 

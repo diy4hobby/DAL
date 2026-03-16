@@ -7,6 +7,7 @@ dalMemHooks_t		_dal_memHooks		= {nullptr};
 
 
 //===============================================================================================================================
+
 dalResult_e	dal_init(dalMemHooks_t* mem)
 {
 	//Set user-supplied memory allocation and deallocation methods
@@ -14,6 +15,122 @@ dalResult_e	dal_init(dalMemHooks_t* mem)
 
 	return DAL_OK;
 };
+
+//===============================================================================================================================
+
+dal_t::dal_t()
+{
+	this->_type			= DT_OBJECT;
+};
+
+dal_t::dal_t(const dal_t& src)
+{
+	dal_t*	child	= src._child;
+	while (child != nullptr)
+	{
+		this->_add_item(child->duplicate());
+		child	= child->_next;
+	}
+
+	_copy_trivial(const_cast<dal_t*>(&src));
+};
+
+dal_t::dal_t(const dal_t* src)
+{
+	if (src == nullptr)		return;
+	dal_t*	child	= src->_child;
+	while (child != nullptr)
+	{
+		this->_add_item(child->duplicate());
+		child	= child->_next;
+	}
+
+	_copy_trivial(const_cast<dal_t*>(src));
+};
+
+dal_t::dal_t(int format, char* data, uint32_t size)
+{
+	this->_type				= DT_OBJECT;
+	dalResult_e		result	= DAL_FORMAT_ERR;
+	uint8_t*		u8		= reinterpret_cast<uint8_t*>(data);
+	if (format & SERDES_JSON)	result	= from_json(u8, size, DAL_JSON_MAX_TOKENS);
+	if (result == DAL_OK)	return;
+	if (format & SERDES_MPACK)	result	= from_mpack(u8, size);
+	if (result == DAL_OK)	return;
+	if (format & SERDES_WEBAPI)	result	= from_webapi(u8, size);
+	if (result == DAL_OK)	return;
+
+	this->_type		= DT_UNKN;
+};
+
+dal_t::dal_t(int format, uint8_t* data, uint32_t size) : dal_t(format, reinterpret_cast<char*>(data), size)
+{
+};
+
+uint32_t dal_t::serialize(dalSerDesFormat_e format, uint8_t* buf, uint32_t size)
+{
+	switch (format)
+	{
+		case SERDES_JSON:	return this->to_json(buf, size);
+		case SERDES_MPACK:	return this->to_mpack(buf, size);
+		case SERDES_WEBAPI:	return 0;
+		default:			return 0;
+	}
+};
+
+uint32_t dal_t::serialize(dalSerDesFormat_e format, char* buf, uint32_t size)
+{
+	return serialize(format, reinterpret_cast<uint8_t*>(buf), size);
+};
+
+//===============================================================================================================================
+
+dal_t::~dal_t()
+{
+	//Delete our child elements
+	dal_t*	child		= this->_child;
+	while (child != NULL)
+	{	dal_t*	next	= child->_next;
+		dal_delete(child);
+		child			= next;
+	}
+	//Delete allocated memory for non-trivial types
+	if (this->_type & ALLOCATED_MEM_TYPE)
+	{
+		_dal_memHooks.free_data(this->_mem_ptr);
+	}
+};
+
+//===============================================================================================================================
+
+dal_t& dal_t::operator=(const dal_t& src)
+{
+	if (this == &src)	return *this;
+	
+	//Delete our child elements
+	dal_t*	child		= this->_child;
+	while (child != NULL)
+	{	dal_t*	next	= child->_next;
+		dal_delete(child);
+		child			= next;
+	}
+	//Delete allocated memory for non-trivial types
+	if (this->_type & ALLOCATED_MEM_TYPE)	_dal_memHooks.free_data(this->_mem_ptr);
+
+	//Duplicate the child elements of the source
+	child				= src._child;
+	while (child != nullptr)
+	{
+		this->_add_item(child->duplicate());
+		child	= child->_next;
+	}
+
+	this->_size		= src._size;
+	_copy_trivial(const_cast<dal_t*>(&src));
+	return *this;
+};
+
+//===============================================================================================================================
 
 //Creating an empty object
 dal_t*	dal_create(dalNodeType_e type)

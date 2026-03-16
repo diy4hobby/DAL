@@ -24,18 +24,28 @@ static const int b64idx[256] =
 	41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51
 };
 
-uint8_t* _dal_string_to_blob(char* data, uint32_t len)
+uint8_t* _dal_string_to_blob(char* data, uint32_t* len)
 {
-	uint32_t	blobLen		= (len / 4) * 3;
-	if (data[len - 1] == '=')	blobLen--;
-	if (data[len - 2] == '=')	blobLen--;
+	uint32_t	blobLen		= (*len / 4) * 3;
+	if (blobLen == 0)
+	{	//Since it is impossible to return nullptr (this means that memory is not allocated), we allocate 1 byte, because length is still 0
+		*len	= 0;
+		return static_cast<uint8_t*>(_dal_memHooks.alloc_data(1));
+	}
+	if (data[*len - 1] == '=')	blobLen--;
+	if (data[*len - 2] == '=')	blobLen--;
+	if (blobLen == 0)
+	{	//Since it is impossible to return nullptr (this means that memory is not allocated), we allocate 1 byte, because length is still 0
+		*len	= 0;
+		return static_cast<uint8_t*>(_dal_memHooks.alloc_data(1));
+	}
 
 	uint8_t*	blob		= static_cast<uint8_t*>(_dal_memHooks.alloc_data(blobLen));
 	if (blob == nullptr)		return nullptr;
 
 	uint32_t	i			= 0;
 	uint32_t	j			= 0;
-	while (i < len)
+	while (i < *len)
 	{
 		uint32_t	sextet_a	= data[i] == '=' ? 0 & i++ : b64idx[(uint8_t)data[i++]];
 		uint32_t	sextet_b	= data[i] == '=' ? 0 & i++ : b64idx[(uint8_t)data[i++]];
@@ -48,6 +58,7 @@ uint8_t* _dal_string_to_blob(char* data, uint32_t len)
 		if (j < blobLen)	blob[j++]	= (triple >> 1 * 8) & 0xFF;
 		if (j < blobLen)	blob[j++]	= (triple >> 0 * 8) & 0xFF;
 	}
+	*len	= blobLen;
 	return blob;
 }
 
@@ -116,7 +127,7 @@ dalResult_e	json_to_dal_read(void* ctx, uint8_t** buf, uint32_t* available, dalD
 			}else
 			{	context->curr->as_str.data	+= 37;
 				context->curr->as_str.len	-= 37;
-				uint8_t*	blob		= _dal_string_to_blob(context->curr->as_str.data, context->curr->as_str.len);
+				uint8_t*	blob		= _dal_string_to_blob(context->curr->as_str.data, &context->curr->as_str.len);
 				if (blob == nullptr)		return DAL_MEM_ERR;
 				value->type				= DVT_BLOB;
 				value->as_blob			= blob;

@@ -99,6 +99,20 @@ template<> bool	dal_t::compare(const char* value, dalNodeType_e type)
 	return dal_string_compare(this->_as_str, value, dal_string_length(value, DAL_MAX_CSTR_LEN));
 };
 
+template<> bool	dal_t::compare(uint8_t value, dalNodeType_e type)
+{
+	if (!(this->_type & NUMBER_TYPE & type))	return false;
+	
+	switch (this->_type)
+	{
+		default:			return false;
+		case DT_BOOL:		return (this->_as_bool == value);
+		case DT_UINT:		return (this->_as_uint == value);
+		case DT_INT:		return (this->_as_int == value);
+		case DT_DOUBLE:		return (this->_as_dbl == value);
+	}
+};
+
 template<> bool	dal_t::compare(uint64_t value, dalNodeType_e type)
 {
 	if (!(this->_type & NUMBER_TYPE & type))	return false;
@@ -144,5 +158,11 @@ template<> bool	dal_t::compare(const char* key, uint64_t value, dalNodeType_e ty
 	if (child == nullptr)						return false;
 	return child->compare<uint64_t>(value, type);
 };
+
+template bool	dal_t::compare(const char* key, bool value, dalNodeType_e type);
+template bool	dal_t::compare(const char* key, char* value, dalNodeType_e type);
+template bool	dal_t::compare(const char* key, const char* value, dalNodeType_e type);
+template bool	dal_t::compare(const char* key, uint64_t value, dalNodeType_e type);
+
 
 //===============================================================================================================================
